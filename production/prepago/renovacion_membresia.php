@@ -60,7 +60,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="codigo-membresia">Codigo membresia <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" name="codigo-membresia" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                           </div>
 
@@ -84,6 +84,18 @@ include("../clases/class.php");
                           <input type="number" id="number" name="number" required="required" data-validate-minmax="1,100" min="1" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Unidad</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <select class="select2_single form-control" name="cmb_unidad" tabindex="-1">
+                            <option></option>
+                            <option value="1">Hora</option>
+                            <option value="2">Dia</option>
+                            <option value="3">Mes</option>
+                      
+                          </select>
+                        </div>
+                      </div>
    
 
                       </div>
@@ -98,7 +110,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="codigo-membresia">Monto pago<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="pago" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                           </div>
 
@@ -123,29 +135,19 @@ include("../clases/class.php");
                           <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
-                          <input type="button" class="btn btn-primary" name="imprimir" value="imprimir" onclick="" ></input>
-                          <button type="button">imprimir</button>
-                          <a href="prueba_pdf.php?id=" target="_blank" id="pdf_imp" onclick="redirect_pdf()">imprimir</a>
-                          <input type="submit" class="button" name="insert" value="insert" />
-<input type="submit" class="button" name="select" value="select" />
+                          <input type="button" class="btn btn-primary hidden" name="imprimir" value="imprimir"></input>
+                          <a href="prueba_pdf.php?id=" target="_blank" class="btn btn-round btn-primary" id="pdf_imp" onclick="redirect_pdf()">imprimir</a>
+                           
                            <p></p>
                         </div>
                       </div>
                       </div>
                       </form>
 
-                      </div> <!-- End Step 2 -->
-
-
-                      
-                      
-
-
+                      </div> <!-- End Step 2 -->     
 
                     </div>
                     <!-- End SmartWizard Content -->
-
-
             
           </div>
         </div>
@@ -161,6 +163,27 @@ include("../footer.php");
 
    
   <script>
+
+ $(document).on('ready',function(){       
+    $('.buttonFinish').click(function(){
+      //ingresa
+        var url = "ingreso_renovacion.php";
+        $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: $("#registro_renovacion").serialize(), 
+           success: function(data)             
+           {
+             $('#resp').html(data); 
+             alert("guardado con exito!")
+             location.reload(true);            
+           }
+       });
+    });
+});
+
+ 
+
       $(document).ready(function() {
         
         var handleDataTableButtons = function() {
@@ -285,23 +308,11 @@ include("../footer.php");
 });
 
 
-    $(document).ready(function(){
-        $("button").click(function(){
-
-            $.ajax({
-                type: 'POST',
-                url: 'prueba_pdf.php',
-                success: function(data) { 
-
-
-                }
-            });
-   });
-});
+     
 
 function redirect_pdf() { 
-  document.getElementById("pdf_imp").href=document.getElementById("pdf_imp").href + "102"
-  alert(  document.getElementById("pdf_imp").href);
+  document.getElementById("pdf_imp").href=document.getElementById("pdf_imp").href + "102";
+  //alert(  document.getElementById("pdf_imp").href);
 }
 
 </script>

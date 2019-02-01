@@ -76,15 +76,41 @@ VALUES ('".$membresia."', sysdate())";
 
 public function ingresar_renovacion()
     {      
-      $membresia=$_POST['codigo-membresia']; 
+      $membresia=$_POST['codigo-membresia'];
+      $nivel=$_POST['cmb_nivel'];
+      $unidad=$_POST['cmb_unidad'];
+      $vigencia=$_POST['number'];
+
      
-    $srpt ="INSERT INTO asistencia_log (codigo_membresia, fecha_registro)
-VALUES ('".$membresia."', sysdate())";
+    $srpt ="INSERT INTO renovacion_log (duracion,tipo,codigo_membresia,nivel,fecha_renovacion)
+VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
     echo $membresia;
 
   }
+
+
+public function consultar_renovaciones()
+{         
+    $srpt ="SELECT * FROM renovacion_log";
+   
+    $qsrp = sqlsrv_query($this->conectar(),$srpt, array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
+    //echo $srpt;
+    $er = sqlsrv_num_rows($qsrp);
+    if(sqlsrv_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = sqlsrv_fetch_array($qsrp, SQLSRV_FETCH_ASSOC)) {
+              //print_r($rowrp); 
+              $this->consumos[] = $rowrp;
+      }
+
+         return $this->consumos;
+    }
+  }
+
 
 
 public function consultar_topconsumos_mactual()

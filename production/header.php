@@ -99,7 +99,7 @@ if (isset($_SESSION['usuario'])){
                                 <a class="test" tabindex="-1" href="#">Membresia<span class="fa fa-sort-amount-asc"></span></a>
                                     <ul class="nav child_menu">
                                           <li><a tabindex="-1" href="../prepago/renovacion_membresia.php">Renovacion</a></li>
-                                          <li><a tabindex="-1" href="../prepago/consultar_membresia.php">Consultar</a></li>                         
+                                          <li><a tabindex="-1" href="../prepago/consultar_renovacion.php">Consultar</a></li>                         
                                     </ul>
                             </li>
             
