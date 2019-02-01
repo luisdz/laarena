@@ -54,6 +54,7 @@ include("../clases/class.php");
                       </ul>
                       <form id="registro_clientes" >
                       <div id="step-1">
+                        <div class="form-horizontal form-label-left" id="form_ingresar">
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
