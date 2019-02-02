@@ -42,22 +42,23 @@ class BaseDatos
       $connectionInfo = array("UID" => "root", "PWD" => "admin123", "Database" => "gym");
       $serverName = "localhost";
 
+
+$servername = "localhost";
+$database = "la_arena";
+$username = "admin";
+$password = "admin123"; 
+
 /*
 $servername = "localhost";
 $database = "la_arena";
 $username = "admin";
-$password = "admin123"; */
-
-
-$servername = "localhost";
-$database = "la_arena";
-$username = "admin";
 $password = "arena2019";
+*/
 
 
       $conn = mysqli_connect($servername, $username, $password, $database);
       if( $conn ) {
-    echo "Conexión establecida.<br />";
+   // echo "Conexión establecida.<br />";
 }else{
      echo "Conexión no se pudo establecer.<br />";
      //die( print_r( sqlsrv_errors(), true));
@@ -76,8 +77,15 @@ public function ingresar_asistencia()
 VALUES ('".$membresia."', sysdate())";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
-    echo $membresia;
 
+    echo "<script>
+         $(window).load(function(){
+             $('#thankyouModal').modal('show');
+         });
+    </script>";
+
+    
+    echo $qsrp;
   }
 
 public function ingresar_renovacion()
