@@ -78,13 +78,13 @@ VALUES ('".$membresia."', sysdate())";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
 
-    echo "<script>
+   /* echo "<script>
          $(window).load(function(){
              $('#thankyouModal').modal('show');
          });
-    </script>";
+    </script>";*/
 
-    
+
     echo $qsrp;
   }
 
@@ -108,6 +108,26 @@ VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())"
 public function consultar_renovaciones()
 {         
     $srpt ="SELECT * FROM renovacion_log";
+   
+    $qsrp = sqlsrv_query($this->conectar(),$srpt, array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
+    //echo $srpt;
+    $er = sqlsrv_num_rows($qsrp);
+    if(sqlsrv_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = sqlsrv_fetch_array($qsrp, SQLSRV_FETCH_ASSOC)) {
+              //print_r($rowrp); 
+              $this->consumos[] = $rowrp;
+      }
+
+         return $this->consumos;
+    }
+  }
+
+  public function consultar_asistencias()
+{         
+    $srpt ="SELECT * FROM asistencia_log";
    
     $qsrp = sqlsrv_query($this->conectar(),$srpt, array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
     //echo $srpt;
