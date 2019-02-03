@@ -79,6 +79,8 @@
 
 	<!-- Select2 -->
     <script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
+      <!-- jquery.inputmask -->
+    <script src="../../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <!-- JQVMap 
 
 

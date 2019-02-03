@@ -86,10 +86,10 @@ include("../clases/class.php");
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <div id="gender" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                  <input type="radio" name="genero" value="hombre"> &nbsp; Hombre &nbsp;
+                                  <input type="radio" name="genero" value="h"> &nbsp; Hombre &nbsp;
                                 </label>
                                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                  <input type="radio" name="genero" value="mujer"> Mujer
+                                  <input type="radio" name="genero" value="m"> Mujer
                                 </label>
                               </div>
                             </div>
@@ -98,7 +98,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha Nacimiento <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="birthday"  name="fecha_nacimiento" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                               <input name="fecha_nacimiento" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
                             </div>
                           </div>
 
@@ -110,18 +110,7 @@ include("../clases/class.php");
                         <div class="form-horizontal form-label-left">
                            
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                          <select name="membresia" class="select2_single form-control" tabindex="-1">
-                             
-                            <option value="1">Mensual</option>
-                            <option value="2">Eventual</option>
-                             
-                          </select>
-                        </div>
-                      </div>
-
+                     
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nivel</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
@@ -142,19 +131,13 @@ include("../clases/class.php");
                             </div>
                           </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Ingresa bajo promocion
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input name="promocion" type="checkbox" class="flat"> si
-                            </div>
-                          </div>
+                         
                    
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Inicio <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de suscripcion <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="f_inicio" name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                              <input id="birthday"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                             </div>
                           </div>
 
@@ -183,7 +166,13 @@ include("../footer.php");
  
 ?>
  
-
+ <!-- jquery.inputmask -->
+    <script>
+      $(document).ready(function() {
+        $(":input").inputmask();
+      });
+    </script>
+    <!-- /jquery.inputmask -->
 
 <script>
 
@@ -209,7 +198,7 @@ include("../footer.php");
       $(document).ready(function() {
         $('#birthday').daterangepicker({
           singleDatePicker: true,
-          calender_style: "picker_4"
+          calender_style: "picker_4" 
         }, function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
         });

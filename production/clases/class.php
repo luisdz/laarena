@@ -123,30 +123,35 @@ public function consultar_renovaciones()
 public function ingresar_clientes()
     {
       
+      
+ 
+
+
       $nombre=$_POST['nombre'];
       $apellido=$_POST['apellido'];
       $telefono=$_POST['telefono'];
       $email=$_POST['email'];
       $genero=$_POST['genero'];
       $fecha_nacimiento=$_POST['fecha_nacimiento'];
-      $membresia=$_POST['membresia'];
+
       $nivel=$_POST['nivel'];
       $medio_conocio=$_POST['medio_conocio'];
-      $promocion=$_POST['promocion'];
-      $f_inicio=$_POST['f_inicio'];
-    
-     $codigo_membresia=substr($apellido,0,1).substr($nombre,0,1).date("m");
+      $time = strtotime($f_inicio=$_POST['f_inicio']);
+      $f_inicio = date('Y-m-d',$time);
+
+ 
+     $codigo_membresia=substr($apellido,0,1).substr($nombre,0,1).date("Y");
 
     $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero)
 VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', '".$genero."')";
    
    
    mysqli_query($this->conectar(),$srpt);
-   // echo $srpt;
+   echo $srpt;
     //insert  para datos de membresia
 
-      $srpt2 ="INSERT INTO membresia (codigo, tipo_membresia, nivel, medio_conocio,promocion, fecha_inicio, fecha_fin )
-VALUES ('".$codigo_membresia."', '".$membresia."', '".$nivel."', '".$medio_conocio."', '".$promocion."', '".$f_inicio."', '".$f_inicio."')";
+      $srpt2 ="INSERT INTO membresia (codigo, nivel, medio_conocio, fecha_inicio)
+VALUES ('".$codigo_membresia."','".$nivel."', '".$medio_conocio."',   '".$f_inicio."')";
    
      mysqli_query($this->conectar(),$srpt2);
      echo $srpt2;
@@ -155,6 +160,32 @@ VALUES ('".$codigo_membresia."', '".$membresia."', '".$nivel."', '".$medio_conoc
   
 
   }
+
+
+public function ingresar_suscripcion()
+    {
+      
+      $codigo_membresia=$_POST['codigo_membresia'];
+      $membresia=$_POST['membresia'];
+      $promocion=$_POST['promocion'];
+      $cuota=$_POST['cuota'];
+      $cantidad=$_POST['cantidad'];
+      $f_inicio=$_POST['f_inicio'];
+      $comentario=$_POST['comentario'];
+      
+     $codigo_membresia=substr($apellido,0,1).substr($nombre,0,1).date("m");
+
+    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero)
+VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', '".$genero."')";
+   
+   
+   mysqli_query($this->conectar(),$srpt);
+   
+         
+  
+
+  }
+
 
 
   
