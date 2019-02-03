@@ -18,73 +18,83 @@ include("../clases/class.php");
           <div class="">
              
 
-                 <!-- Smart Wizard -->
-                    <p>Los campos con * son obligatorios </p>
-                    <div id="wizard" class="form_wizard wizard_horizontal">
-                      <ul class="wizard_steps">
-                        <li>
-                          <a href="#step-1">
-                            <span class="step_no">1</span>
-                            <span class="step_descr">
-                                              Paso 1<br />
-                                              <small>Ingreso Datos Personales</small>
-                                          </span>
-                          </a>
-                        </li>
-                        
-                      </ul>
-                      <div id="step-1">
-                        <form class="form-horizontal form-label-left">
-
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="codigo-membresia">Codigo membresia <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-
-                          <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Telefono <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="number" name="number" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>   
-                           
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" type="text">
-                            </div>
-                          </div>
-
-                      </form>
-
-                      </div>
+                 <!-- start  --> 
+                    
+                    <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Consultar asistencias <small>Users</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li> 
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
+                    </p>
+                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                       
+                          <div class="row">
+                            <div class="col-sm-12">
+                      <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                      <thead>
+                        <tr role="row">
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Area</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha</th> 
+                        </tr>
+                      </thead>
 
 
+                      <tbody> 
+                        
+                        
+                      <tr role="row" class="odd">
+                          <td class="sorting_1">Airi Satou</td>
+                          <td>Accountant</td> 
+                          <td>2008/11/28</td> 
+                        </tr>
+                        <tr role="row" class="even">
+                          <td class="sorting_1">Angelica Ramos</td>
+                          <td>Chief Executive Officer (CEO)</td> 
+                          <td>2009/10/09</td> 
+                        </tr>
+                        <?php
 
-                    </div>
-                    <!-- End SmartWizard Content -->
+                        $srpt ="SELECT * FROM asistencia_log";   
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            //echo $srpt;
+                            if(mysqli_num_rows($qsrp)==0)
+                            {
+                            echo 'Sin resultados';
+                            }
+                            else
+                            {
+                              while ($rowrp = mysqli_fetch_array($qsrp)) 
+                              {
+                                 //     print_r($rowrp);  
+                                echo "<tr>";
+                                 echo "<td>".$rowrp['codigo_membresia']."</td>";
+                                 echo "<td>".$rowrp['area']."</td>";
+                                 echo "<td>".$rowrp['fecha_registro']."</td>";
+                                 echo "</tr>" ;
+                                      //$this->consumos[] = $rowrp;
+                              }
+                            }
+                      ?>
+                      </tbody>
+                    </table></div></div>
+
+                        </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+                       
+                    <!-- End -->
 
 
             

@@ -42,22 +42,23 @@ class BaseDatos
       $connectionInfo = array("UID" => "root", "PWD" => "admin123", "Database" => "gym");
       $serverName = "localhost";
 
+
+$servername = "localhost";
+$database = "la_arena";
+$username = "admin";
+$password = "admin123"; 
+
 /*
 $servername = "localhost";
 $database = "la_arena";
 $username = "admin";
-$password = "admin123"; */
-
-
-$servername = "localhost";
-$database = "la_arena";
-$username = "admin";
 $password = "arena2019";
+*/
 
 
       $conn = mysqli_connect($servername, $username, $password, $database);
       if( $conn ) {
-    echo "Conexión establecida.<br />";
+   // echo "Conexión establecida.<br />";
 }else{
      echo "Conexión no se pudo establecer.<br />";
      //die( print_r( sqlsrv_errors(), true));
@@ -76,8 +77,15 @@ public function ingresar_asistencia()
 VALUES ('".$membresia."', sysdate())";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
-    echo $membresia;
 
+   /* echo "<script>
+         $(window).load(function(){
+             $('#thankyouModal').modal('show');
+         });
+    </script>";*/
+
+
+    echo $qsrp;
   }
 
 public function ingresar_renovacion()
@@ -100,6 +108,26 @@ VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())"
 public function consultar_renovaciones()
 {         
     $srpt ="SELECT * FROM renovacion_log";
+   
+    $qsrp = sqlsrv_query($this->conectar(),$srpt, array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
+    //echo $srpt;
+    $er = sqlsrv_num_rows($qsrp);
+    if(sqlsrv_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = sqlsrv_fetch_array($qsrp, SQLSRV_FETCH_ASSOC)) {
+              //print_r($rowrp); 
+              $this->consumos[] = $rowrp;
+      }
+
+         return $this->consumos;
+    }
+  }
+
+  public function consultar_asistencias()
+{         
+    $srpt ="SELECT * FROM asistencia_log";
    
     $qsrp = sqlsrv_query($this->conectar(),$srpt, array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
     //echo $srpt;
