@@ -42,18 +42,18 @@ class BaseDatos
       $connectionInfo = array("UID" => "root", "PWD" => "admin123", "Database" => "gym");
       $serverName = "localhost";
 
-
-$servername = "localhost";
-$database = "la_arena";
-$username = "admin";
-$password = "admin123"; 
-
 /*
 $servername = "localhost";
 $database = "la_arena";
 $username = "admin";
-$password = "arena2019";
+$password = "admin123"; 
 */
+
+$servername = "localhost";
+$database = "la_arena";
+$username = "admin";
+$password = "arena2019";
+
 
 
       $conn = mysqli_connect($servername, $username, $password, $database);
@@ -199,16 +199,25 @@ public function ingresar_suscripcion()
       $cuota=$_POST['cuota'];
       $cantidad=$_POST['cantidad'];
       $f_inicio=$_POST['f_inicio'];
+      $f_fin=$_POST['f_fin'];
       $comentario=$_POST['comentario'];
-      
-     $codigo_membresia=substr($apellido,0,1).substr($nombre,0,1).date("m");
 
-    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero)
-VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', '".$genero."')";
+      $time = strtotime($f_inicio);
+      $f_inicio = date('Y-m-d',$time);
+
+      $time = strtotime($f_fin);
+      $f_fin = date('Y-m-d',$time);
+
+
+
+     
+
+    $srpt ="INSERT INTO suscripcion (codigo_membresia, promocion, cuota, cantidad,tipo_membresia,fecha_inicio,fecha_fin, comentario,estado)
+VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')";
    
    
    mysqli_query($this->conectar(),$srpt);
-   
+   echo $srpt;
          
   
 

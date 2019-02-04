@@ -49,7 +49,7 @@ include("../clases/class.php");
                       <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Codigo Membresia  
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
                               <input readonly="readonly" type="text" id="codigo_membresia"  name="codigo_membresia"   class="form-control col-md-7 col-xs-12">
                             </div>
                           </div>
@@ -69,17 +69,25 @@ include("../clases/class.php");
                       </div>
 
                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="promocion"> Ingresa bajo promocion
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="promocion"> Ingresa bajo promocion 
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input name="promocion" type="checkbox" class="flat"> si
-                            </div>
+                            
+                            <div id="promocion"  class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="promocion" value="no" checked="checked"> &nbsp; No &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="promocion" value="si"> Si
+                            </label>
+                          </div>
+
+
                           </div>
 
                             <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cuota de Suscripcion <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Monto de Suscripcion $  
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
                           <input type="number" id="cuota" name="cuota" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
@@ -87,8 +95,21 @@ include("../clases/class.php");
                         <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cantidad meses/clases <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="c_meses" name="c_meses" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="number" id="cantidad" name="cantidad" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Pago</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <select name="tipo_pago" class="select2_single form-control" tabindex="-1">
+                             
+                            <option value="1">Completo</option>
+                            <option value="2">Parcial</option>
+                          
+                             
+                          </select>
                         </div>
                       </div>
 
@@ -99,14 +120,22 @@ include("../clases/class.php");
                              <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Inicio <span class="required">*</span>
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
                               <input id="birthday"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                             </div>
                           </div>
 
+
+                             <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Fin <span class="required">*</span>
+                            </label>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <input name="f_fin" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                            </div>
+                          </div>
+
                        
-
-
+ 
                       
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Comentario <span class="required">*</span>
@@ -147,7 +176,7 @@ include("../footer.php");
 
   $(document).on('ready',function(){       
     $('#send').click(function(){
-      alert("ingres");
+      //alert("ingres");
       //ingresa
         var url = "ingreso_suscripcion.php";
         $.ajax({                        
