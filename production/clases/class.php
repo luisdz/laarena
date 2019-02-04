@@ -72,20 +72,31 @@ $password = "arena2019";
 public function ingresar_asistencia()
     {      
       $membresia=$_POST['codigo-membresia']; 
-     
-    $srpt ="INSERT INTO asistencia_log (codigo_membresia, fecha_registro)
-VALUES ('".$membresia."', sysdate())";
-   
-    $qsrp = mysqli_query($this->conectar(),$srpt);
+      $srpt2 ="SELECT * FROM membresia where codigo='".$membresia."'";  
+   //  $srpt2 ="SELECT * FROM membresia where codigo_membresia='1001'";  
+                            $qsrp2 = mysqli_query($this->conectar(),$srpt2);
+                           // echo $srpt2;
+                            if(mysqli_num_rows($qsrp2)==0)
+                            {
+                            echo 'Codigo de membresia invalido ';
+                            }
+                            else
+                            {
+                              //echo 'Rows : '.mysqli_num_rows($qsrp2);
+                              $srpt ="INSERT INTO asistencia_log (codigo_membresia, fecha_registro)
+                              VALUES ('".$membresia."', sysdate())";   
+                                  $qsrp = mysqli_query($this->conectar(),$srpt);
+                            }  
 
-   /* echo "<script>
+
+    /*echo "<script>
          $(window).load(function(){
              $('#thankyouModal').modal('show');
          });
     </script>";*/
 
 
-    echo $qsrp;
+    //echo $qsrp;
   }
 
 public function ingresar_renovacion()
@@ -95,13 +106,14 @@ public function ingresar_renovacion()
       $unidad=$_POST['cmb_unidad'];
       $vigencia=$_POST['number'];
 
-     
-    $srpt ="INSERT INTO renovacion_log (duracion,tipo,codigo_membresia,nivel,fecha_renovacion)
-VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())";
-   
-    $qsrp = mysqli_query($this->conectar(),$srpt);
-    echo $membresia;
 
+           
+
+$srpt ="INSERT INTO renovacion_log (duracion,tipo,codigo_membresia,nivel,fecha_renovacion)
+                              VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())";
+                                  echo "Cntidad de registros".mysqli_num_rows($qsrp2);
+                                  $qsrp = mysqli_query($this->conectar(),$srpt);
+                                  echo $membresia;
   }
 
 
