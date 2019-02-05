@@ -42,17 +42,17 @@ class BaseDatos
       $connectionInfo = array("UID" => "root", "PWD" => "admin123", "Database" => "gym");
       $serverName = "localhost";
 
-/*
-$servername = "localhost";
-$database = "la_arena";
-$username = "admin";
-$password = "admin123"; 
-*/
 
 $servername = "localhost";
 $database = "la_arena";
 $username = "admin";
-$password = "arena2019";
+$password = "admin123"; 
+
+/*
+$servername = "localhost";
+$database = "la_arena";
+$username = "admin";
+$password = "arena2019";*/
 
 
 
