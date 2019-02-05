@@ -180,25 +180,39 @@ public function ingresar_clientes()
       $f_inicio = date('Y-m-d',$time);
 
  
-     $codigo_membresia=substr($apellido,0,1).substr($nombre,0,1).date("Y");
 
-    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero)
-VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', '".$genero."')";
+      $lastm ="select max(idmembresia) correlativom from membresia";
+      $respuesta1=mysqli_query($this->conectar(),$lastm); 
+      $rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
+      $lastm=$rowrp['correlativom'];
+
+
+
+     $codigo_membresia=strtoupper(substr($apellido,0,1)).strtoupper(substr($nombre,0,1)).date("Y").$lastm;
+
+    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero,codigo_membresia)
+VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', 
+'".$genero."', 
+'".$codigo_membresia."')";
    
    
-   mysqli_query($this->conectar(),$srpt);
-   echo $srpt;
+   $respuesta1=mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
     //insert  para datos de membresia
 
-      $srpt2 ="INSERT INTO membresia (codigo, nivel, medio_conocio, fecha_inicio)
+      $srpt2 ="INSERT INTO membresia (codigo_membresia, nivel, medio_conocio, fecha_inicio)
 VALUES ('".$codigo_membresia."','".$nivel."', '".$medio_conocio."',   '".$f_inicio."')";
    
-     mysqli_query($this->conectar(),$srpt2);
-     echo $srpt2;
+     $respuesta2=mysqli_query($this->conectar(),$srpt2);
+    // echo $srpt2;
 
-         
+        $uerror=0;
+       if($respuesta1==false or $respuesta2==false){
+
+         $uerror=1;
+       }  
   
-
+   return $uerror;
   }
 
 
@@ -213,6 +227,7 @@ public function ingresar_suscripcion()
       $f_inicio=$_POST['f_inicio'];
       $f_fin=$_POST['f_fin'];
       $comentario=$_POST['comentario'];
+      $tipo_pago=$_POST['tipo_pago'];
 
       $time = strtotime($f_inicio);
       $f_inicio = date('Y-m-d',$time);
@@ -224,12 +239,23 @@ public function ingresar_suscripcion()
 
      
 
-    $srpt ="INSERT INTO suscripcion (codigo_membresia, promocion, cuota, cantidad,tipo_membresia,fecha_inicio,fecha_fin, comentario,estado)
-VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')";
+    $srpt ="INSERT INTO suscripcion (codigo_membresia, promocion, cuota, cantidad,tipo_pago,tipo_membresia,fecha_inicio,fecha_fin, comentario,estado)
+VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$tipo_pago."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')";
    
    
-   mysqli_query($this->conectar(),$srpt);
-   echo $srpt;
+   $result=mysqli_query($this->conectar(),$srpt);
+   
+$uerror=0;
+if($result==false)
+{
+
+  $uerror=1;
+
+   //if(($errors=mysql_error())!=null){}
+}
+
+   // echo $srpt;
+ return $uerror;
          
   
 

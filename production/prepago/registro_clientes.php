@@ -21,6 +21,7 @@ include("../clases/class.php");
 
                  <!-- Smart Wizard -->
                     <p>Los campos con * son obligatorios </p>
+                    <div id="resp"> </div>
                     <div id="wizard" class="form_wizard wizard_horizontal">
                       <ul class="wizard_steps">
                         <li>
@@ -44,18 +45,18 @@ include("../clases/class.php");
                      
                          
                       </ul>
-                      <form id="registro_clientes" >
+                      <form id="registro_clientes"  class="form-horizontal form-label-left" novalidate >
                       <div id="step-1">
                         <div class="form-horizontal form-label-left" id="form_ingresar">
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
+                          <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"   for="first-name">Nombre <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="nombre"  name="nombre" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="nombre"  name="nombre" required="required" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2">
                             </div>
                           </div>
-                          <div class="form-group">
+                          <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -66,27 +67,27 @@ include("../clases/class.php");
                           <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Telefono <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="10,10000" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
                         <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
                           <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       
 
                        
-                          <div class="form-group">
+                          <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Genero</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <div id="gender" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                  <input type="radio" name="genero" value="h"> &nbsp; Hombre &nbsp;
+                                  <input type="radio" checked="checked" name="genero" value="h"> &nbsp; Hombre &nbsp;
                                 </label>
                                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                   <input type="radio" name="genero" value="m"> Mujer
@@ -97,7 +98,7 @@ include("../clases/class.php");
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha Nacimiento <span class="required">*</span>
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
                                <input name="fecha_nacimiento" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
                             </div>
                           </div>
@@ -136,7 +137,7 @@ include("../clases/class.php");
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de suscripcion <span class="required">*</span>
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-3 col-xs-12">
                               <input id="birthday"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                             </div>
                           </div>
@@ -149,7 +150,10 @@ include("../clases/class.php");
                  
                        </form>
 
-                       <div id="resp"> </div>
+                      
+
+                      
+
                     </div>
                     <!-- End SmartWizard Content -->
 
@@ -165,6 +169,38 @@ include("../footer.php");
 
  
 ?>
+
+ <!-- validator -->
+    <script>
+      // initialize the validator function
+      validator.message.date = 'not a real date';
+
+      // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+      $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
+
+      $('.multi.required').on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
+
+      $('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+          submit = false;
+        }
+
+        if (submit)
+          this.submit();
+
+        return false;
+      });
+    </script>
+    <!-- /validator -->
  
  <!-- jquery.inputmask -->
     <script>
@@ -187,7 +223,10 @@ include("../footer.php");
            data: $("#registro_clientes").serialize(), 
            success: function(data)             
            {
-             $('#resp').html(data);               
+             $('#resp').html(data);   
+             setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+      }, 3000);            
            }
        });
     });

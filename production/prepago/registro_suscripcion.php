@@ -21,6 +21,8 @@ include("../clases/class.php");
             <div class="page-title">
               <div class="title_left">
                 <h3>Ingreso de Suscripcion</h3>
+                
+
               </div>
 
               <div class="title_right">
@@ -36,7 +38,8 @@ include("../clases/class.php");
                 <div class="x_panel">
                   <div class="x_title">
                     <h2> <small>Registro de suscripciones</small></h2>
-                     
+                    <br>
+                     <div id="msj"> </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -50,7 +53,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Codigo Membresia  
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                              <input readonly="readonly" type="text" id="codigo_membresia"  name="codigo_membresia"   class="form-control col-md-7 col-xs-12">
+                              <input readonly="readonly" type="text" id="codigo_membresia"  name="codigo_membresia"   class="form-control col-md-7 col-xs-12" value="<?php echo $_GET['idmembresia']?>">
                             </div>
                           </div>
                      
@@ -151,7 +154,7 @@ include("../clases/class.php");
                         <div class="col-md-6 col-md-offset-3">
                           <button  class="btn btn-primary">Cancelar</button>
                           <button id="send"   class="btn btn-success">Guardar</button>
-<div id="msj"> </div>
+
 
                         </div>
                       </div>
@@ -185,7 +188,12 @@ include("../footer.php");
            data: $("#form_suscripcion").serialize(), 
            success: function(data)             
            {
-             $('#msj').html(data);               
+             $('#msj').html(data);  
+              // document.getElementById('form_suscripcion').reset();   
+               setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+      }, 3000);    
+
            }
        });
     });
