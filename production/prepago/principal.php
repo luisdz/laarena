@@ -40,6 +40,7 @@ include("../clases/class.php");
                       </a>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                         <a tabindex="-1" href="../prepago/registro_asistencias.php">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-calendar"></i>
                           </div>
@@ -48,6 +49,7 @@ include("../clases/class.php");
                           <h3>Registro</h3>
                           <p>Asistencia Diaria</p>
                         </div>
+                      </a>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">

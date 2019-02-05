@@ -189,10 +189,10 @@ include("../footer.php");
            success: function(data)             
            {
              $('#msj').html(data);  
-              // document.getElementById('form_suscripcion').reset();   
-              // setTimeout(function(){// wait for 5 secs(2)
-          //location.reload(); // then reload the page.(3)
-      //}, 3000);    
+             //  document.getElementById('form_suscripcion').reset();   
+                setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+       }, 3000);    
 
            }
        });
