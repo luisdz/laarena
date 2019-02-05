@@ -190,9 +190,9 @@ include("../footer.php");
            {
              $('#msj').html(data);  
               // document.getElementById('form_suscripcion').reset();   
-               setTimeout(function(){// wait for 5 secs(2)
-           location.reload(); // then reload the page.(3)
-      }, 3000);    
+              // setTimeout(function(){// wait for 5 secs(2)
+          //location.reload(); // then reload the page.(3)
+      //}, 3000);    
 
            }
        });

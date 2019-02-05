@@ -235,18 +235,35 @@ public function ingresar_suscripcion()
       $time = strtotime($f_fin);
       $f_fin = date('Y-m-d',$time);
 
-
+  $usuario='eduardo.herrera';
 
      
 
     $srpt ="INSERT INTO suscripcion (codigo_membresia, promocion, cuota, cantidad,tipo_pago,tipo_membresia,fecha_inicio,fecha_fin, comentario,estado)
-VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$tipo_pago."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')";
+VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$tipo_pago."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')
+";
    
+    
    
    $result=mysqli_query($this->conectar(),$srpt);
    
+
+      $lastid ="select max(id_suscripcion) correlativom from suscripcion";
+      $respuesta1=mysqli_query($this->conectar(),$lastid); 
+      $rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
+      $lastm=$rowrp['correlativom'];
+    
+
+//registrar el pago realizado
+    $srpt2 ="INSERT INTO pago (id_suscripcion, monto, usuario_registro)
+VALUES ('".$lastm."', '".$cuota."', '".$usuario."')";
+
+ $result2=mysqli_query($this->conectar(),$srpt2);
+   
+
+
 $uerror=0;
-if($result==false)
+if($result==false or $result2==false)
 {
 
   $uerror=1;
