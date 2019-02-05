@@ -1,4 +1,8 @@
+
+
+
 <?php
+ header('refresh:5; Location: /laarena/production/prepago/registro_asistencias.php');
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -24,7 +28,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar asistencias <small>Users</small></h2>
+                    <h2>Consultar asistencias</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> 
@@ -32,53 +36,24 @@ include("../clases/class.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
-                    </p>
-                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                      
-                          <div class="row">
-                            <div class="col-sm-12">
-                      <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
-                      <thead>
-                        <tr role="row">
-                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
-                            
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha</th> 
-                        </tr>
-                      </thead>
-
-
-                      <tbody> 
-                        
-                        
                      
-                        <?php
+                     <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Asistencia registrada!.
+<?php
+                    	$codigo=$_GET['id'];           
 
-                        $srpt ="SELECT * FROM asistencia_log";   
-                            $qsrp = mysqli_query($db->conectar(),$srpt);
-                            //echo $srpt;
-                            if(mysqli_num_rows($qsrp)==0)
-                            {
-                            echo 'Sin resultados';
-                            }
-                            else
-                            {
-                              while ($rowrp = mysqli_fetch_array($qsrp)) 
-                              {
-                                 //     print_r($rowrp);  
-                                echo "<tr>";
-                                 echo "<td>".$rowrp['codigo_membresia']."</td>"; 
-                                 echo "<td>".$rowrp['fecha_registro']."</td>";
-                                 echo "</tr>" ;
-                                      //$this->consumos[] = $rowrp;
-                              }
-                            }
-                      ?>
-                      </tbody>
-                    </table></div></div>
+$srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro)
+                              VALUES ('".$codigo."', sysdate())"; 
+                                  $qsrp = mysqli_query($db->conectar(),$srpt);
+                                 // echo $membresia; 
+ 
+  //header( "refresh:2; url=/laarena/production/prepago/registro_asistencias.php" );  
 
-                        </div>
+?>
+                  </div>
+                    
                   </div>
                 </div>
               </div> 
@@ -204,5 +179,13 @@ include("../footer.php");
 
         TableManageButtons.init();
       });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+   setTimeout(function(){// wait for 5 secs(2)
+           window.location.replace("/laarena/production/prepago/registro_asistencias.php");
+      }, 3000);
+}, false);
+
     </script>
     <!-- /Datatables -->

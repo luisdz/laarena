@@ -106,7 +106,8 @@ if (isset($_SESSION['usuario'])){
                             <li class="dropdown-submenu">
                                 <a class="test" tabindex="-1" href="#">Suscripcion<span class="fa fa-sort-amount-asc"></span></a>
                                     <ul class="nav child_menu">
-                                          <li><a tabindex="-1" href="../prepago/registrar_suscripciones.php">Registrar</a></li>                        
+                                          <li><a tabindex="-1" href="../prepago/registrar_suscripciones.php">Registrar</a></li>   
+                                          <li><a tabindex="-1" href="../prepago/consultar_suscripcion.php">Consultar</a></li>                      
                                     </ul>
                             </li>
             
@@ -140,6 +141,7 @@ if (isset($_SESSION['usuario'])){
                                           <li><a tabindex="-1" href="../prepago/consultar_asistencias.php">Consultar asistencias</a></li>
                          
                                     </ul>
+
                             </li>
             
                              
