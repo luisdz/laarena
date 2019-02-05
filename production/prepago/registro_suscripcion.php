@@ -53,7 +53,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Codigo Membresia  
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                              <input readonly="readonly" type="text" id="codigo_membresia"  name="codigo_membresia"   class="form-control col-md-7 col-xs-12">
+                              <input readonly="readonly" type="text" id="codigo_membresia"  name="codigo_membresia"   class="form-control col-md-7 col-xs-12" value="<?php echo $_GET['idmembresia']?>">
                             </div>
                           </div>
                      
@@ -189,7 +189,11 @@ include("../footer.php");
            success: function(data)             
            {
              $('#msj').html(data);  
-               document.getElementById('form_suscripcion').reset();         
+              // document.getElementById('form_suscripcion').reset();   
+               setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+      }, 3000);    
+
            }
        });
     });

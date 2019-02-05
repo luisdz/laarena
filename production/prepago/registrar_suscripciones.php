@@ -43,14 +43,12 @@ include("../clases/class.php");
                       <thead>
                         <tr role="row">
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Promocion</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cuota</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha inicio</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha fin</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Comentario</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">nivel</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">nombre</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">apellido</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">genero</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">telefono</th>   
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
                         </tr>
                       </thead>
 
@@ -58,7 +56,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT * FROM suscripcion";   
+                        $srpt ="select a.codigo_membresia, nivel, nombre, apellido, genero, telefono from membresia a INNER join persona b on a.codigo_membresia=b.codigo_membresia";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -72,14 +70,13 @@ include("../clases/class.php");
                                  //     print_r($rowrp);  
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
-                                 echo "<td>".$rowrp['promocion']."</td>";
-                                 echo "<td>".$rowrp['cuota']."</td>";
-                                 echo "<td>".$rowrp['cantidad']."</td>";
-                                 echo "<td>".$rowrp['tipo_membresia']."</td>";
-                                 echo "<td>".$rowrp['fecha_inicio']."</td>";
-                                 echo "<td>".$rowrp['fecha_fin']."</td>";
-                                 echo "<td>".$rowrp['comentario']."</td>";
-                                 echo "<td><a href='#'>Nueva suscripcion</a></td>";
+                                 echo "<td>".$rowrp['nivel']."</td>";
+                                 echo "<td>".$rowrp['nombre']."</td>";
+                                 echo "<td>".$rowrp['apellido']."</td>";
+                                 echo "<td>".$rowrp['genero']."</td>";
+                                 echo "<td>".$rowrp['telefono']."</td>";
+                                 
+                                 echo "<td><a href='registro_suscripcion.php?idmembresia=".$rowrp['codigo_membresia']."'>Nueva suscripcion</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

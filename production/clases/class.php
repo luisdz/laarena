@@ -190,15 +190,17 @@ public function ingresar_clientes()
 
      $codigo_membresia=strtoupper(substr($apellido,0,1)).strtoupper(substr($nombre,0,1)).date("Y").$lastm;
 
-    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero)
-VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', '".$genero."')";
+    $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero,codigo_membresia)
+VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', 
+'".$genero."', 
+'".$codigo_membresia."')";
    
    
    $respuesta1=mysqli_query($this->conectar(),$srpt);
     //echo $srpt;
     //insert  para datos de membresia
 
-      $srpt2 ="INSERT INTO membresia (codigo, nivel, medio_conocio, fecha_inicio)
+      $srpt2 ="INSERT INTO membresia (codigo_membresia, nivel, medio_conocio, fecha_inicio)
 VALUES ('".$codigo_membresia."','".$nivel."', '".$medio_conocio."',   '".$f_inicio."')";
    
      $respuesta2=mysqli_query($this->conectar(),$srpt2);
