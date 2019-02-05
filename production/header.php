@@ -95,17 +95,24 @@ if (isset($_SESSION['usuario'])){
                          
                                     </ul>
                             </li>
+            
+                             
+                       </ul>
+					         </li>
+                   <li>
+                     <a><i class="fa fa-mobile"></i> Suscripcion <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            
                             <li class="dropdown-submenu">
-                                <a class="test" tabindex="-1" href="#">Membresia<span class="fa fa-sort-amount-asc"></span></a>
+                                <a class="test" tabindex="-1" href="#">Suscripcion<span class="fa fa-sort-amount-asc"></span></a>
                                     <ul class="nav child_menu">
-                                          <li><a tabindex="-1" href="../prepago/renovacion_membresia.php">Renovacion</a></li>
-                                          <li><a tabindex="-1" href="../prepago/consultar_renovacion.php">Consultar</a></li>                         
+                                          <li><a tabindex="-1" href="../prepago/registrar_suscripciones.php">Registrar</a></li>                        
                                     </ul>
                             </li>
             
                              
                        </ul>
-					         </li>
+                   </li>
 
                    <li>
                      <a><i class="fa fa-mobile"></i> Pagos <span class="fa fa-chevron-down"></span></a>
@@ -113,7 +120,7 @@ if (isset($_SESSION['usuario'])){
                            <li class="dropdown-submenu">
                                 <a class="test" tabindex="-1" href="#">Registro<span class="fa fa-sort-amount-asc"></span></a>
                                     <ul class="nav child_menu">
-                                          <li><a tabindex="-1" href="../prepago/p_consumo_diario.php">Registrar</a></li>
+                                          <li><a tabindex="-1" href="../prepago/registrar_pagos.php">Registrar</a></li>
                                           <li><a tabindex="-1" href="../prepago/p_consumo_diario_xtipo.php">Consultar</a></li>
                          
                                     </ul>

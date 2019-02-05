@@ -39,19 +39,39 @@ include("../clases/class.php");
 
 
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="codigo-membresia">Codigo membresia <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="codigo">Codigo suscripcion <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" name="codigo-membresia" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" name="codigo" readonly="readonly" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                              <div id="resp"> </div>
                           </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="monto">Monto <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="number" name="monto"  required="required" min="0" class="form-control col-md-7 col-xs-12">
+                            </div>
+                             <div id="resp"> </div>
+                          </div>
+                           <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <select class="select2_single form-control" name="cmb_nivel" tabindex="-1">
+                            <option></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                      
+                          </select>
+                        </div>
+                      </div>
                        
-                          <div class="form-group hidden">
+                          <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="fecha" class="date-picker form-control col-md-7 col-xs-12" readonly="readonly" required="required" type="text">
+                          <input id="fecha" class="date-picker form-control col-md-7 col-xs-12"  required="required" type="text">
                         </div>
 
                       </div>
