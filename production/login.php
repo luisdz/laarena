@@ -59,7 +59,7 @@
                 <div>
                  
 
-                  <p>©2018 Derechos Reservados. Gerencia de Mercadeo. Inteligencia de Mercado</p>
+                  <p>©2019 Derechos Reservados. Gerencia de Mercadeo. Inteligencia de Mercado</p>
                 </div>
               </div>
             </form>
@@ -94,9 +94,9 @@
                 <br />
 
                 <div>
-                  <h1><i class="glyphicon glyphicon-stats"></i> Gerencia de Mercadeo</h1>
-                  <p>©2017 Todos los derechos reservados</p>
-                  <p>Inteligencia de Negocio</p>
+                  <h1><i class="glyphicon glyphicon-stats"></i> La Arena</h1>
+                  <p>©2019 Todos los derechos reservados</p>
+                  <p>Sistema de Control</p>
                 </div>
               </div>
             </form>

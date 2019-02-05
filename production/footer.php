@@ -1,7 +1,7 @@
   <!-- footer content -->
         <footer>
           <div class="pull-right">
-          Gerencia de Mercadeo <a href="#">Claro</a>
+          La Arena <a href="#">2019</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -75,7 +75,8 @@
     <script src="../../vendors/echarts/dist/echarts.min.js"></script>
      <!-- jQuery Smart Wizard -->
     <script src="../../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
-
+  <!-- validator -->
+    <script src="../../vendors/validator/validator.js"></script>
 
 	<!-- Select2 -->
     <script src="../../vendors/select2/dist/js/select2.full.min.js"></script>

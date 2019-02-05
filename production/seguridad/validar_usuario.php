@@ -6,7 +6,7 @@ $db = new BaseDatos();
 echo 'ingresa';
 
 $estado=$db->conectar();
-header("Location:../prepago/p_parque_recargadord.php");
+header("Location:../prepago/principal.php");
 /*
 //recibir los datos del formulario
 //print_r($_POST);
