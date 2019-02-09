@@ -24,7 +24,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar suscripcion <small>Users</small></h2>
+                    <h2>Consultar suscripcion <small>Clientes</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> 
@@ -42,9 +42,9 @@ include("../clases/class.php");
                         <tr role="row">
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Promocion</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cuota</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Monto Pagado</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad Meses/Clases</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo Membresia</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha inicio</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha fin</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Comentario</th>   
@@ -71,8 +71,17 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
                                  echo "<td>".$rowrp['promocion']."</td>";
                                  echo "<td>".$rowrp['cuota']."</td>";
-                                 echo "<td>".$rowrp['cantidad']."</td>";
-                                 echo "<td>".$rowrp['tipo_membresia']."</td>";
+                                 echo "<td> $".$rowrp['cantidad']."</td>";
+                                  
+                                 switch ($rowrp['tipo_membresia']) {
+                                   case 1:
+                                      echo "<td>Mensual</td>";
+                                     break;
+                                    case 2:
+                                     echo "<td>Clases</td>";
+                                    break;
+                                    
+                                 } 
                                  echo "<td>".$rowrp['fecha_inicio']."</td>";
                                  echo "<td>".$rowrp['fecha_fin']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>"; 

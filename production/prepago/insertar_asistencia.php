@@ -2,7 +2,7 @@
 
 
 <?php
- header('refresh:5; Location: /laarena/production/prepago/registro_asistencias.php');
+// header('refresh:5; Location: /laarena/laarena/registro_asistencias.php');
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -47,7 +47,7 @@ include("../clases/class.php");
 $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro)
                               VALUES ('".$codigo."', sysdate())"; 
                                   $qsrp = mysqli_query($db->conectar(),$srpt);
-                                 // echo $membresia; 
+                                 echo $srpt; 
  
   //header( "refresh:2; url=/laarena/production/prepago/registro_asistencias.php" );  
 
@@ -183,7 +183,7 @@ include("../footer.php");
 
 document.addEventListener('DOMContentLoaded', function() {
    setTimeout(function(){// wait for 5 secs(2)
-           window.location.replace("/laarena/production/prepago/registro_asistencias.php");
+           window.location.replace("registro_asistencias.php");
       }, 3000);
 }, false);
 

@@ -53,7 +53,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"   for="first-name">Nombre <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="nombre"  name="nombre" required="required" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2">
+                              <input type="text" id="nombre"  name="nombre" required="required" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1">
                             </div>
                           </div>
                           <div class="item form-group">
@@ -68,7 +68,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Telefono <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="10,10000" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="10,1000000" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -117,9 +117,9 @@ include("../clases/class.php");
                         <div class="col-md-3 col-sm-3 col-xs-12">
                           <select  name="nivel" class="select2_single form-control" tabindex="-1">
                          
-                            <option value="AK">Basico</option>
-                            <option value="HI">Intermedio</option>
-                            <option value="CA">Avanzado</option>
+                            <option value="1">Basico</option>
+                            <option value="2">Intermedio</option>
+                            <option value="3">Avanzado</option>
                       
                           </select>
                         </div>

@@ -24,7 +24,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar asistencias <small>Users</small></h2>
+                    <h2>Consultar asistencias <small>Usuarios</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> 
@@ -40,11 +40,13 @@ include("../clases/class.php");
                       <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
-                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo Membresia</th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Nombre</th>
+                              <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Apellido</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Promocion</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cuota</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 100px;">Monto Pagado</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad Meses/Clases</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo Membresia</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha inicio</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha fin</th>                               
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Asistencias</th>    
@@ -57,7 +59,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT a.*,(select count(*) from asistencia_log where codigo_membresia=a.codigo_membresia ) cantidad2 FROM suscripcion a";   
+                        $srpt ="SELECT a.*,(select count(*) from asistencia_log where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -71,10 +73,21 @@ include("../clases/class.php");
                                  //     print_r($rowrp);  
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
+                                 echo "<td>".$rowrp['nombre']."</td>";
+                                 echo "<td>".$rowrp['apellido']."</td>";
                                  echo "<td>".$rowrp['promocion']."</td>";
-                                 echo "<td>".$rowrp['cuota']."</td>";
+                                 echo "<td> $ ".$rowrp['cuota']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
-                                 echo "<td>".$rowrp['tipo_membresia']."</td>";
+                                 
+                                 switch ($rowrp['tipo_membresia']) {
+                                   case 1:
+                                      echo "<td>Mensual</td>";
+                                     break;
+                                    case 2:
+                                     echo "<td>Clases</td>";
+                                    break;
+                                    
+                                 }   
                                  echo "<td>".$rowrp['fecha_inicio']."</td>";
                                  echo "<td>".$rowrp['fecha_fin']."</td>";
                                  echo "<td>".$rowrp['cantidad2']."</td>";
