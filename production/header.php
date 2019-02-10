@@ -147,6 +147,21 @@ if (isset($_SESSION['usuario'])){
                              
                        </ul>
                    </li>
+                   <li>
+                     <a><i class="fa fa-mobile"></i> Clientes <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                           <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="#">Clientes<span class="fa fa-sort-amount-asc"></span></a>
+                                    <ul class="nav child_menu"> 
+                                          <li><a tabindex="-1" href="../prepago/consultar_clientes.php">Consultar clientes</a></li>
+                         
+                                    </ul>
+
+                            </li>
+            
+                             
+                       </ul>
+                   </li>
         
 				
                 
