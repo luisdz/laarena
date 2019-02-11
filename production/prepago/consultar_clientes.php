@@ -76,7 +76,7 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['email']."</td>";
                                  echo "<td>".$rowrp['fecha_nac']."</td>";                                 
                                  echo "<td><a href='actualizar_clientes.php?id=".$rowrp['codigo_membresia']."'>Editar</a></td>";
-                                 echo "<td><a href='#registro_suscripcion.php?idmembresia=".$rowrp['codigo_membresia']."'>Eliminar</a></td>";
+                                 echo "<td><a id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_clientes.php?id=".$rowrp['codigo_membresia']."'>Eliminar</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
@@ -109,6 +109,32 @@ include("../footer.php");
 
    
   <script>
+
+$(document).on('ready',function(){       
+    $('#delete').click(function(){
+      //ingresa
+        //var url = "update_clientes.php";
+        //alert("hello");
+        if(!confirm('¿Desea eliminar el cliente?')){
+            e.preventDefault();
+            return false;
+        }
+         alert("si");
+
+       /* $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: $("#update_clientes").serialize(), 
+           success: function(data)             
+           {
+             $('#resp').html(data); 
+             alert(data);  
+                         
+           }
+       });*/
+    });
+});
+
       $(document).ready(function() {
         
         var handleDataTableButtons = function() {

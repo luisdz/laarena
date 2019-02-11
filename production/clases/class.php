@@ -113,7 +113,7 @@ $srpt ="INSERT INTO renovacion_log (duracion,tipo,codigo_membresia,nivel,fecha_r
                               VALUES ('".$vigencia."','".$unidad."','".$membresia."','".$nivel."', sysdate())";
                                   echo "Cntidad de registros".mysqli_num_rows($qsrp2);
                                   $qsrp = mysqli_query($this->conectar(),$srpt);
-                                  echo $membresia;
+                                 // echo $membresia;
   }
 
 
@@ -157,8 +157,43 @@ public function consultar_renovaciones()
     }
   }
 
+public function actualizar_clientes()
+    {
+      $codigo=$_POST['id'];
+      $nombre=$_POST['nombre'];
+      $apellido=$_POST['apellido'];
+      $telefono=$_POST['telefono'];
+      $email=$_POST['email'];
+      $genero=$_POST['gender'];
+      $fecha_nacimiento=$_POST['fecha'];
+
+      $sql = "UPDATE `persona` SET `nombre`=\"".$nombre."\",`apellido`=\"".$apellido."\",`telefono`=".$telefono.",`email`=\"".$email."\",`fecha_nac`=".$fecha_nacimiento.",`genero`=\"Hombre\" WHERE codigo_membresia=\"".$codigo."\"";
+
+      $qsrp = mysqli_query($this->conectar(),$sql);
 
 
+
+
+    }
+
+    public function eliminar_clientes()
+    {
+      $codigo=$_GET['id'];;
+
+      $sql = "delete persona where codigo_membresia='".$codigo."'";
+
+      $qsrp = mysqli_query($this->conectar(),$sql);
+
+
+
+
+    }
+
+
+
+
+
+ /* fin luis */
 //edu
 public function ingresar_clientes()
     {

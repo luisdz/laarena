@@ -1,10 +1,10 @@
 <?php
 $stonevar = isset($_GET['id']) ? $_GET['id'] : NULL;
 
-                        if (empty($stonevar)) {
+                       /* if (empty($stonevar)) {
                           header("Location: /laarena/production/prepago/consultar_clientes.php");
                           exit();
-                        }
+                        }*/
 ?>
 
 
@@ -43,7 +43,7 @@ include("../clases/class.php");
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="registro_clientes" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="update_clientes" data-parsley-validate class="form-horizontal form-label-left">
                       <?php
 
                       
@@ -59,31 +59,31 @@ include("../clases/class.php");
 
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="codigo">Codigo<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="id">Codigo<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="codigo" required="required" readonly="readonly" <?php echo "value='".$_GET['id']."'"   ?>  class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="id" name="id" required="required" readonly="readonly" <?php echo "value='".$_GET['id']."'"   ?>  class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre">Nombre<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['nombre']."'" ?>>
+                          <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['nombre']."'" ?>>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apellido">Apellido<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="last-name" required="required" <?php echo "value='".$rowrp['apellido']."'" ?> class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="apellido" name="apellido" required="required" <?php echo "value='".$rowrp['apellido']."'" ?> class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Telefono</label>
+                        <label for="telefono" class="control-label col-md-3 col-sm-3 col-xs-12">Telefono</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="telefono" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['telefono']."'" ?> type="text" name="middle-name">
+                        <input id="telefono" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['telefono']."'" ?> type="text" name="telefono">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -96,13 +96,12 @@ include("../clases/class.php");
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Genero</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div id="gender" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="male"> &nbsp; Masculino &nbsp;
-                            </label>
-                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="female"> Femenino
-                            </label>
+                          <div  class="btn-group" data-toggle="buttons">
+                          <p>
+                        M:
+                        <input type="radio" class="flat" name="gender" id="genderM" value="Hombre" checked="" required /> F:
+                        <input type="radio" class="flat" name="gender" id="genderF" value="Mujer" />
+                      </p>
                           </div>
                         </div>
                       </div>
@@ -110,19 +109,24 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de nacimiento <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input name="fecha" type="text" class="form-control" <?php echo "value='".$rowrp['fecha']."'" ?>  data-inputmask="'mask': '99/99/9999'">
+                          <input id="fecha" name="fecha" type="text" class="form-control" <?php echo "value='".$rowrp['fecha']."'" ?>  data-inputmask="'mask': '99/99/9999'">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancel</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
+                          <button id="cancel" class="btn btn-primary">Cancel</button>
+                          <button id="update"  class="btn btn-success">Submit</button>
                         </div>
                       </div>
 
                     </form>
                   </div>
+
+
+                  <div id="resp"> </div>
+
+
                 </div>
               </div>
             </div>   
@@ -182,19 +186,19 @@ include("../footer.php");
 
 
   $(document).on('ready',function(){       
-    $('.buttonFinish').click(function(){
+    $('#update').click(function(){
       //ingresa
         var url = "update_clientes.php";
+        //alert("hello");
         $.ajax({                        
            type: "POST",                 
            url: url,                     
-           data: $("#registro_clientes").serialize(), 
+           data: $("#update_clientes").serialize(), 
            success: function(data)             
            {
-             $('#resp').html(data);   
-             setTimeout(function(){// wait for 5 secs(2)
-           location.reload(); // then reload the page.(3)
-      }, 3000);            
+             $('#resp').html(data); 
+             alert(data);  
+                         
            }
        });
     });
@@ -203,7 +207,7 @@ include("../footer.php");
 
 
       $(document).ready(function() {
-        $('#fecha').daterangepicker({
+        $('#fecha321321').daterangepicker({
           singleDatePicker: true,
           calender_style: "picker_4" 
         }, function(start, end, label) {
