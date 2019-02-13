@@ -26,6 +26,9 @@ include("../clases/class.php");
 
   <!-- page content -->
         <div class="right_col" role="main">
+
+            <div id="resp"> </div>
+
           <div class="">
                     <!-- End SmartWizard Content -->
 
@@ -48,7 +51,7 @@ include("../clases/class.php");
 
                       
 
-                      $srpt="select *, DATE_FORMAT(fecha_nac, \"%d%m%Y\") fecha from persona where codigo_membresia='".$_GET['id']."'";
+                      $srpt="select *, DATE_FORMAT(fecha_nac, \"%m%d%Y\") fecha from persona where codigo_membresia='".$_GET['id']."'";
 
                         //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
@@ -109,14 +112,15 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de nacimiento <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="fecha" name="fecha" type="text" class="form-control" <?php echo "value='".$rowrp['fecha']."'" ?>  data-inputmask="'mask': '99/99/9999'">
+                          <input id="fecha" name="fecha" type="text" class="form-control" <?php echo "value='".$rowrp['fecha']."'" ?> >
+                         <!--<input id="fecha" name="fecha" type="text" class="form-control"  data-inputmask="'mask': '99/99/9999'"> -->
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button id="cancel" class="btn btn-primary">Cancel</button>
-                          <button id="update"  class="btn btn-success">Submit</button>
+                          <button id="update"  class="btn btn-success">Guardar</button>
                         </div>
                       </div>
 
@@ -124,7 +128,7 @@ include("../clases/class.php");
                   </div>
 
 
-                  <div id="resp"> </div>
+                  
 
 
                 </div>
@@ -199,7 +203,7 @@ include("../footer.php");
              $('#resp').html(data); 
              alert(data);  
                          
-           }
+           } 
        });
     });
 });
@@ -207,7 +211,7 @@ include("../footer.php");
 
 
       $(document).ready(function() {
-        $('#fecha321321').daterangepicker({
+        $('#fecha').daterangepicker({
           singleDatePicker: true,
           calender_style: "picker_4" 
         }, function(start, end, label) {

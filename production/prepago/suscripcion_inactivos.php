@@ -45,19 +45,16 @@ include("../clases/class.php");
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">apellido</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Telefono</th>                           
                            
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>   
-                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de naciemiento</th> 
-                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
-                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th> 
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>     
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Ultima asistencia</th> 
                         </tr>
                       </thead>
 
 
                       <tbody>  
                         <?php
-                        $srpt ="select * from persona";
-                         
-                        //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
+
+                        $srpt ="SELECT t1.*,(select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia ) fecha_registro FROM persona t1 where datediff( sysdate(), (select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia )) > 30";  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -74,10 +71,8 @@ include("../clases/class.php");
                                   echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
                                  echo "<td>".$rowrp['telefono']."</td>";
-                                 echo "<td>".$rowrp['email']."</td>";
-                                 echo "<td>".$rowrp['fecha_nac']."</td>";                                
-                                 echo "<td><a href='actualizar_clientes.php?id=".$rowrp['codigo_membresia']."'>Editar</a></td>";
-                                 echo "<td><a id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_clientes.php?id=".$rowrp['codigo_membresia']."'>Eliminar</a></td>";
+                                 echo "<td>".$rowrp['email']."</td>"; 
+                                 echo "<td>".$rowrp['fecha_registro']."</td>";  
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

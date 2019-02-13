@@ -14,6 +14,7 @@ include("../clases/class.php");
       print_r($sql);
 
 //
+      
     header("Location: /laarena/production/prepago/consultar_clientes.php");
 
  ?>
