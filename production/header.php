@@ -147,6 +147,21 @@ if (isset($_SESSION['usuario'])){
                              
                        </ul>
                    </li>
+
+                     <li>
+                     <a><i class="fa fa-mobile"></i> Campanas <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                           <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="../prepago/envio_campania.php">Envio<span class="fa fa-sort-amount-asc"></span></a>
+                                     
+
+                            </li>
+            
+                             
+                       </ul>
+                   </li>
+
+
                    <li>
                      <a><i class="fa fa-mobile"></i> Clientes <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -162,6 +177,25 @@ if (isset($_SESSION['usuario'])){
                              
                        </ul>
                    </li>
+
+
+                   <li>
+                     <a><i class="fa fa-mobile"></i> Catalogos <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                           <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="#">Promociones<span class="fa fa-sort-amount-asc"></span></a>
+                                    <ul class="nav child_menu"> 
+                                          <li><a tabindex="-1" href="../catalogo/promociones_insert.php">Crear</a></li>
+                                          <li><a tabindex="-1" href="../catalogo/consultar_clientes.php">Editar</a></li>
+                         
+                                    </ul>
+
+                            </li>
+            
+                             
+                       </ul>
+                   </li>
+
         
 				
                 

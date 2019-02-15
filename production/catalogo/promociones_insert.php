@@ -35,13 +35,15 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
+                    <br>
+                     <div id="msj"> </div>
                     <h2>Promociones <small>Creacion de Nuevas Promociones</small></h2>
                      
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" novalidate>
+                    <form  id="form_promocion" class="form-horizontal form-label-left" novalidate>
 
                       <p>Ingrese los datos del formulario <code>Clic en Boton Guardar</code> Para almacenar los cambios en sistema 
                       </p>
@@ -54,14 +56,37 @@ include("../clases/class.php");
                           <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nombre de la promocion" required="required" type="text">
                         </div>
                       </div>
-                      
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Descuento Aplicar <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="number" name="number" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <select name="membresia" class="select2_single form-control" tabindex="-1">
+                             
+                            <option value="1">Mensual</option>
+                            <option value="2">Clase</option>
+                          
+                             
+                          </select>
                         </div>
                       </div>
+
+                      
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cantidad de Clases/Meses <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="number" id="cantidad" name="cantidad" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
+                         <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Precio <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="number" id="precio" name="precio" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
                       
  
 
@@ -69,8 +94,8 @@ include("../clases/class.php");
                        <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Fecha de Inicio <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                           <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                           <input name="f_inicio" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
                           <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                         </div>
                       </div>
@@ -78,8 +103,8 @@ include("../clases/class.php");
                        <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Fecha de Fin <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                           <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                           <input name="f_fin" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
                           <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                         </div>
                       </div>
@@ -90,17 +115,19 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Comentario <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
+                          <textarea id="textarea" required="required" name="comentario" class="form-control col-md-7 col-xs-12"></textarea>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancelar</button>
-                          <button id="send" type="submit" class="btn btn-success">Guardar</button>
-                        </div>
+                        
                       </div>
                     </form>
+
+                    <div class="col-md-6 col-md-offset-3">
+                          <button type="submit" class="btn btn-primary">Cancelar</button>
+                          <button id="send"   class="btn btn-success">Guardar</button>
+                        </div>
                   </div>
                 </div>
               </div>
@@ -117,6 +144,33 @@ include("../footer.php");
 
  <!-- jquery.inputmask -->
     <script>
+
+      
+
+
+  $(document).on('ready',function(){       
+    $('#send').click(function(){
+      //alert("ingres");
+      //ingresa
+        var url = "ingreso_promocion.php";
+        $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: $("#form_promocion").serialize(), 
+           success: function(data)             
+           {
+             $('#msj').html(data);  
+             //  document.getElementById('form_suscripcion').reset();   
+                setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+       }, 3000);    
+
+           }
+       });
+    });
+});
+
+
       $(document).ready(function() {
         $(":input").inputmask();
       });

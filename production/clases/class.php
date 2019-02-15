@@ -314,6 +314,57 @@ if($result==false or $result2==false)
   }
 
 
+public function ingresar_promocion()
+    {
+      
+      $nombre=$_POST['name'];
+      $membresia=$_POST['membresia'];
+      $cantidad=$_POST['cantidad'];
+      $precio=$_POST['precio'];
+      
+      $f_inicio=$_POST['f_inicio'];
+      $f_fin=$_POST['f_fin'];
+      $comentario=$_POST['comentario'];
+       
+      $time = strtotime($f_inicio);
+      $f_inicio = date('Y-m-d',$time);
+
+      $time = strtotime($f_fin);
+      $f_fin = date('Y-m-d',$time);
+
+  $usuario='eduardo.herrera';
+
+     
+
+    $srpt ="INSERT INTO catalogo_promocion (nombre, tipo, cantidad, precio,f_inicio,f_fin, comentario,estado)
+VALUES ('".$nombre."', '".$membresia."', '".$cantidad."', '".$precio."',  '".$f_inicio."', '".$f_fin."', '".$comentario."','1')
+";
+   
+   // echo $srpt;
+   
+   $result=mysqli_query($this->conectar(),$srpt);
+   
+ 
+   
+
+
+$uerror=0;
+if($result==false )
+{
+
+  $uerror=1;
+
+   //if(($errors=mysql_error())!=null){}
+}
+
+   // echo $srpt;
+ return $uerror;
+         
+  
+
+  }
+
+
 
   
 
