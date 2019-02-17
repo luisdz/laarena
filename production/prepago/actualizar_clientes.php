@@ -51,9 +51,9 @@ include("../clases/class.php");
 
                       
 
-                      $srpt="select *, DATE_FORMAT(fecha_nac, \"%m%d%Y\") fecha from persona where codigo_membresia='".$_GET['id']."'";
+                      $srpt="select *, fecha_nac fecha from persona where codigo_membresia='".$_GET['id']."'";
 
-                        //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'";   
+                        //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             $rowrp = mysqli_fetch_array($qsrp)
                       ?>
@@ -213,7 +213,10 @@ include("../footer.php");
       $(document).ready(function() {
         $('#fecha').daterangepicker({
           singleDatePicker: true,
-          calender_style: "picker_4" 
+          calender_style: "picker_4",
+          locale: {
+           format: "YYYY-MM-DD"
+          } 
         }, function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
         });
