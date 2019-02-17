@@ -92,7 +92,7 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['fecha_fin']."</td>";
                                  echo "<td>".$rowrp['cantidad2']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>";
-                                 echo "<td><a href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."'>Registrar asistencias</a></td>";
+                                 echo "<td><a href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'>Registrar asistencias</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

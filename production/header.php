@@ -109,14 +109,7 @@ if (isset($_SESSION['usuario'])){
                                           <li><a tabindex="-1" href="../prepago/registrar_suscripciones.php">Registrar</a></li>   
                                           <li><a tabindex="-1" href="../prepago/consultar_suscripcion.php">Consultar</a></li>                      
                                     </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="test" tabindex="-1" href="#">Consultas<span class="fa fa-sort-amount-asc"></span></a>
-                                    <ul class="nav child_menu">
-                                          <li><a tabindex="-1" href="../prepago/suscripcion_vencimiento.php">Proximos a vencer</a></li>   
-                                          <li><a tabindex="-1" href="../prepago/suscripcion_inactivos.php">Inactivos</a></li>                      
-                                    </ul>
-                            </li>
+                            </li> 
             
                              
                        </ul>
@@ -201,6 +194,11 @@ if (isset($_SESSION['usuario'])){
             
                              
                        </ul>
+                   </li>
+                   <li>
+                     <a href="../prepago/alertas.php"><i class="fa fa-mobile" ></i> Alertas <span class="fa fa-bell-o"></span></a>
+                         
+             
                    </li>
 
         

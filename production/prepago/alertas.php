@@ -1,8 +1,4 @@
-
-
-
 <?php
-// header('refresh:5; Location: /laarena/laarena/registro_asistencias.php');
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -23,41 +19,41 @@ include("../clases/class.php");
              
 
                  <!-- start  --> 
-                    
-                    <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Consultar asistencias</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li> 
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                     
-                     <div class="alert alert-success alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Asistencia registrada!.
-<?php
-                    	$codigo=$_GET['id'];  
-                      $idsuscripcion=$_GET['ids']; 
+                   <?php
+                        $srpt ="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<6";
+                         
+                        //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            //echo $srpt;
+                            $rowrp = mysqli_fetch_array($qsrp); 
 
-$srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
-                              VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
-                                  $qsrp = mysqli_query($db->conectar(),$srpt);
-                                 echo $srpt; 
- 
-  //header( "refresh:2; url=/laarena/production/prepago/registro_asistencias.php" );  
+                            $srpt2 ="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff( sysdate(), (select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia )) > 30";
+                         
+                        //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
+                            $qsrp2 = mysqli_query($db->conectar(),$srpt2);
+                            //echo $srpt;
+                            $rowrp2 = mysqli_fetch_array($qsrp2) 
+                      ?>
+                   
 
-?>
-                  </div>
-                    
-                  </div>
+<div class="row top_tiles">
+
+               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp['cant']?></div>
+                  <a href="suscripcion_vencimiento.php"><h3>Clientes proximos a vencer</h3> </a>
                 </div>
               </div> 
+
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp2['cantidad']?></div>
+                  <a href="suscripcion_inactivos.php"><h3>Clientes inactivos</h3></a>
+                </div>
+              </div>
+              
             </div>
                        
                     <!-- End -->
@@ -78,6 +74,32 @@ include("../footer.php");
 
    
   <script>
+
+$(document).on('ready',function(){       
+    $('#delete').click(function(){
+      //ingresa
+        //var url = "update_clientes.php";
+        //alert("hello");
+        if(!confirm('¿Desea eliminar el cliente?')){
+            e.preventDefault();
+            return false;
+        }
+         alert("si");
+
+       /* $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: $("#update_clientes").serialize(), 
+           success: function(data)             
+           {
+             $('#resp').html(data); 
+             alert(data);  
+                         
+           }
+       });*/
+    });
+});
+
       $(document).ready(function() {
         
         var handleDataTableButtons = function() {
@@ -180,13 +202,5 @@ include("../footer.php");
 
         TableManageButtons.init();
       });
-
-
-document.addEventListener('DOMContentLoaded', function() {
-   setTimeout(function(){// wait for 5 secs(2)
-           window.location.replace("registro_asistencias.php");
-      }, 3000);
-}, false);
-
     </script>
     <!-- /Datatables -->

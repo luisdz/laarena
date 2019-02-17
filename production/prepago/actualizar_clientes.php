@@ -1,10 +1,10 @@
 <?php
 $stonevar = isset($_GET['id']) ? $_GET['id'] : NULL;
 
-                       /* if (empty($stonevar)) {
+                       if (empty($stonevar)) {
                           header("Location: /laarena/production/prepago/consultar_clientes.php");
                           exit();
-                        }*/
+                        }
 ?>
 
 
@@ -101,9 +101,8 @@ include("../clases/class.php");
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div  class="btn-group" data-toggle="buttons">
                           <p>
-                        M:
-                        <input type="radio" class="flat" name="gender" id="genderM" value="Hombre" checked="" required /> F:
-                        <input type="radio" class="flat" name="gender" id="genderF" value="Mujer" />
+                        M:<input type="radio" class="flat" name="gender" value="h" <?php if ($rowrp['genero'] == 'h') {  echo "checked";} ?>  required /> 
+                        F:<input type="radio" class="flat" name="gender" value="m"  <?php if ($rowrp['genero'] == 'm') {  echo "checked";} ?>  required />
                       </p>
                           </div>
                         </div>
@@ -119,8 +118,8 @@ include("../clases/class.php");
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button id="cancel" class="btn btn-primary">Cancel</button>
-                          <button id="update"  class="btn btn-success">Guardar</button>
+                          <button id="cancel"  class="btn btn-primary">Cancel</button>
+                          <button id="update" type="submit" class="btn btn-success">Guardar</button>
                         </div>
                       </div>
 
@@ -138,7 +137,7 @@ include("../clases/class.php");
           </div>
         </div>
         <!-- /page content -->
-
+ <script src="../../vendors/validator/validator.js"></script>
 
 <?php
 include("../footer.php");
@@ -165,13 +164,31 @@ include("../footer.php");
         e.preventDefault();
         var submit = true;
 
-        // evaluate the form using generic validaing
-        if (!validator.checkAll($(this))) {
+        // evaluate the form using generic validaing 
+        if (!validator.checkAll($(this))) { 
           submit = false;
         }
+        var url = "update_clientes.php";
 
         if (submit)
-          this.submit();
+        { 
+          $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data: $("#update_clientes").serialize(), 
+           success: function(data)             
+           {
+             $('#resp').html(data); 
+             alert(data);                          
+           },
+           error: function(){
+                alert("Error"); 
+        }
+
+       })
+
+          //this.submit();
+        }
 
         return false;
       });
@@ -188,12 +205,21 @@ include("../footer.php");
 
 <script>
 
-
+//no valido
   $(document).on('ready',function(){       
-    $('#update').click(function(){
+    $('#update--').click(function(){
       //ingresa
         var url = "update_clientes.php";
         //alert("hello");
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) { 
+          submit = false;
+        }
+
+        if (submit){
+          alert(submit);
         $.ajax({                        
            type: "POST",                 
            url: url,                     
@@ -201,10 +227,18 @@ include("../footer.php");
            success: function(data)             
            {
              $('#resp').html(data); 
-             alert(data);  
-                         
-           } 
-       });
+             alert(data);                          
+           },
+           error: function(){
+                alert("Error"); 
+        }
+
+       });}
+        else
+        {
+          alert("Error: "submit); 
+        }
+
     });
 });
 
