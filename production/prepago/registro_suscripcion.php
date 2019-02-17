@@ -9,8 +9,26 @@ include("../clases/class.php");
  $db = new BaseDatos();
  
   
+ //$promciones=$db->consultarc_promociones();  
  
  
+
+                 
+
+                        $srpt ="SELECT * FROM catalogo_promocion";   
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            //echo $srpt;
+                            if(mysqli_num_rows($qsrp)==0)
+                            {
+                            echo 'Sin resultados';
+                            }
+                            else
+                            {
+                              
+                            }
+                    
+
+
 
 ?>
  
@@ -61,11 +79,22 @@ include("../clases/class.php");
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <select name="membresia" class="select2_single form-control" tabindex="-1">
-                             
-                            <option value="1">Mensual</option>
-                            <option value="2">Clase</option>
-                          
+                          <select id="promociones" name="membresia" class="select2_single form-control" tabindex="-1"
+
+
+
+                          >
+                            <?php 
+                            while ($rowrp = mysqli_fetch_array($qsrp)) 
+                              {
+                                 //     print_r($rowrp);  
+                      
+                        echo "<option value='".$rowrp['id_promocion']."' >".$rowrp['nombre']."</option>"; 
+                  
+                         
+                                 
+                              }
+                              ?>
                              
                           </select>
                         </div>
@@ -91,7 +120,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Monto de Suscripcion $  
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="cuota" name="cuota" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cuota" name="cuota" value="" disabled="disabled" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -99,7 +128,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cantidad meses/clases <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="cantidad" name="cantidad" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cantidad" name="cantidad"  value="" disabled="disabled" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -124,7 +153,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Inicio <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                              <input id="birthday"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                              <input   id="f_inicio"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                             </div>
                           </div>
 
@@ -133,7 +162,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Fin <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                                <input name="f_fin" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                                <input id="f_fin" name="f_fin" value="" type="text" class="form-control" data-inputmask="'mask': '9999-99-99'">
                             </div>
                           </div>
 
@@ -143,7 +172,7 @@ include("../clases/class.php");
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Comentario <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="cm" class="col-md-6 col-sm-6 col-xs-12">
                           <textarea id="comentario" required="required" name="comentario" class="form-control col-md-7 col-xs-12"></textarea>
                         </div>
                       </div>
@@ -158,6 +187,8 @@ include("../clases/class.php");
 
                         </div>
                       </div>
+
+                      <div id="msj"></div>
                   
                   </div>
                 </div>
@@ -175,6 +206,45 @@ include("../footer.php");
 
 
 <script>
+
+  $( "#promociones" ).change(function() {
+  //alert( "Handler for .change() called." );
+
+   
+ //alert();
+      var url = "datos_promociones.php";
+        $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data:  {f_inicio:$("#f_inicio").val(),seleccionado:$('select[name=membresia]').val()}, 
+           success: function(data)             
+           {
+
+            //alert('asdjashd');
+            $('#msj').html(data);  
+
+            //var cantidad=data.cantidad;
+            //console.log(JSON.stringify(data));
+             console.log(cantidad);
+             console.log(data.precio);
+
+          // $("#msj").html("Servidor:<br><pre>"+JSON.stringify(data, null, 2)+"</pre>");
+    
+             console.log(data.f_fin);
+             //  console.log($("#f_inicio").val());
+               $("#cuota").val(data.precio);
+               $("#cantidad").val(data.cantidad);
+               $("#f_fin").val(data.f_fin);
+
+               
+
+           }
+       });
+
+
+});
+ 
+
 
 
   $(document).on('ready',function(){       
@@ -201,11 +271,15 @@ include("../footer.php");
 
 
     $(document).ready(function() {
-        $('#birthday').daterangepicker({
+        $('#f_inicio').daterangepicker({
           singleDatePicker: true,
-          calender_style: "picker_4"
+    
+           
+          locale: {
+      format: 'YYYY-MM-DD'
+    }
         }, function(start, end, label) {
-          console.log(start.toISOString(), end.toISOString(), label);
+          console.log(start.toISOString(),start.format('DD/MM/YYYY'),end.format('DD/MM/YYYY'), end.toISOString(), label);
         });
       });
 

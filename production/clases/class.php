@@ -372,6 +372,29 @@ if($result==false )
 
 
 
+
+    public function consultarc_promociones()
+{         
+    $srpt ="SELECT * FROM catalogo_promocion";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->resultado[] = $rowrp;
+      }
+
+         return $this->resultado;
+    }
+  }
+
+
+
   
 
 
