@@ -205,42 +205,7 @@ include("../footer.php");
 
 <script>
 
-//no valido
-  $(document).on('ready',function(){       
-    $('#update--').click(function(){
-      //ingresa
-        var url = "update_clientes.php";
-        //alert("hello");
-        var submit = true;
 
-        // evaluate the form using generic validaing
-        if (!validator.checkAll($(this))) { 
-          submit = false;
-        }
-
-        if (submit){
-          alert(submit);
-        $.ajax({                        
-           type: "POST",                 
-           url: url,                     
-           data: $("#update_clientes").serialize(), 
-           success: function(data)             
-           {
-             $('#resp').html(data); 
-             alert(data);                          
-           },
-           error: function(){
-                alert("Error"); 
-        }
-
-       });}
-        else
-        {
-          alert("Error: "submit); 
-        }
-
-    });
-});
 
 
 
