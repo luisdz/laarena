@@ -52,16 +52,19 @@ include("../clases/class.php");
                       </a>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                         <a tabindex="-1" href="../prepago/registrar_suscripciones.php">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-cc-visa"></i>
                           </div>
-                          <div class="count">Pagos</div>
+                          <div class="count">Suscripcion</div>
 
                           <h3>Registros</h3>
-                          <p>Pago de Membresia.</p>
+                          <p>Nueva o Renovacion.</p>
                         </div>
+                      </a>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a tabindex="-1" href="../prepago/registrar_suscripciones.php">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-bar-chart"></i>
                           </div>
@@ -70,6 +73,7 @@ include("../clases/class.php");
                           <h3>Consultas</h3>
                           <p>Clientes, Ingresos...</p>
                         </div>
+                      </a>
                       </div>
                     </div>
 

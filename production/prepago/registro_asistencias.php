@@ -43,16 +43,16 @@ include("../clases/class.php");
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo Membresia</th>
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Nombre</th>
                               <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Apellido</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Promocion</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Promocion</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 100px;">Monto Pagado</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad Meses/Clases</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Tipo Membresia</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha inicio</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha fin</th>                               
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Asistencias</th>    
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Asistencias</th>    
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Comentario</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
+                         
                         </tr>
                       </thead>
 
@@ -88,12 +88,17 @@ include("../clases/class.php");
                                      echo "<td>Clases</td>";
                                     break;
                                     
+                                    default:
+                                    echo "<td></td>";  
+
+
+                                    
                                  }   
                                  echo "<td>".$rowrp['fecha_inicio']."</td>";
                                  echo "<td>".$rowrp['fecha_fin']."</td>";
                                  echo "<td>".$rowrp['cantidad2']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>";
-                                 echo "<td><a href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'>Registrar asistencias</a></td>";
+                                
                                  echo "<td><a href='nueva_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'>Registrar asistencias</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;

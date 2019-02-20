@@ -54,8 +54,8 @@ include("../clases/class.php");
                       $srpt="select *, fecha_nac fecha from persona where codigo_membresia='".$_GET['id']."'";
 
 
-                      $srpt ="SELECT t1.codigo_membresia,t1.idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin,t1.fecha_registro, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM asistencia_log t1 inner join suscripcion t2 on t1.idsuscripcion=t2.id_suscripcion inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t1.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
-
+                      $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
+//echo $srpt;
                         //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             $rowrp = mysqli_fetch_array($qsrp); 
