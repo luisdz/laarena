@@ -120,7 +120,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Monto de Suscripcion $  
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="cuota" name="cuota" value="" disabled="disabled" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cuota" name="cuota" value=""  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -128,7 +128,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cantidad meses/clases <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="cantidad" name="cantidad"  value="" disabled="disabled" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cantidad" name="cantidad"  value=""  required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 

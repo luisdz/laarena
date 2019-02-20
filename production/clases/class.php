@@ -284,7 +284,7 @@ public function ingresar_suscripcion()
 VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$tipo_pago."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')
 ";
    
-    
+  // echo 'srpt';
    
    $result=mysqli_query($this->conectar(),$srpt);
    

@@ -22,9 +22,12 @@ include("../clases/class.php");
  //echo $cadena_nuevo_formato;
  //echo date_format($date, 'd/m/Y H:i:s');
 
-                 
+    // $tipo_promocion=$_POST['promocion'];            
 
-        $srpt ="SELECT a.*, date_format(date_add('".$_POST['f_inicio']."',INTERVAL 3 MONTH),'%Y/%m/%d') f_fin FROM catalogo_promocion  a where id_promocion=".$_POST['seleccionado']."";   
+        $srpt ="SELECT a.*, 
+
+         case when tipo=1 then date_format(date_add('".$_POST['f_inicio']."',INTERVAL cantidad MONTH),'%Y/%m/%d') else date_format(date_add('".$_POST['f_inicio']."',INTERVAL 3 MONTH),'%Y/%m/%d') end as f_fin 
+         FROM catalogo_promocion  a where id_promocion=".$_POST['seleccionado']."";   
                        $qsrp = mysqli_query($db->conectar(),$srpt);
                            //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
