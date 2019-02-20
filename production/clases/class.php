@@ -171,7 +171,7 @@ public function actualizar_clientes()
       $fecha_nacimiento = date('Y-m-d',$time);
 
 
-      $sql = "UPDATE `persona` SET `nombre`=\"".$nombre."\",`apellido`=\"".$apellido."\",`telefono`=".$telefono.",`email`=\"".$email."\",`fecha_nac`=\"".$fecha_nacimiento."\",`genero`=\"Hombre\" WHERE codigo_membresia=\"".$codigo."\"";
+      $sql = "UPDATE `persona` SET `nombre`=\"".$nombre."\",`apellido`=\"".$apellido."\",`telefono`=".$telefono.",`email`=\"".$email."\",`fecha_nac`=\"".$fecha_nacimiento."\",`genero`=\"".$genero."\" WHERE codigo_membresia=\"".$codigo."\"";
 
       $qsrp = mysqli_query($this->conectar(),$sql);
 

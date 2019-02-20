@@ -41,8 +41,12 @@ include("../clases/class.php");
                       <thead>
                         <tr role="row">
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Nombre</th>
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Apellido</th>
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Tipo</th>
                             
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha</th> 
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha asistencia</th> 
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Fecha vencimiento</th>
                         </tr>
                       </thead>
 
@@ -53,7 +57,8 @@ include("../clases/class.php");
                      
                         <?php
 
-                        $srpt ="SELECT * FROM asistencia_log";   
+                        $srpt ="SELECT t1.codigo_membresia,t1.idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin,t1.fecha_registro, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM asistencia_log t1 inner join suscripcion t2 on t1.idsuscripcion=t2.id_suscripcion inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t1.fecha_registro >= DATE_FORMAT(STR_TO_DATE(concat(\"01/\",month(sysdate()),\"/\", YEAR(sysdate())  ), \"%d/%m/%Y\"), \"%Y-%m-%d\")";
+
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -67,7 +72,11 @@ include("../clases/class.php");
                                  //     print_r($rowrp);  
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>"; 
-                                 echo "<td>".$rowrp['fecha_registro']."</td>";
+                                 echo "<td>".$rowrp['nombre']."</td>"; 
+                                 echo "<td>".$rowrp['apellido']."</td>"; 
+                                 echo "<td>".$rowrp['tipo']."</td>"; 
+                                 echo "<td>".$rowrp['fecha_registro']."</td>"; 
+                                 echo "<td>".$rowrp['fecha_fin']."</td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

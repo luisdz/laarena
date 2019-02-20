@@ -2,7 +2,7 @@
 $stonevar = isset($_GET['id']) ? $_GET['id'] : NULL;
 
                        if (empty($stonevar)) {
-                          header("Location: /laarena/production/prepago/consultar_clientes.php");
+                          header("Location: /laarena/production/prepago/registro_asistencias.php");
                           exit();
                         }
 ?>
@@ -53,6 +53,9 @@ include("../clases/class.php");
 
                       $srpt="select *, fecha_nac fecha from persona where codigo_membresia='".$_GET['id']."'";
 
+
+                      $srpt ="SELECT t1.codigo_membresia,t1.idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin,t1.fecha_registro, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM asistencia_log t1 inner join suscripcion t2 on t1.idsuscripcion=t2.id_suscripcion inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t1.codigo_membresia='".$_GET['id']."'";
+
                         //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             $rowrp = mysqli_fetch_array($qsrp)
@@ -73,53 +76,30 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre">Nombre<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="nombre" name="nombre" required="required" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['nombre']."'" ?>>
+                          <input type="text" id="nombre" name="nombre" required="required" readonly class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['nombre']."'" ?>>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apellido">Apellido<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="apellido" name="apellido" required="required" <?php echo "value='".$rowrp['apellido']."'" ?> class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="apellido" name="apellido" required="required" readonly <?php echo "value='".$rowrp['apellido']."'" ?> class="form-control col-md-7 col-xs-12">
                         </div>
-                      </div>
+                      </div>  
                       <div class="form-group">
-                        <label for="telefono" class="control-label col-md-3 col-sm-3 col-xs-12">Telefono</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="telefono" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['telefono']."'" ?> type="text" name="telefono">
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de vencimiento <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="email" id="email" name="email" required="required" <?php echo "value='".$rowrp['email']."'" ?> class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Genero</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div  class="btn-group" data-toggle="buttons">
-                          <p>
-                        M:<input type="radio" class="flat" name="gender" value="h" <?php if ($rowrp['genero'] == 'h') {  echo "checked";} ?>  required /> 
-                        F:<input type="radio" class="flat" name="gender" value="m"  <?php if ($rowrp['genero'] == 'm') {  echo "checked";} ?>  required />
-                      </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de nacimiento <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="fecha" name="fecha" type="text" class="form-control" <?php echo "value='".$rowrp['fecha']."'" ?> >
+                          <input id="fecha" name="fecha" type="text" readonly class="form-control" <?php echo "value='".$rowrp['fecha_fin']."'" ?> >
                          <!--<input id="fecha" name="fecha" type="text" class="form-control"  data-inputmask="'mask': '99/99/9999'"> -->
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button id="cancel"  class="btn btn-primary">Cancel</button>
-                          <button id="update" type="submit" class="btn btn-success">Guardar</button>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
+                          <?php 
+                          echo "<a class='btn btn-round btn-primary' href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['idsuscripcion']."'>Registrar asistencias</a>";
+                          ?>
                         </div>
                       </div>
 
@@ -145,6 +125,8 @@ include("../footer.php");
  
 ?>
 
+
+
  <!-- validator -->
     <script>
       // initialize the validator function
@@ -160,38 +142,7 @@ include("../footer.php");
         validator.checkField.apply($(this).siblings().last()[0]);
       });
 
-      $('form').submit(function(e) {
-        e.preventDefault();
-        var submit = true;
-
-        // evaluate the form using generic validaing 
-        if (!validator.checkAll($(this))) { 
-          submit = false;
-        }
-        var url = "update_clientes.php";
-
-        if (submit)
-        { 
-          $.ajax({                        
-           type: "POST",                 
-           url: url,                     
-           data: $("#update_clientes").serialize(), 
-           success: function(data)             
-           {
-             $('#resp').html(data); 
-             alert(data);                          
-           },
-           error: function(){
-                alert("Error"); 
-        }
-
-       })
-
-          //this.submit();
-        }
-
-        return false;
-      });
+     
     </script>
     <!-- /validator -->
  
@@ -205,42 +156,7 @@ include("../footer.php");
 
 <script>
 
-//no valido
-  $(document).on('ready',function(){       
-    $('#update--').click(function(){
-      //ingresa
-        var url = "update_clientes.php";
-        //alert("hello");
-        var submit = true;
-
-        // evaluate the form using generic validaing
-        if (!validator.checkAll($(this))) { 
-          submit = false;
-        }
-
-        if (submit){
-          alert(submit);
-        $.ajax({                        
-           type: "POST",                 
-           url: url,                     
-           data: $("#update_clientes").serialize(), 
-           success: function(data)             
-           {
-             $('#resp').html(data); 
-             alert(data);                          
-           },
-           error: function(){
-                alert("Error"); 
-        }
-
-       });}
-        else
-        {
-          alert("Error: "submit); 
-        }
-
-    });
-});
+ 
 
 
 
