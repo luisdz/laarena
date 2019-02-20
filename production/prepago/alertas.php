@@ -38,17 +38,17 @@ include("../clases/class.php");
 
 <div class="row top_tiles">
 
-               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+               <div class="col-md-6">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-bell-o"></i></div>
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
                   <div class="count"><?php echo  $rowrp['cant']?></div>
                   <a href="suscripcion_vencimiento.php"><h3>Clientes proximos a vencer</h3> </a>
                 </div>
               </div> 
 
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="col-md-6">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-bell-o"></i></div>
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
                   <div class="count"><?php echo  $rowrp2['cantidad']?></div>
                   <a href="suscripcion_inactivos.php"><h3>Clientes inactivos</h3></a>
                 </div>

@@ -39,22 +39,37 @@ include("../clases/class.php");
                      
                      <div class="alert alert-success alert-dismissible fade in" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Asistencia registrada!.
+                    </button> 
 <?php
                     	$codigo=$_GET['id'];  
                       $idsuscripcion=$_GET['ids']; 
-
-$srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
+                      $sql_fechafin="select datediff(max(fecha_fin),sysdate()) dif from suscripcion where id_suscripcion=".$idsuscripcion." and codigo_membresia=\"".$codigo."\"";                     
+                      $query01 = mysqli_query($db->conectar(),$sql_fechafin); 
+                      $result01 = mysqli_fetch_array($query01) ;
+                      if ( intval($result01['dif'])>=0) {
+                        $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
                               VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
-                                  $qsrp = mysqli_query($db->conectar(),$srpt);
-                                 echo $srpt; 
+                                  $qsrp = mysqli_query($db->conectar(),$srpt); 
+                                  echo '<strong>Asistencia registrada!.</strong>';                        
+                      }
+                      else
+                      {
+                                  echo '<strong>Error!.'.$result01['dif'].' </strong>';
+                      }
+
+
+                              
+                                  
  
   //header( "refresh:2; url=/laarena/production/prepago/registro_asistencias.php" );  
 
 ?>
                   </div>
-                    
+                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
+                          <?php 
+                          echo "<a class='btn btn-round btn-primary' href='registro_asistencias.php'>Volver</a>";
+                          ?>
+                        </div>
                   </div>
                 </div>
               </div> 
@@ -184,7 +199,7 @@ include("../footer.php");
 
 document.addEventListener('DOMContentLoaded', function() {
    setTimeout(function(){// wait for 5 secs(2)
-           window.location.replace("registro_asistencias.php");
+           //window.location.replace("registro_asistencias.php");
       }, 3000);
 }, false);
 

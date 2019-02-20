@@ -24,7 +24,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar asistencias <small>Usuarios</small></h2>
+                    <h2>Consultar asistencias <small>Clientes</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> 
@@ -60,7 +60,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT a.*,(select count(*) from asistencia_log where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia";   
+                        $srpt ="SELECT a.*,(select count(*) from asistencia_log where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia where a.fecha_fin >=sysdate()";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)

@@ -37,7 +37,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Actualizar <small>Clientes</small></h2>
+                    <h2>Asistecias <small>Clientes</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>  
@@ -54,11 +54,11 @@ include("../clases/class.php");
                       $srpt="select *, fecha_nac fecha from persona where codigo_membresia='".$_GET['id']."'";
 
 
-                      $srpt ="SELECT t1.codigo_membresia,t1.idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin,t1.fecha_registro, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM asistencia_log t1 inner join suscripcion t2 on t1.idsuscripcion=t2.id_suscripcion inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t1.codigo_membresia='".$_GET['id']."'";
+                      $srpt ="SELECT t1.codigo_membresia,t1.idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin,t1.fecha_registro, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM asistencia_log t1 inner join suscripcion t2 on t1.idsuscripcion=t2.id_suscripcion inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t1.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
 
                         //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
-                            $rowrp = mysqli_fetch_array($qsrp)
+                            $rowrp = mysqli_fetch_array($qsrp); 
                       ?>
 
 
