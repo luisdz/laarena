@@ -95,7 +95,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Fecha de Inicio <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                           <input name="f_inicio" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                           <input name="f_inicio" type="text" class="form-control" data-inputmask="'mask': '9999/99/99'">
                           <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                         </div>
                       </div>
@@ -104,7 +104,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Fecha de Fin <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                           <input name="f_fin" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                           <input name="f_fin" type="text" class="form-control" data-inputmask="'mask': '9999/99/99'">
                           <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                         </div>
                       </div>
