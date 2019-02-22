@@ -20,7 +20,7 @@ include("../clases/class.php");
 
                  <!-- start  --> 
                    <?php
-                        $srpt ="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<6";
+                        $srpt ="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<90";
                          
                         //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
@@ -51,6 +51,20 @@ include("../clases/class.php");
                   <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
                   <div class="count"><?php echo  $rowrp2['cantidad']?></div>
                   <a href="suscripcion_inactivos.php"><h3>Clientes inactivos</h3></a>
+                </div>
+              </div>
+               <div class="col-md-6">
+                <div class="tile-stats">
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp2['cantidad']?></div>
+                  <a href="suscripcion_inactivos.php"><h3>Clientes Suscripcion Vencida</h3></a>
+                </div>
+              </div>
+               <div class="col-md-6">
+                <div class="tile-stats">
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp2['cantidad']?></div>
+                  <a href="suscripcion_inactivos.php"><h3>Otros</h3></a>
                 </div>
               </div>
               

@@ -1,5 +1,5 @@
 <?php
-print_r($_POST);
+//print_r($_POST);
 
 
 include("../clases/class.php");

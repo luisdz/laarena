@@ -60,9 +60,13 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT a.*,(select count(*) from asistencia_log where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia where a.fecha_fin >=sysdate()";   
+                        $srpt ="SELECT a.*,d.tipo , (select count(*) from asistencia_log 
+                        where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido
+                         FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia   
+                          inner join catalogo_promocion d on a.tipo_membresia=d.id_promocion
+                         where a.fecha_fin >=sysdate()";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
-                            //echo $srpt;
+                           // echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
                             {
                             echo 'Sin resultados';
@@ -80,7 +84,7 @@ include("../clases/class.php");
                                  echo "<td> $ ".$rowrp['cuota']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
                                  
-                                 switch ($rowrp['tipo_membresia']) {
+                                 switch ($rowrp['tipo']) {
                                    case 1:
                                       echo "<td>Mensual</td>";
                                      break;

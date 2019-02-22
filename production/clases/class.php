@@ -175,7 +175,7 @@ public function actualizar_clientes()
 
       $qsrp = mysqli_query($this->conectar(),$sql);
 
-      echo  $sql ;
+      echo  'Registros Actualizados Con Exito' ;
 
 
 

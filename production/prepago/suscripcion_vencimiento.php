@@ -55,7 +55,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT t2.*, max(t1.fecha_fin) fecha_fin  FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<6 group by t2.nombre,t2.apellido,t2.telefono,t2.email,t2.fecha_nac,t2.codigo_membresia";  
+                        $srpt ="SELECT t2.*, max(t1.fecha_fin) fecha_fin  FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<90 group by t2.nombre,t2.apellido,t2.telefono,t2.email,t2.fecha_nac,t2.codigo_membresia";  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
