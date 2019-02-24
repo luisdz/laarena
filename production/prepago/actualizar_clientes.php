@@ -37,11 +37,11 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Actualizar <small>Clientes</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>  
-                    </ul>
+                    <h2>Actualizar <small>Clientes</small></h2> 
+                    <br>
+                    <br>
+                    <br>
+                     <div id="msj"> </div>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -178,8 +178,8 @@ include("../footer.php");
            data: $("#update_clientes").serialize(), 
            success: function(data)             
            {
-             $('#resp').html(data); 
-             alert(data);                          
+             $('#msj').html(data); 
+             //alert(data);                          
            },
            error: function(){
                 alert("Error"); 

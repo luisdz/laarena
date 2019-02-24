@@ -24,11 +24,10 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar asistencias <small>Clientes</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li> 
-                    </ul>
+                    <h2>Consultar asistencias <small>Clientes</small></h2> 
+                    <br>
+                    <br>
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -64,7 +63,7 @@ include("../clases/class.php");
                         where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido
                          FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia   
                           inner join catalogo_promocion d on a.tipo_membresia=d.id_promocion
-                         where a.fecha_fin >=sysdate()";   
+                         ";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                            // echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -103,12 +102,12 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['cantidad2']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>";
                                 
-                                 echo "<td><a href='nueva_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'>Registrar asistencias</a></td>";
+                                 echo "<td><a class='green' href='nueva_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'><i class='fa fa-check-square green'></i> Registrar asistencias</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
                             }
-                      ?>
+                      ?> 
                       </tbody>
                     </table></div></div>
 

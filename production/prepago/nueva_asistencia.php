@@ -47,11 +47,8 @@ include("../clases/class.php");
                   <div class="x_content">
                     <br />
                     <form id="update_clientes" data-parsley-validate class="form-horizontal form-label-left">
-                      <?php
+                      <?php                     
 
-                      
-
-                      $srpt="select *, fecha_nac fecha from persona where codigo_membresia='".$_GET['id']."'";
 
 
                       $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";

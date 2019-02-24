@@ -7,5 +7,34 @@ include("../clases/class.php");
  
 $ingresar=$db->actualizar_clientes();   
 
+if($ingresar==0){
+
+ echo '
+
+  <div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Datos guardados con Exito </strong> Los datos del cliente se han actualizado.
+                  </div>
+
+
+ ';
+
+}
+else{
+
+echo '
+
+  <div id="resp" class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Error en el ingreso</strong> La datos NO se han actualizado.
+                  </div>
+
+
+ ';
+
+
+}
 
  ?>

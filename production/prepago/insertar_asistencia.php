@@ -2,7 +2,7 @@
 
 
 <?php
-// header('refresh:5; Location: /laarena/laarena/registro_asistencias.php');
+header('refresh:5; Location: /laarena/laarena/registro_asistencias.php');
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -54,7 +54,10 @@ include("../clases/class.php");
                       }
                       else
                       {
-                                  echo '<strong>Error!.'.$result01['dif'].' </strong>';
+                                  $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
+                              VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
+                                  $qsrp = mysqli_query($db->conectar(),$srpt); 
+                                  echo '<strong>Asistencia registrada!.</strong>';
                       }
 
 
@@ -65,11 +68,61 @@ include("../clases/class.php");
 
 ?>
                   </div>
+
+                  <form id="update_clientes" data-parsley-validate class="form-horizontal form-label-left">
+                      <?php                     
+
+
+
+                      $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
+//echo $srpt;
+                        //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            $rowrp = mysqli_fetch_array($qsrp); 
+                      ?>
+
+
+
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="id">Codigo<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="id" name="id" required="required" readonly="readonly" <?php echo "value='".$_GET['id']."'"   ?>  class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre">Nombre<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="nombre" name="nombre" required="required" readonly class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['nombre']."'" ?>>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apellido">Apellido<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="apellido" name="apellido" required="required" readonly <?php echo "value='".$rowrp['apellido']."'" ?> class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>  
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de vencimiento <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="fecha" name="fecha" type="text" readonly class="form-control" <?php echo "value='".$rowrp['fecha_fin']."'" ?> >
+                         <!--<input id="fecha" name="fecha" type="text" class="form-control"  data-inputmask="'mask': '99/99/9999'"> -->
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div> 
+
+                    </form>
+
                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
                           <?php 
-                          echo "<a class='btn btn-round btn-primary' href='registro_asistencias.php'>Volver</a>";
+                          echo "<a name='volver' id='volver' class='btn btn-round btn-primary' href='registro_asistencias.php'>Volver</a>";
                           ?>
-                        </div>
+                     </div>
                   </div>
                 </div>
               </div> 
@@ -90,7 +143,15 @@ include("../footer.php");
  
 ?>
  
+<script>
+      
 
+      $( document ).ready(function() { 
+        setTimeout(function() {
+    window.location.href= 'registro_asistencias.php';
+}, 3000);
+});
+    </script>
    
   <script>
       $(document).ready(function() {
@@ -195,13 +256,7 @@ include("../footer.php");
 
         TableManageButtons.init();
       });
-
-
-document.addEventListener('DOMContentLoaded', function() {
-   setTimeout(function(){// wait for 5 secs(2)
-           //window.location.replace("registro_asistencias.php");
-      }, 3000);
-}, false);
+ 
 
     </script>
     <!-- /Datatables -->
