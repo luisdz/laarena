@@ -1,3 +1,5 @@
+
+
 <?php
 include("../header.php");
 //include("../page_content.php");
@@ -32,7 +34,29 @@ include("../clases/class.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                   
+                   <div id="msj"> 
+                        <?php
+                        $stonevar = isset($_GET['code']) ? $_GET['code'] : 0;                     
+                        if($stonevar==201)
+                         {
+                           echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>Se elimino cliente con exito</strong> 
+                                          </div>';
+                         }
+                         else if ($stonevar==101)
+                         {
+                           echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>No se pudo eliminar</strong> Cliente posee suscripcion activa
+                                          </div>';
+                         } 
+                        ?>
+
+
+                   </div>
                     <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                       
                           <div class="row">
@@ -116,11 +140,11 @@ $(document).on('ready',function(){
       //ingresa
         //var url = "update_clientes.php";
         //alert("hello");
-        if(!confirm('¿Desea eliminar el cliente?')){
-            e.preventDefault();
-            return false;
-        }
-         alert("si");
+        //if(!confirm('¿Desea eliminar el cliente?')){
+        //    e.preventDefault();
+       //     return false;
+       // }
+         //alert("si");
 
        /* $.ajax({                        
            type: "POST",                 

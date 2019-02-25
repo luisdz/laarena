@@ -99,7 +99,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha Nacimiento <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                               <input name="fecha_nacimiento" type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                               <input name="fecha_nacimiento" type="text" class="form-control" data-inputmask="'mask': '9999-99-99'">
                             </div>
                           </div>
 

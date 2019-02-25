@@ -5,16 +5,29 @@ include("../clases/class.php");
  $db = new BaseDatos();
 
 
-  $codigo=$_GET['id'];;
+  $codigo=$_GET['id'];
 
-      $sql = "delete from persona where codigo_membresia='".$codigo."'";
+  $sql2="select count(*) c from suscripcion where codigo_membresia='".$codigo."'"." and estado=1";
+  $qsrp2 = mysqli_query($db->conectar(),$sql2);
+  $rowrp = mysqli_fetch_array($qsrp2);
+ if($rowrp['c']==0)
+ {
+ 	$sql = "delete from persona where codigo_membresia='".$codigo."'";
       $qsrp = mysqli_query($db->conectar(),$sql);
+      //print_r("elimino");
+    header("Location: /laarena/production/prepago/consultar_clientes.php?code=201");
+ }
+ else
+ { 
+    header("Location: /laarena/production/prepago/consultar_clientes.php?code=101");
+ }
 
 
-      print_r($sql);
+
+
+     // print_r($sql2);
 
 //
       
-    header("Location: /laarena/production/prepago/consultar_clientes.php");
 
  ?>

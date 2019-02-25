@@ -234,15 +234,14 @@ public function ingresar_clientes()
     $srpt ="INSERT INTO persona (nombre, apellido, telefono, email,fecha_nac,genero,codigo_membresia)
 VALUES ('".$nombre."', '".$apellido."', '".$telefono."', '".$email."', '".$fecha_nacimiento."', 
 '".$genero."', 
-'".$codigo_membresia."')";
-   
+'".$codigo_membresia."')"; 
    
    $respuesta1=mysqli_query($this->conectar(),$srpt);
     //echo $srpt;
     //insert  para datos de membresia
 
       $srpt2 ="INSERT INTO membresia (codigo_membresia, nivel, medio_conocio, fecha_inicio)
-VALUES ('".$codigo_membresia."','".$nivel."', '".$medio_conocio."',   '".$f_inicio."')";
+VALUES ('".$codigo_membresia."','".$nivel."', '".$medio_conocio."',   '".$f_inicio."')"; 
    
      $respuesta2=mysqli_query($this->conectar(),$srpt2);
     // echo $srpt2;
@@ -284,27 +283,27 @@ public function ingresar_suscripcion()
 VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."', '".$tipo_pago."', '".$membresia."', '".$f_inicio."', '".$f_fin."', '".$comentario."','1')
 ";
    
-  // echo 'srpt';
+  //echo $srpt;
    
    $result=mysqli_query($this->conectar(),$srpt);
    
 
-      $lastid ="select max(id_suscripcion) correlativom from suscripcion";
-      $respuesta1=mysqli_query($this->conectar(),$lastid); 
-      $rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
-      $lastm=$rowrp['correlativom'];
+      //$lastid ="select max(id_suscripcion) correlativom from suscripcion";
+      //$respuesta1=mysqli_query($this->conectar(),$lastid); 
+      //$rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
+      //$lastm=$rowrp['correlativom'];
     
 
 //registrar el pago realizado
-    $srpt2 ="INSERT INTO pago (id_suscripcion, monto, usuario_registro)
-VALUES ('".$lastm."', '".$cuota."', '".$usuario."')";
+   // $srpt2 ="INSERT INTO pago (id_suscripcion, monto, usuario_registro)
+//VALUES ('".$lastm."', '".$cuota."', '".$usuario."')";
 
- $result2=mysqli_query($this->conectar(),$srpt2);
+// $result2=mysqli_query($this->conectar(),$srpt2);
    
 
 
 $uerror=0;
-if($result==false or $result2==false)
+if($result==false )
 {
 
   $uerror=1;
