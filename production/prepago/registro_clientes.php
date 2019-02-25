@@ -68,7 +68,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Telefono <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="10,1000000" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="telefono" name="telefono" required="required" data-validate-minmax="9999999,99999999" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -99,7 +99,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha Nacimiento <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                               <input name="fecha_nacimiento" type="text" class="form-control" data-inputmask="'mask': '9999-99-99'">
+                               <input name="fecha_nacimiento" type="text" class="form-control" required data-inputmask="'mask': '9999-99-99'">
                             </div>
                           </div>
 
@@ -138,7 +138,7 @@ include("../clases/class.php");
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de suscripcion <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-12">
-                              <input id="birthday"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                              <input id="birthday"  name="f_inicio"  class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                             </div>
                           </div>
 
@@ -169,7 +169,7 @@ include("../footer.php");
 
  
 ?>
-
+ <script src="../../vendors/validator/validator.js"></script>
  <!-- validator -->
     <script>
       // initialize the validator function
@@ -217,18 +217,27 @@ include("../footer.php");
     $('.buttonFinish').click(function(){
       //ingresa
         var url = "ingreso_clientes.php";
-        $.ajax({                        
+        var submit = true;
+        if (!validator.checkAll($('form'))) {
+          submit = false;
+        }
+        //alert($('form'));
+        if(submit)
+        {
+          $.ajax({                        
            type: "POST",                 
            url: url,                     
            data: $("#registro_clientes").serialize(), 
            success: function(data)             
            {
              $('#resp').html(data);   
-             setTimeout(function(){// wait for 5 secs(2)
-           location.reload(); // then reload the page.(3)
-      }, 3000);            
+              //setTimeout(function(){// wait for 5 secs(2)
+            //  location.reload(); // then reload the page.(3)
+              //}, 3000);            
            }
        });
+        }
+        
     });
 });
 
