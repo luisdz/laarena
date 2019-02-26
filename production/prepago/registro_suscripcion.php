@@ -27,7 +27,21 @@ include("../clases/class.php");
                               
                             }
                     
+//obtener la ultima suscripcion vencida del cliente y mostrar, tambien mostrar la cantidad de asistencias
+    $srpt2 ="SELECT c.nombre nombre_persona ,b.nombre, fecha_inicio, fecha_fin , case when a.estado=2 then 'Vencida' end estado,
+ (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad 
+FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promocion 
+                  left join persona c on a.codigo_membresia=c.codigo_membresia
+        
+     where a.estado=2 and a.codigo_membresia='".$_GET['idmembresia']."' order by fecha_fin desc limit 1
+    ";   
+         // echo $srpt2;
+                         $qsrp2 = mysqli_query($db->conectar(),$srpt2);     
 
+                          
+                         $result=mysqli_fetch_array($qsrp2);
+                         //print_r($result);
+                                 
 
 
 ?>
@@ -52,7 +66,7 @@ include("../clases/class.php");
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-9 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2> <small>Registro de suscripciones</small></h2>
@@ -132,7 +146,7 @@ include("../clases/class.php");
                         </div>
                       </div>
 
-                      <div class="form-group">
+                      <div hidden="hidden" class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Pago</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                           <select name="tipo_pago" class="select2_single form-control" tabindex="-1">
@@ -191,8 +205,61 @@ include("../clases/class.php");
                       <div id="msj"></div>
                   
                   </div>
+
+
+
+
+
                 </div>
               </div>
+
+
+                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel fixed_height_390">
+                          <div class="x_content">
+
+                            <div class="flex">
+                              <ul class="list-inline widget_profile_box">
+                                <li>
+                                  <a>
+                                    <i class="fa fa-warning"></i>
+                                  </a>
+                                </li>
+                                <li>
+                                  <img src="../images/user.png" alt="..." class="img-circle profile_img">
+                                </li>
+                                <li>
+                                  <a>
+                                    <i class="fa fa-calendar-o"></i>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+
+                            <h3 class="name"><?php  echo $result['nombre_persona']; ?></h3>
+
+                            <div class="flex">
+                              <ul class="list-inline count2">
+                                <li>
+                                  <h4><?php  echo $result['nombre']; ?></h3>
+                                  <span>Promocion</span>
+                                </li>
+                                <li>
+                                  <h4><?php  echo $result['fecha_fin']; ?></h3>
+                                  <span>Fecha Fin</span>
+                                </li>
+                                <li>
+                                  <h1><?php  echo $result['cantidad']; ?></h3>
+                                  <span>Asistencias</span>
+                                </li>
+                              </ul>
+                            </div>
+                            <p>
+                              Detalles de ultima suscripcion vencida
+                            </p>
+                          </div>
+                        </div>
+                      </div>
             </div>
           </div>
         </div>

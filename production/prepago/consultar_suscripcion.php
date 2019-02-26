@@ -45,11 +45,13 @@ include("../clases/class.php");
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Apellido</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Promocion</th> 
                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Tipo Suscripcion</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Cantidad Meses/Clases</th>  
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Promocion</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Cantidad</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  ">Precio</th>   
                            
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Fecha inicio</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Fecha fin</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Estado</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Comentario</th>   
                         </tr>
                       </thead>
@@ -62,8 +64,12 @@ include("../clases/class.php");
 case 
 when tipo=1 then 'Mensual'
 when tipo=2 then 'Clases'
-end as tipo_membresia, b.cantidad, b.precio, a.fecha_inicio, a.fecha_fin , a.comentario from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
-where a.estado=1";   
+end as tipo_membresia, b.cantidad, b.precio, a.fecha_inicio, a.fecha_fin , a.comentario , b.nombre, 
+case
+  when  a.estado=1 then 'Activa'
+  when a.estado=2 then 'Vencida'
+end estado  from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
+";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -81,12 +87,14 @@ where a.estado=1";
                                  echo "<td>".$rowrp['apellido']."</td>";
                                  echo "<td>".$rowrp['promocion']."</td>";
                                  echo "<td>".$rowrp['tipo_membresia']."</td>";
+                                 echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
                                  echo "<td> $".$rowrp['precio']."</td>";
                                   
                                  
                                  echo "<td>".$rowrp['fecha_inicio']."</td>";
                                  echo "<td>".$rowrp['fecha_fin']."</td>";
+                                 echo "<td>".$rowrp['estado']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>"; 
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
