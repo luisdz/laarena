@@ -43,10 +43,11 @@ include("../clases/class.php");
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Codigo</th>
                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Nombre</th>
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Apellido</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Promocion</th> 
+                           
                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Tipo Suscripcion</th>  
                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Promocion</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Cantidad</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >N~ Asistencias</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  ">Precio</th>   
                            
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Fecha inicio</th>   
@@ -68,7 +69,11 @@ end as tipo_membresia, b.cantidad, b.precio, a.fecha_inicio, a.fecha_fin , a.com
 case
   when  a.estado=1 then 'Activa'
   when a.estado=2 then 'Vencida'
-end estado  from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
+end estado  ,
+
+(select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)  cantidad_asistencia
+from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
+
 ";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
@@ -80,15 +85,26 @@ end estado  from suscripcion a inner join catalogo_promocion b on a.tipo_membres
                             {
                               while ($rowrp = mysqli_fetch_array($qsrp)) 
                               {
+
+                                if(($rowrp['cantidad']-$rowrp['cantidad_asistencia'])==22)
+                                {
+                                  $color="color:red";
+                                }
+                                else{
+                                    $color="color:#73879C";
+                                }
                                  //     print_r($rowrp);  
+                                
+                                
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
                                  echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
-                                 echo "<td>".$rowrp['promocion']."</td>";
+                                
                                  echo "<td>".$rowrp['tipo_membresia']."</td>";
                                  echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
+                                 echo "<td style='".$color."'>".$rowrp['cantidad_asistencia']."</td>";
                                  echo "<td> $".$rowrp['precio']."</td>";
                                   
                                  
