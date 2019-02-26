@@ -1,4 +1,13 @@
 <?php
+$stonevar = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+                       if (empty($stonevar)) {
+                          header("Location: /laarena/production/catalogo/consultar_promocion.php");
+                          exit();
+                        }
+?>
+
+<?php
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -45,15 +54,32 @@ include("../clases/class.php");
 
                     <form  id="form_promocion" class="form-horizontal form-label-left" novalidate>
 
+
+                      <?php                      
+
+                      $srpt="select * from catalogo_promocion where id_promocion=".$_GET['id']."";
+
+                        //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            $rowrp = mysqli_fetch_array($qsrp)
+                      ?>
+
                       <p>Ingrese los datos del formulario <code>Clic en Boton Guardar</code> Para almacenar los cambios en sistema 
                       </p>
                      
+                     <div class="item form-group hidden">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id">id <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="id" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="id" placeholder="Nombre de la promocion" readonly type="text" <?php echo "value='".$_GET['id']."'" ?> >
+                        </div>
+                      </div>
 
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre Promocion <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nombre de la promocion" required="required" type="text">
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nombre de la promocion" required="required" type="text" <?php echo "value='".$rowrp['nombre']."'" ?> >
                         </div>
                       </div>
 
@@ -75,7 +101,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Cantidad de Clases/Meses <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="cantidad" name="cantidad" required data-validate-minmax="1,100" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="cantidad" name="cantidad" required data-validate-minmax="1,100" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['cantidad']."'" ?> >
                         </div>
                       </div>
 
@@ -83,7 +109,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Precio <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="number" id="precio" name="precio" required data-validate-minmax="5,10000" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="precio" name="precio" required data-validate-minmax="5,10000" class="form-control col-md-7 col-xs-12" <?php echo "value='".$rowrp['precio']."'" ?> >
                         </div>
                       </div>
 
@@ -93,8 +119,8 @@ include("../clases/class.php");
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div  class="btn-group" data-toggle="buttons">
                           <p>
-                        Si:<input type="radio" class="flat" name="estado" checked  value="1"  required /> 
-                        No:<input type="radio" class="flat" name="estado" value="0"    required />
+                        Si:<input type="radio" class="flat" name="estado" value="1" <?php if ($rowrp['estado'] == '1') {  echo "checked";} ?>  required /> 
+                        No:<input type="radio" class="flat" name="estado" value="0" <?php if ($rowrp['estado'] == '0') {  echo "checked";} ?>  required />
                       </p>
                           </div>
                         </div>
@@ -128,7 +154,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Comentario <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="textarea" required="required" name="comentario" class="form-control col-md-7 col-xs-12"></textarea>
+                          <textarea id="textarea" required="required" name="comentario"  class="form-control col-md-7 col-xs-12"><?php echo $rowrp['comentario'] ?></textarea>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -138,8 +164,8 @@ include("../clases/class.php");
                     </form>
 
                     <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancelar</button>
-                          <button id="send"   class="btn btn-success">Guardar</button>
+                          <button type="cancel" class="btn btn-primary">Cancelar</button>
+                          <button id="send"  class="btn btn-success">Guardar</button>
                         </div>
                   </div>
                 </div>
@@ -183,8 +209,8 @@ include("../footer.php");
           submit = false;
         }
 
-        if (submit)
-          this.submit();
+        //if (submit)
+         // this.submit();
 
         return false;
       });
@@ -197,7 +223,7 @@ include("../footer.php");
     $('#send').click(function(){
       //alert("ingres");
       //ingresa
-        var url = "ingreso_promocion.php";
+        var url = "update_promocion.php";
         var submit = true;
 
 
