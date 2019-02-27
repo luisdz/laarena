@@ -209,7 +209,7 @@ public function ingresar_clientes()
       $telefono=$_POST['telefono'];
       $email=$_POST['email'];
       $genero=$_POST['genero'];
-      $fecha_nacimiento=$_POST['birthday'];
+      $fecha_nacimiento=$_POST['fecha_nacimiento'];
 
       $nivel=$_POST['nivel'];
       $medio_conocio=$_POST['medio_conocio'];
