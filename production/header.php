@@ -186,7 +186,7 @@ if (isset($_SESSION['usuario'])){
                                 <a class="test" tabindex="-1" href="#">Promociones<span class="fa fa-sort-amount-asc"></span></a>
                                     <ul class="nav child_menu"> 
                                           <li><a tabindex="-1" href="../catalogo/promociones_insert.php">Crear</a></li>
-                                          <li><a tabindex="-1" href="../catalogo/consultar_clientes.php">Editar</a></li>
+                                          <li><a tabindex="-1" href="../catalogo/consultar_promociones.php">Editar</a></li>
                          
                                     </ul>
 

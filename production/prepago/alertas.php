@@ -28,11 +28,34 @@ include("../clases/class.php");
                             $rowrp = mysqli_fetch_array($qsrp); 
 
                             $srpt2 ="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff( sysdate(), (select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia )) > 30";
+
+                            $srpt3="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff(sysdate(),(select max(fecha_fin) from suscripcion where codigo_membresia=t1.codigo_membresia ))  BETWEEN 1 and 15"; 
+
+                            $srpt4="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff(sysdate(),(select max(fecha_fin) from suscripcion where codigo_membresia=t1.codigo_membresia ))  BETWEEN 16 and 30";
+
+                            $srpt5="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff(sysdate(),(select max(fecha_fin) from suscripcion where codigo_membresia=t1.codigo_membresia ))  > 30";
+
+
+
                          
                         //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
                             $qsrp2 = mysqli_query($db->conectar(),$srpt2);
                             //echo $srpt;
-                            $rowrp2 = mysqli_fetch_array($qsrp2) 
+                            $rowrp2 = mysqli_fetch_array($qsrp2); 
+
+                             $qsrp3 = mysqli_query($db->conectar(),$srpt3);
+                            //echo $srpt;
+                            $rowrp3 = mysqli_fetch_array($qsrp3); 
+
+                            $qsrp4 = mysqli_query($db->conectar(),$srpt4);
+                            //echo $srpt;
+                            $rowrp4 = mysqli_fetch_array($qsrp4); 
+
+                            $qsrp5 = mysqli_query($db->conectar(),$srpt5);
+                            //echo $srpt;
+                            $rowrp5 = mysqli_fetch_array($qsrp5); 
+
+
                       ?>
                    
 
@@ -56,15 +79,22 @@ include("../clases/class.php");
                <div class="col-md-6">
                 <div class="tile-stats">
                   <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
-                  <div class="count"><?php echo  $rowrp2['cantidad']?></div>
-                  <a href="suscripcion_inactivos.php"><h3>Clientes Suscripcion Vencida</h3></a>
+                  <div class="count"><?php echo  $rowrp3['cantidad']?></div>
+                  <a href="suscripcion_vencida_15.php"><h3>Clientes Suscripcion Vencida de 1 a 15 dias</h3></a>
                 </div>
               </div>
                <div class="col-md-6">
                 <div class="tile-stats">
                   <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
-                  <div class="count"><?php echo  $rowrp2['cantidad']?></div>
-                  <a href="suscripcion_inactivos.php"><h3>Otros</h3></a>
+                  <div class="count"><?php echo  $rowrp4['cantidad']?></div>
+                  <a href="suscripcion_vencida_30.php"><h3>Clientes Suscripcion Vencida de 16 a 30 dias</h3></a>
+                </div>
+              </div>
+               <div class="col-md-6">
+                <div class="tile-stats">
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp5['cantidad']?></div>
+                  <a href="suscripcion_vencida_mas30.php"><h3>Clientes Suscripcion Vencida mas de 30 dias</h3></a>
                 </div>
               </div>
               
