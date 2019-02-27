@@ -1,13 +1,22 @@
 <?php
 include("../header.php");
 //include("../page_content.php");
-?>
-
-<?php
-// session_start();  
+  
 include("../clases/class.php");
  $db = new BaseDatos();
  
+
+                        $srpt ="SELECT * FROM catalogo_promocion";   
+                            $qsrp = mysqli_query($db->conectar(),$srpt);
+                            //echo $srpt;
+                            if(mysqli_num_rows($qsrp)==0)
+                            {
+                            echo 'Sin resultados';
+                            }
+                            else
+                            {
+                              
+                            }
   
  
  
@@ -16,23 +25,63 @@ include("../clases/class.php");
  
 
   <!-- page content -->
+ 
+
+
+
         <div class="right_col" role="main">
 
            <div class="adjoined-bottom">
     <div class="grid-container">
       <div class="grid-width-100">
+
+
+
         <form action="envio_c.php" method="POST">
+
+
           
            <textarea name="editor1" id="editor"  >
                 
             </textarea>
 
             <input type="submit" value="Submit">
-        </form>
+
+<br>
+<br>
+<div class="col-md-12 col-sm-3 col-xs-12">
+            <div class=" form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="name">Asunto de Correo <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input id="name" class="form-control" data-validate-length-range="6" data-validate-words="2" name="asunto" placeholder="Asunto del Correo" required="required" type="text">
+                        </div>
+           </div>
+
+ <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Grupo de Correo </label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <select id="grupoc" name="grupoc" class="select2_single form-control" tabindex="-1">
+                             
+                            <option value="1">Todos</option>
+                            <option value="2">Suscripciones Vencidas</option>
+                            <option value="3">Clientes Inactivos</option>
+                            <option value="4">Clientes Asistiendo con Suscripcion Vencida</option>
+                          
+                             
+                          </select>
+                        </div>
+   </div>
+
+</div>
+ <div id="msj">
+         </div>
+
 
          
+        </form>
 
-
+        
           
       </div>
     </div>
@@ -52,117 +101,48 @@ include("../footer.php");
   <script src="../../vendors/ckeditor/samples/js/sample.js"></script>
   <link rel="stylesheet" href="../../vendors/ckeditor/samples/css/samples.css">
   <link rel="stylesheet" href="../../vendors/ckeditor/sammples/toolbarconfigurator/lib/codemirror/neo.css">
-
-
- 
+  
  <script>
   initSample();
 </script>
 
+ 
+
+ <script>
+
+  $( "#grupoc" ).change(function() {
+  //alert( "Handler for .change() called." );
 
 
-  <script>
-      $(document).ready(function() {
-        
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              "ordering":false,
-              "searching":false,
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-              if ($("#datatable-buttons1").length) {
-            $("#datatable-buttons1").DataTable({
-              dom: "Bfrtip",
-              "ordering":false,
-              "searching":false,
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
+ var url = "envio_campania_lcorreo.php";
+        $.ajax({                        
+           type: "POST",                 
+           url: url,                     
+           data:  {seleccionado:$('select[name=grupoc]').val()}, 
+           success: function(data)             
+           {
 
-        };
+            //alert('asdjashd');
+            $('#msj').html(data);  
 
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
+             
 
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
+               
 
-        $('#datatable-responsive').DataTable();
+           }
+       });
 
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
 
-        $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
-        });
+   
+ //alert();
+       
 
-        var $datatable = $('#datatable-checkbox');
+}); 
 
-        $datatable.dataTable({
-          'order': [[ 31, 'desc' ]],
-          'columnDefs': [
-            { orderable: true, targets: [0] }
-          ]
-        });
-        $datatable.on('draw.dt', function() {
-          $('input').iCheck({
-            checkboxClass: 'icheckbox_flat-green'
-          });
-        });
+</script>
+ 
 
-        TableManageButtons.init();
-      });
-    </script>
-    <!-- /Datatables -->
+
+
+
+
