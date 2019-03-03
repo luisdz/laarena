@@ -100,8 +100,8 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['telefono']."</td>";
                                  echo "<td>".$rowrp['email']."</td>";
                                  echo "<td>".$rowrp['fecha_nac']."</td>";                                
-                                 echo "<td><a href='actualizar_clientes.php?id=".$rowrp['codigo_membresia']."'>Editar</a></td>";
-                                 echo "<td><a id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_clientes.php?id=".$rowrp['codigo_membresia']."'>Eliminar</a></td>";
+                                 echo "<td><a class='green' href='actualizar_clientes.php?id=".$rowrp['codigo_membresia']."'><i class='fa fa-check-square green'></i> Editar</a></td>";
+                                 echo "<td><a class='green' id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_clientes.php?id=".$rowrp['codigo_membresia']."'><i class='fa fa-check-square green'></i> Eliminar</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

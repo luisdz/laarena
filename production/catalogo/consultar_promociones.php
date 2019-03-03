@@ -42,7 +42,7 @@ include("../clases/class.php");
                            echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
-                                            <strong>Se elimino cliente con exito</strong> 
+                                            <strong>Se elimino promocion con exito</strong> 
                                           </div>';
                          }
                          else if ($stonevar==101)
@@ -50,7 +50,7 @@ include("../clases/class.php");
                            echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
-                                            <strong>No se pudo eliminar</strong> Cliente posee suscripcion activa
+                                            <strong>No se pudo eliminar</strong> Existen suscripciones con esta promoción
                                           </div>';
                          } 
                         ?>
@@ -67,9 +67,7 @@ include("../clases/class.php");
                           <th class="sorting_asc hidden" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">id</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Nombre</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Precio</th>     
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de inicio</th> 
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de fin</th> 
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Precio</th>      
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th> 
                         </tr>
@@ -96,11 +94,9 @@ include("../clases/class.php");
                                  echo "<td class='hidden'>".$rowrp['id_promocion']."</td>";
                                   echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
-                                 echo "<td>".$rowrp['precio']."</td>";
-                                 echo "<td>".$rowrp['f_inicio']."</td>";
-                                 echo "<td>".$rowrp['f_fin']."</td>";                                
-                                 echo "<td><a href='actualizar_promocion.php?id=".$rowrp['id_promocion']."'>Editar</a></td>";
-                                 echo "<td><a id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_promocion.php?id=".$rowrp['id_promocion']."'>Eliminar</a></td>";
+                                 echo "<td> $ ".$rowrp['precio']."</td>";                               
+                                 echo "<td><a class='green' href='actualizar_promocion.php?id=".$rowrp['id_promocion']."'><i class='fa fa-check-square green'></i> Editar</a></td>";
+                                 echo "<td ><a class='green' id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_promocion.php?id=".$rowrp['id_promocion']."'><i class='fa fa-check-square green'></i>  Eliminar</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
