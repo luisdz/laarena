@@ -1,5 +1,9 @@
 <?php
 
+include("../header.php");
+
+
+//echo 'mensaje';
 //print_r($_POST);
 
 $listado=explode(",",$_POST['list_correos'] );
@@ -11,7 +15,10 @@ $listado=explode(",",$_POST['list_correos'] );
 
 
 
-///*
+
+
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -26,7 +33,7 @@ require '../../PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 try {
     //Server settings
-    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+    $mail->SMTPDebug = 0;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -61,11 +68,44 @@ try {
    // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    
+
+
+echo '
+
+<br>
+<br>
+    <div class="right_col" role="main">
+          <div class="">
+          
+           <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Envio Correcto!</strong> Los Mensajes han sido enviados con exito.
+                  </div>  
+           <a class="btn btn-app">
+                      <span class="badge bg-orange">!!!</span>
+                      <i class="fa fa-envelope"></i> Mail Enviados
+                    </a>
+
+        
+          </div>
+        </div> ';
+ 
+
 } catch (Exception $e) {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }
 
-//*/
 
+
+ 
+?>
+
+
+
+        <?php
+include("../footer.php");
+
+ 
 ?>
