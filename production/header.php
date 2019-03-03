@@ -115,22 +115,7 @@ if (isset($_SESSION['usuario'])){
                        </ul>
                    </li>
 
-                   <li>
-                     <a><i class="fa fa-mobile"></i> Pagos <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                           <li class="dropdown-submenu">
-                                <a class="test" tabindex="-1" href="#">Registro<span class="fa fa-sort-amount-asc"></span></a>
-                                    <ul class="nav child_menu">
-                                          <li><a tabindex="-1" href="../prepago/registrar_pagos.php">Registrar</a></li>
-                                          <li><a tabindex="-1" href="../prepago/p_consumo_diario_xtipo.php">Consultar</a></li>
-                         
-                                    </ul>
-                            </li>
-            
-                             
-                       </ul>
-                   </li>
-
+                   
                    <li>
                      <a><i class="fa fa-mobile"></i> Asistencias <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -161,23 +146,7 @@ if (isset($_SESSION['usuario'])){
                        </ul>
                    </li>
 
-
-                   <li>
-                     <a><i class="fa fa-mobile"></i> Clientes <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                           <li class="dropdown-submenu">
-                                <a class="test" tabindex="-1" href="#">Clientes<span class="fa fa-sort-amount-asc"></span></a>
-                                    <ul class="nav child_menu"> 
-                                          <li><a tabindex="-1" href="../prepago/consultar_clientes.php">Consultar clientes</a></li>
-                         
-                                    </ul>
-
-                            </li>
-            
-                             
-                       </ul>
-                   </li>
-
+ 
 
                    <li>
                      <a><i class="fa fa-mobile"></i> Catalogos <span class="fa fa-chevron-down"></span></a>
@@ -199,6 +168,19 @@ if (isset($_SESSION['usuario'])){
                      <a href="../prepago/alertas.php"><i class="fa fa-mobile" ></i> Alertas <span class="fa fa-bell-o"></span></a>
                          
              
+                   </li>
+
+                    <li>
+                     <a><i class="fa fa-mobile"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                           <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="../prepago/reportes_principal.php">Principal<span class="fa fa-sort-amount-asc"></span></a>
+                                     
+
+                            </li>
+            
+                             
+                       </ul>
                    </li>
 
         
