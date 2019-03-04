@@ -51,7 +51,7 @@ include("../clases/class.php");
 
 
 
-                      $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
+                      $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo,t2.tipo_membresia FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
 //echo $srpt;
                         //$srpt ="select * from persona where codigo_membresia='".$_GET['id']."'"; DATE_FORMAT(fecha_nac, \"%m%d%Y\")  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
@@ -95,7 +95,7 @@ include("../clases/class.php");
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
                           <?php 
-                          echo "<a class='btn btn-round btn-primary' href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['idsuscripcion']."'>Registrar asistencias</a>";
+                          echo "<a class='btn btn-round btn-primary' href='insertar_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['idsuscripcion']."&t=".$_GET['t']."&c=".$_GET['c']."&a=".$_GET['a']."'>Registrar asistencias</a>";
                           ?>
                         </div>
                       </div>

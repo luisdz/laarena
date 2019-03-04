@@ -61,7 +61,7 @@ include("../clases/class.php");
                         <?php
 
                         $srpt ="SELECT a.*,d.nombre nombre_promocion ,d.tipo , (select count(*) from asistencia_log 
-                        where codigo_membresia=a.codigo_membresia ) cantidad2 , c.nombre , c.apellido
+                        where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion ) cantidad2 , c.nombre , c.apellido
                          FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia   
                           inner join catalogo_promocion d on a.tipo_membresia=d.id_promocion
                          ";   
@@ -104,7 +104,7 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['cantidad2']."</td>";
                                  echo "<td>".$rowrp['comentario']."</td>";
                                 
-                                 echo "<td><a class='green' href='nueva_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."'><i class='fa fa-check-square green'></i> Registrar asistencias</a></td>";
+                                 echo "<td><a class='green' href='nueva_asistencia.php?id=".$rowrp['codigo_membresia']."&ids=".$rowrp['id_suscripcion']."&t=".$rowrp['tipo']."&c=".$rowrp['cantidad']."&a=".$rowrp['cantidad2']." '><i class='fa fa-check-square green'></i> Registrar asistencias</a></td>";
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

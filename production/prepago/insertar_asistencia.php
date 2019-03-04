@@ -43,22 +43,61 @@ include("../clases/class.php");
 <?php
                     	$codigo=$_GET['id'];  
                       $idsuscripcion=$_GET['ids']; 
-                      $sql_fechafin="select datediff(max(fecha_fin),sysdate()) dif from suscripcion where id_suscripcion=".$idsuscripcion." and codigo_membresia=\"".$codigo."\"";                     
+                      $tipo=$_GET['t']; 
+                      $cant=$_GET['c'];                        
+                      $asist=$_GET['a']; 
+                      
+                      if(intval($tipo)==1)
+                      {
+                        $sql_fechafin="select datediff(max(fecha_fin),sysdate()) dif from suscripcion where id_suscripcion=".$idsuscripcion." and codigo_membresia=\"".$codigo."\"";                     
                       $query01 = mysqli_query($db->conectar(),$sql_fechafin); 
                       $result01 = mysqli_fetch_array($query01) ;
-                      if ( intval($result01['dif'])>=0) {
+                        if ( intval($result01['dif'])>=0) //suscripcion vigente
+                      {
                         $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
                               VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
                                   $qsrp = mysqli_query($db->conectar(),$srpt); 
                                   echo '<strong>Asistencia registrada!.</strong>';                        
                       }
+                      else         //suscricion vencida
+                      {
+                        $sql_fechaultima="select datediff(max(fecha_fin),sysdate()) dif from suscripcion where codigo_membresia=\"".$codigo."\"";
+                        $query02 = mysqli_query($db->conectar(),$sql_fechaultima); 
+                      $result02 = mysqli_fetch_array($query02) ; 
+                       if ( intval($result02['dif'])>=0) //suscripcion vigente
+                      {
+                                  echo '<strong>No se pudo registrar asistencia, cliente posee otra suscripcion activa!.</strong>';
+
+                      }
                       else
                       {
-                                  $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
+                         $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
                               VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
-                                  $qsrp = mysqli_query($db->conectar(),$srpt); 
-                                  echo '<strong>Asistencia registrada!.</strong>';
+                                  $qsrp = mysqli_query($db->conectar(),$srpt);
+                                  echo '<strong>Asistencia registrada!.</strong>';  
                       }
+
+                                 
+                      }
+                      }
+                      else
+                      {
+                        if(intval($cant)<=intval($asist))
+                        {
+                           echo '<strong>No se pudo registrar asistencia, cliente alcanzo limite de clases !.</strong>';
+                        }
+                        else
+                        {
+                          $srpt ="INSERT INTO asistencia_log (codigo_membresia,fecha_registro,idsuscripcion)
+                              VALUES ('".$codigo."', sysdate(),".$idsuscripcion.")"; 
+                                  $qsrp = mysqli_query($db->conectar(),$srpt);
+                                  echo '<strong>Asistencia registrada!.</strong>'; 
+                        }
+
+
+
+                      }
+                      
 
 
                               
