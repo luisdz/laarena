@@ -284,17 +284,17 @@ VALUES ('".$codigo_membresia."', '".$promocion."', '".$cuota."', '".$cantidad."'
    $result=mysqli_query($this->conectar(),$srpt);
    
 
-      //$lastid ="select max(id_suscripcion) correlativom from suscripcion";
-      //$respuesta1=mysqli_query($this->conectar(),$lastid); 
-      //$rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
-      //$lastm=$rowrp['correlativom'];
+      $lastid ="select max(id_suscripcion) correlativom from suscripcion";
+      $respuesta1=mysqli_query($this->conectar(),$lastid); 
+      $rowrp = mysqli_fetch_array($respuesta1, MYSQLI_ASSOC);
+      $lastm=$rowrp['correlativom'];
     
 
 //registrar el pago realizado
-   // $srpt2 ="INSERT INTO pago (id_suscripcion, monto, usuario_registro)
-//VALUES ('".$lastm."', '".$cuota."', '".$usuario."')";
+   $srpt2 ="INSERT INTO pago (id_suscripcion, monto, usuario_registro)
+VALUES ('".$lastm."', '".$cuota."', '".$usuario."')";
 
-// $result2=mysqli_query($this->conectar(),$srpt2);
+ $result2=mysqli_query($this->conectar(),$srpt2);
    
 
 
