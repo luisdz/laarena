@@ -61,7 +61,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="select a.codigo_membresia, c.nombre, c.apellido , a.promocion , 
+                        $srpt ="select a.codigo_membresia, c.nombre nombre_p, c.apellido , a.promocion , 
 case 
 when tipo=1 then 'Mensual'
 when tipo=2 then 'Clases'
@@ -98,7 +98,7 @@ from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_prom
                                 
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
-                                 echo "<td>".$rowrp['nombre']."</td>";
+                                 echo "<td>".$rowrp['nombre_p']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
                                 
                                  echo "<td>".$rowrp['tipo_membresia']."</td>";

@@ -71,7 +71,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id">id <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="id" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="id" placeholder="Nombre de la promocion" readonly type="text" <?php echo "value='".$_GET['id']."'" ?> >
+                          <input id="id" class="form-control col-md-7 col-xs-12" data-validate-length-range="6"   name="id" placeholder="Nombre de la promocion" readonly type="text" <?php echo "value='".$_GET['id']."'" ?> >
                         </div>
                       </div>
 
@@ -79,7 +79,7 @@ include("../clases/class.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre Promocion <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nombre de la promocion" required="required" type="text" <?php echo "value='".$rowrp['nombre']."'" ?> >
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" name="name" placeholder="Nombre de la promocion" required="required" type="text" <?php echo "value='".$rowrp['nombre']."'" ?> >
                         </div>
                       </div>
 
