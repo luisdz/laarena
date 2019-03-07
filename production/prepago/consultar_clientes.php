@@ -47,7 +47,7 @@ include("../clases/class.php");
                          }
                          else if ($stonevar==101)
                          {
-                           echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
+                           echo '<div id="resp" class="alert alert-warning alert-dismissible fade in" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
                                             <strong>No se pudo eliminar</strong> Cliente posee suscripcion activa

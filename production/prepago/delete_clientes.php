@@ -1,5 +1,5 @@
 <?php
-print_r($_GET);
+//print_r($_GET);
 
 include("../clases/class.php");
  $db = new BaseDatos();
@@ -15,11 +15,11 @@ include("../clases/class.php");
  	$sql = "delete from persona where codigo_membresia='".$codigo."'";
       $qsrp = mysqli_query($db->conectar(),$sql);
       //print_r("elimino");
-    header("Location: /laarena/production/prepago/consultar_clientes.php?code=201");
+    header("Location: consultar_clientes.php?code=201");
  }
  else
  { 
-    header("Location: /laarena/production/prepago/consultar_clientes.php?code=101");
+    header("Location: consultar_clientes.php?code=101");
  }
 
 
