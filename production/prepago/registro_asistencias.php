@@ -7,7 +7,6 @@ include("../header.php");
 // session_start();  
 include("../clases/class.php");
  $db = new BaseDatos();
- 
   
 
 ?>
@@ -42,7 +41,7 @@ include("../clases/class.php");
                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo Membresia</th>
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Nombre</th>
                               <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Apellido</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Promocion</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Estado</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 100px;">Monto Pagado</th>  
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Cantidad</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;"> Membresia</th>   
@@ -64,7 +63,7 @@ include("../clases/class.php");
                         where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion ) cantidad2 , c.nombre , c.apellido
                          FROM suscripcion a inner join persona c on a.codigo_membresia=c.codigo_membresia   
                           inner join catalogo_promocion d on a.tipo_membresia=d.id_promocion
-                         ";   
+                           ";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                            // echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -80,7 +79,18 @@ include("../clases/class.php");
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
                                  echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
-                                 echo "<td>".$rowrp['promocion']."</td>";
+                                 
+                                switch ($rowrp['estado']) {
+                                   case 1:
+                                      echo "<td>Vigente</td>";
+                                     break;
+                                    case 2:
+                                     echo "<td>Vencida</td>";
+                                    break;                                    
+                                    default:
+                                    echo "<td></td>";                                      
+                                 } 
+
                                  echo "<td> $ ".$rowrp['cuota']."</td>";
                                  echo "<td>".$rowrp['cantidad']."</td>";
                                  
@@ -120,8 +130,6 @@ include("../clases/class.php");
             </div>
                        
                     <!-- End -->
-
-
             
           </div>
         </div>

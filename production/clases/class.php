@@ -88,7 +88,12 @@ public function ingresar_asistencia()
                                   $qsrp = mysqli_query($this->conectar(),$srpt);
                             }  
 
+    $sql2 = "UPDATE suscripcion t1 set estado=2  where sysdate()>=fecha_fin";
+  $result2=mysqli_query($this->conectar(),$sql2); 
 
+  $sql3 = "UPDATE suscripcion t1 set estado=2  where (select max(tipo) from catalogo_promocion where id_promocion=t1.tipo_membresia)=2 and (select count(*) from asistencia_log where idsuscripcion=t1.id_suscripcion)>=t1.cantidad";
+  $result3=mysqli_query($this->conectar(),$sql3); 
+                        
     /*echo "<script>
          $(window).load(function(){
              $('#thankyouModal').modal('show');
@@ -390,8 +395,7 @@ if($result==false )
    
    $result=mysqli_query($this->conectar(),$sql);  
  
-   
-
+  
 
 $uerror=0;
 if($result==false )
@@ -400,14 +404,11 @@ if($result==false )
   $uerror=1;
 
    //if(($errors=mysql_error())!=null){}
-}
+} 
 
    // echo $srpt;
  return $uerror; 
   }
-
-
-
 
     public function consultarc_promociones()
 {         

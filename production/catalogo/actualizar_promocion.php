@@ -86,10 +86,10 @@ include("../clases/class.php");
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <select name="membresia" class="select2_single form-control" tabindex="-1">
+                          <select name="membresia" class="select2_single form-control" >
                              
-                            <option value="1">Mensual</option>
-                            <option value="2">Clase</option>
+                            <option <?php if ($rowrp['tipo'] == '1') {  echo "selected";} ?>  value="1">Mensual</option>
+                            <option <?php if ($rowrp['tipo'] == '2') {  echo "selected";} ?> value="2">Clase</option>
                           
                              
                           </select>
