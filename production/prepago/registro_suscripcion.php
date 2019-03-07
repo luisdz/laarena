@@ -29,7 +29,7 @@ include("../clases/class.php");
                     
 //obtener la ultima suscripcion vencida del cliente y mostrar, tambien mostrar la cantidad de asistencias
     $srpt2 ="SELECT c.nombre nombre_persona ,b.nombre, fecha_inicio, fecha_fin , case when a.estado=2 then 'Vencida' end estado,
- (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad 
+ (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin) cantidad 
 FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promocion 
                   left join persona c on a.codigo_membresia=c.codigo_membresia
         
@@ -93,11 +93,11 @@ FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promo
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <select id="promociones" name="membresia" class="select2_single form-control" tabindex="-1"
+                          <select id="promociones" name="membresia" class="select2_single form-control" tabindex="-1">
 
+                          <option value="0"> Seleccione una opcion</option>
 
-
-                          >
+                          
                             <?php 
                             while ($rowrp = mysqli_fetch_array($qsrp)) 
                               {

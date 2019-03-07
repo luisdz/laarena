@@ -15,11 +15,11 @@ include("../clases/class.php");
  	$sql = "delete from catalogo_promocion where id_promocion='".$codigo."'";
       $qsrp = mysqli_query($db->conectar(),$sql);
       //print_r("elimino");
-    header("Location: /laarena/production/catalogo/consultar_promociones.php?code=201");
+    header("Location: consultar_promociones.php?code=201");
  }
  else
  { 
-    header("Location: /laarena/production/catalogo/consultar_promociones.php?code=101");
+    header("Location: consultar_promociones.php?code=101");
  }
 
 
