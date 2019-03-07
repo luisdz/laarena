@@ -94,14 +94,14 @@ include("../clases/class.php");
                                   echo '<strong>Asistencia registrada!.</strong>'; 
                         }
 
-
-
                       }
                       
+                      $sql2 = "UPDATE suscripcion t1 set estado=2  where sysdate()>=fecha_fin";
+                      $result2=mysqli_query($db->conectar(),$sql2); 
 
-
-                              
-                                  
+                      $sql3 = "UPDATE suscripcion t1 set estado=2  where (select max(tipo) from catalogo_promocion where id_promocion=t1.tipo_membresia)=2 and (select count(*) from asistencia_log where idsuscripcion=t1.id_suscripcion)>=t1.cantidad";
+                      $result3=mysqli_query($db->conectar(),$sql3); 
+                                
  
   //header( "refresh:2; url=/laarena/production/prepago/registro_asistencias.php" );  
 
@@ -109,8 +109,7 @@ include("../clases/class.php");
                   </div>
 
                   <form id="update_clientes" data-parsley-validate class="form-horizontal form-label-left">
-                      <?php                     
-
+                      <?php
 
 
                       $srpt ="SELECT t2.codigo_membresia,t2.id_suscripcion as idsuscripcion,t3.nombre,t3.apellido,t2.fecha_fin, case t2.tipo_membresia when 1 then \"Mensual\" else \"Clases\" END tipo FROM suscripcion t2 inner join persona t3 on t2.codigo_membresia=t3.codigo_membresia where t2.codigo_membresia='".$_GET['id']."'"." and t2.id_suscripcion=".$_GET['ids']."";
@@ -182,8 +181,7 @@ include("../footer.php");
  
 ?>
  
-<script>
-      
+<script>      
 
       $( document ).ready(function() { 
         setTimeout(function() {

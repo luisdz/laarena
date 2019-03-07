@@ -45,9 +45,9 @@ include("../clases/class.php");
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">apellido</th>   
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Telefono</th>                           
                            
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>   
-                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de naciemiento</th> 
-                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de Vencimiento</th> 
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>    
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de Vencimiento</th>
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Dias faltantes</th> 
                         </tr>
                       </thead>
 
@@ -55,7 +55,7 @@ include("../clases/class.php");
                       <tbody>  
                         <?php
 
-                        $srpt ="SELECT t2.*, max(t1.fecha_fin) fecha_fin  FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<90 group by t2.nombre,t2.apellido,t2.telefono,t2.email,t2.fecha_nac,t2.codigo_membresia";  
+                        $srpt ="SELECT t2.*, max(t1.fecha_fin) fecha_fin,datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate()) dias   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate()) BETWEEN 16 and 30 group by t2.nombre,t2.apellido,t2.telefono,t2.email,t2.fecha_nac,t2.codigo_membresia";  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -72,9 +72,9 @@ include("../clases/class.php");
                                   echo "<td>".$rowrp['nombre']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
                                  echo "<td>".$rowrp['telefono']."</td>";
-                                 echo "<td>".$rowrp['email']."</td>";
-                                 echo "<td>".$rowrp['fecha_nac']."</td>";
-                                 echo "<td>".$rowrp['fecha_fin']."</td>";  
+                                 echo "<td>".$rowrp['email']."</td>"; 
+                                 echo "<td>".$rowrp['fecha_fin']."</td>"; 
+                                 echo "<td>".$rowrp['dias']."</td>"; 
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }

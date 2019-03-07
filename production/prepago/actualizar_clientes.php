@@ -18,11 +18,9 @@ include("../header.php");
 include("../clases/class.php");
  $db = new BaseDatos();
  
-//$ingresar=$db->ingresar_clientes();  
-  
+//$ingresar=$db->ingresar_clientes();
 
-?>
- 
+?> 
 
   <!-- page content -->
         <div class="right_col" role="main">
@@ -57,9 +55,6 @@ include("../clases/class.php");
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             $rowrp = mysqli_fetch_array($qsrp)
                       ?>
-
-
-
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="id">Codigo<span class="required">*</span>
@@ -124,10 +119,7 @@ include("../clases/class.php");
                       </div>
 
                     </form>
-                  </div>
-
-
-                  
+                  </div>                 
 
 
                 </div>
@@ -179,7 +171,10 @@ include("../footer.php");
            success: function(data)             
            {
              $('#msj').html(data); 
-             //alert(data);                          
+             //alert(data);
+             setTimeout(function() {
+    window.location.href= 'consultar_clientes.php';
+}, 3000);                         
            },
            error: function(){
                 alert("Error"); 

@@ -231,9 +231,9 @@ include("../footer.php");
            success: function(data)             
            {
              $('#resp').html(data);   
-              //setTimeout(function(){// wait for 5 secs(2)
-            //  location.reload(); // then reload the page.(3)
-              //}, 3000);            
+              setTimeout(function(){// wait for 5 secs(2)
+              location.reload(); // then reload the page.(3)
+              }, 3000);            
            }
        });
         }

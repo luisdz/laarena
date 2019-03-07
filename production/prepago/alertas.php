@@ -20,7 +20,7 @@ include("../clases/class.php");
 
                  <!-- start  --> 
                    <?php
-                        $srpt ="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate())<90";
+                        $srpt ="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate()) BETWEEN 0 and 15";
                          
                         //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
                             $qsrp = mysqli_query($db->conectar(),$srpt);
@@ -34,6 +34,8 @@ include("../clases/class.php");
                             $srpt4="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff(sysdate(),(select max(fecha_fin) from suscripcion where codigo_membresia=t1.codigo_membresia ))  BETWEEN 16 and 30";
 
                             $srpt5="SELECT count( DISTINCT t1.codigo_membresia) cantidad FROM persona t1 where datediff(sysdate(),(select max(fecha_fin) from suscripcion where codigo_membresia=t1.codigo_membresia ))  > 30";
+
+                            $srpt6="SELECT  count( DISTINCT t1.codigo_membresia) cant   FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE (select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia) > sysdate() and datediff((select max(fecha_fin) from suscripcion where codigo_membresia=t2.codigo_membresia),sysdate()) BETWEEN 16 and 30";
 
 
 
@@ -55,19 +57,15 @@ include("../clases/class.php");
                             //echo $srpt;
                             $rowrp5 = mysqli_fetch_array($qsrp5); 
 
+                            $qsrp6 = mysqli_query($db->conectar(),$srpt6);
 
+                            $rowrp6 = mysqli_fetch_array($qsrp6);
                       ?>
                    
 
 <div class="row top_tiles">
 
-               <div class="col-md-6">
-                <div class="tile-stats">
-                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
-                  <div class="count"><?php echo  $rowrp['cant']?></div>
-                  <a href="suscripcion_vencimiento.php"><h3>Clientes proximos a vencer</h3> </a>
-                </div>
-              </div> 
+                
 
               <div class="col-md-6">
                 <div class="tile-stats">
@@ -95,6 +93,20 @@ include("../clases/class.php");
                   <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
                   <div class="count"><?php echo  $rowrp5['cantidad']?></div>
                   <a href="suscripcion_vencida_mas30.php"><h3>Clientes Suscripcion Vencida mas de 30 dias</h3></a>
+                </div>
+              </div> 
+              <div class="col-md-6">
+                <div class="tile-stats">
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp['cant']?></div>
+                  <a href="suscripcion_vencimiento_15.php"><h3>Clientes proximos a vencer dentro de 1 a 15 dias</h3> </a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="tile-stats">
+                  <div class="icon" style="color: #337ab7;"><i class="fa fa-bell-o"></i></div>
+                  <div class="count"><?php echo  $rowrp6['cant']?></div>
+                  <a href="suscripcion_vencimiento_30.php"><h3>Clientes proximos a vencer dentro de 16 a 30 dias</h3> </a>
                 </div>
               </div>
               
