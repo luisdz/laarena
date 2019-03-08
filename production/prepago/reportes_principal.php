@@ -6,7 +6,23 @@ include("../clases/class.php");
  
   
  
- 
+ $clientes_t=$db->reportep_clientest();  
+ $suscripciones_a=$db->reportep_suscripcionesa();  
+ $suscripciones_v=$db->reportep_suscripcionesv();  
+ $clientes_m=$db->reportep_morac();  
+
+$clientes_aldia=$suscripciones_v[0]['suscripciones']/$suscripciones_a[0]['suscripciones'];
+if($clientes_aldia==0){
+
+  $clientes_aldia=100;
+}
+ //print_r($suscripciones_a);
+
+$clientes_mora= $clientes_m[0]['clientes']/ $clientes_t[0]['clientes'];
+if($clientes_mora==0){
+
+  $clientes_mora=100;
+}
 
 ?>
  
@@ -31,9 +47,9 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-caret-square-o-right"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $clientes_t[0]['clientes']; ?></div>
 
-                          <h3>Clientes Activos</h3>
+                          <h3>Total Clientes</h3>
                           <p>Detalle</p>
                         </div>
                       </div>
@@ -41,7 +57,7 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-comments-o"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $suscripciones_a[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Activas</h3>
                           <p>Detalle.</p>
@@ -51,7 +67,7 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-sort-amount-desc"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $suscripciones_v[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Vencidas</h3>
                           <p>Detalle</p>
@@ -61,7 +77,7 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-check-square-o"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $clientes_m[0]['clientes']; ?></div>
 
                           <h3>Clientes con Mora</h3>
                           <p>Detalle.</p>
@@ -242,13 +258,13 @@ include("../clases/class.php");
                         <div class="x_panel ui-ribbon-container fixed_height_390">
                            
                           <div class="x_title">
-                            <h2>% de Clientes</h2>
+                            <h2>% de Clientes</h2> 
                             <div class="clearfix"></div>
                           </div>
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
+                              <span class="chart" data-percent="<?php echo $clientes_aldia; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
@@ -274,17 +290,17 @@ include("../clases/class.php");
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
+                              <span class="chart" data-percent="<?php echo $clientes_mora; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
 
-                            <h3 class="name_title">Acitvos</h3>
+                            <h3 class="name_title">Mora</h3>
                             <p>Detalle</p>
 
                             <div class="divider"></div>
 
-                            <p>Muestra el % de clientes que estan activos a la fecha.</p>
+                            <p>Muestra el % de clientes que estan con mora(asisten pero suscripcion vencida).</p>
 
                           </div>
                         </div>

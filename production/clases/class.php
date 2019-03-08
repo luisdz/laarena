@@ -432,6 +432,92 @@ if($result==false )
 
 
 
+public function reportep_clientest()
+{         
+    $srpt ="SELECT count(*) clientes FROM persona";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->resultado[] = $rowrp;
+      }
+
+         return $this->resultado;
+    }
+  }
+
+  public function reportep_suscripcionesa()
+{         
+    $srpt ="SELECT count(distinct codigo_membresia) suscripciones FROM suscripcion where estado=1";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->resultados[] = $rowrp;
+      }
+
+         return $this->resultados;
+    }
+  }
+
+public function reportep_suscripcionesv()
+{         
+    $srpt ="SELECT count(distinct codigo_membresia) suscripciones  FROM suscripcion a where estado=2 
+    and (select count(*) from suscripcion where codigo_membresia=a.codigo_membresia and estado=1)=0";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->resultadosv[] = $rowrp;
+      }
+
+         return $this->resultadosv;
+    }
+  }
+
+public function reportep_morac()
+{         
+    $srpt ="select count(*) clientes from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2
+and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->resultadosm[] = $rowrp;
+      }
+
+         return $this->resultadosm;
+    }
+  }
+
+
+
+
+
   
 
 

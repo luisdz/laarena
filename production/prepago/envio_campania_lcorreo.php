@@ -18,7 +18,9 @@ if($seleccionado==1){
 
 }
 if($seleccionado==2){
- $srpt ="select nombre,b.email from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2 and email not in('notengo@notengo.com')";  
+ $srpt ="select nombre,b.email from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2 
+and (select count(*) from suscripcion where codigo_membresia=a.codigo_membresia and estado=1)=0
+ and email not in('notengo@notengo.com')";  
   
 }
 
