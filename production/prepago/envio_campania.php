@@ -63,6 +63,7 @@ include("../clases/class.php");
                         <div class="col-md-3 col-sm-3 col-xs-12">
                           <select id="grupoc" name="grupoc" class="select2_single form-control" tabindex="-1">
                              
+                            <option value="0">Seleccione una Opcion</option>
                             <option value="0">Manual</option>
                             <option value="1">Todos</option>
                             <option value="2">Suscripciones Vencidas</option>
