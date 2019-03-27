@@ -517,6 +517,52 @@ and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codi
 
 
 
+//SEGURIDAD
+  public function validar_usuario($usuario, $pass)
+{        
+   $bandera=1; 
+    $srpt ="select *from usuario where usuario='".$usuario."' and pass=".$pass." ";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    $bandera=0;
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->usuario[] = $rowrp;
+      }
+
+         return $bandera;
+    }
+  }
+
+    public function estado($usuario, $pass)
+{        
+  // $bandera=1; 
+    $srpt ="select *from usuario where usuario='".$usuario."' and pass=".$pass." ";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+  echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    //$bandera=0;
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->usuarios[] = $rowrp;
+      }
+
+         return $this->usuarios;
+    }
+  }
+
+
 
   
 

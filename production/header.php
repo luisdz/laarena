@@ -1,6 +1,6 @@
 <?php 
 
-/*session_start();
+session_start();
  ?>
  <?php
 if (isset($_SESSION['usuario'])){
@@ -11,7 +11,7 @@ if (isset($_SESSION['usuario'])){
  }
 //print_r($_SERVER['REQUEST_URI']); 
 
- */
+ 
  ?>
 <!DOCTYPE html>
 <html lang="en">

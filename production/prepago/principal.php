@@ -4,7 +4,7 @@ include("../header.php");
 ?>
 
 <?php
-// session_start();  
+//session_start();  
 include("../clases/class.php");
  $db = new BaseDatos();
  
