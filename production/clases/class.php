@@ -432,7 +432,38 @@ if($result==false )
 
 
 
-  
+  public function ingresar_user()
+    {
+      
+      $nombre=$_POST['name'];
+      $user=$_POST['user'];
+      $pass=$_POST['pass']; 
+      $estado=$_POST['estado'];
+      
+
+  $usuario='eduardo.herrera';
+
+     
+
+    $srpt ="INSERT INTO usuario (nombre, usuario, pass, estado)
+VALUES ('".$nombre."', '".$user."', '".$pass."', '".$estado."')";
+   
+   // echo $srpt;
+   
+   $result=mysqli_query($this->conectar(),$srpt);  
+ 
+   
+
+
+$uerror=0;
+if($result==false )
+{
+  $uerror=1;
+   //if(($errors=mysql_error())!=null){}
+}
+   // echo $srpt;
+ return $uerror;
+  }
 
 
 

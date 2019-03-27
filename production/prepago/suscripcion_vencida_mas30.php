@@ -1,4 +1,5 @@
-<?php
+ 
+                                 echo "<td>".$rowrp['rango']."</td>";<?php
 include("../header.php");
 //include("../page_content.php");
 ?>
@@ -46,7 +47,7 @@ include("../clases/class.php");
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Telefono</th>                           
                            
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>     
-                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha fin suscripcion</th> 
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha fin suscripcion</th>  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Dias</th>
                         </tr>
                       </thead>
 

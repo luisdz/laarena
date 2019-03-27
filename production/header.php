@@ -160,6 +160,15 @@ if (isset($_SESSION['usuario'])){
                                     </ul>
 
                             </li>
+                            <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="#">Usuario<span class="fa fa-sort-amount-asc"></span></a>
+                                    <ul class="nav child_menu"> 
+                                          <li><a tabindex="-1" href="../catalogo/usuario_insert.php">Crear</a></li>
+                                          <li><a tabindex="-1" href="../catalogo/consultar_usuarios.php">Consultar</a></li>
+                         
+                                    </ul>
+
+                            </li>
             
                              
                        </ul>
