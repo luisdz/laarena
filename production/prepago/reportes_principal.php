@@ -10,19 +10,37 @@ include("../clases/class.php");
  $suscripciones_a=$db->reportep_suscripcionesa();  
  $suscripciones_v=$db->reportep_suscripcionesv();  
  $clientes_m=$db->reportep_morac();  
+ $clientes_asisactivos=$db->reportep_susactiva_asistiendo();  
 
-$clientes_aldia=$suscripciones_v[0]['suscripciones']/$suscripciones_a[0]['suscripciones'];
-if($clientes_aldia==0){
+$suscripcion_vencida=$suscripciones_v[0]['suscripciones']/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
+//echo $suscripciones_v[0]['suscripciones'];
+//echo $suscripciones_a[0]['suscripciones'];
+//echo "detalle"; echo $clientes_aldia;
+//$clientes_aldia=1-$clientes_aldia;
+//echo "clientes al dia %"; echo $clientes_aldia;
 
-  $clientes_aldia=100;
+if($suscripcion_vencida==0){
+
+  $suscripcion_vencida=100;
 }
  //print_r($suscripciones_a);
 
-$clientes_mora= $clientes_m[0]['clientes']/ $clientes_t[0]['clientes'];
+// para los clientes asistiendo son aquellos que tienen sucripcion activa y tienen asistencias en esa suscripcion activa
+//mas los clientes que tienen suscripcion vencida pero siguen asistiendo, serian clientes en mora
+$clientes_asis=$clientes_asisactivos[0]['clientes']+$clientes_m[0]['clientes'];
+
+
+
+$clientes_mora= $clientes_m[0]['clientes']/ $clientes_asis;
+
+ 
 if($clientes_mora==0){
 
   $clientes_mora=100;
 }
+
+
+
 
 ?>
  
@@ -43,16 +61,7 @@ if($clientes_mora==0){
                 <div class="">
                   <div class="x_content">
                     <div class="row">
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
-                          </div>
-                          <div class="count"><?php echo $clientes_t[0]['clientes']; ?></div>
-
-                          <h3>Total Clientes</h3>
-                          <p>Detalle</p>
-                        </div>
-                      </div>
+                       
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-comments-o"></i>
@@ -73,6 +82,17 @@ if($clientes_mora==0){
                           <p>Detalle</p>
                         </div>
                       </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          </div>
+                          <div class="count"><?php echo $clientes_asis; ?></div>
+
+                          <h3>Clientes Asistiendo</h3>
+                          <p>Detalle.</p>
+                        </div>
+                      </div>
+
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-check-square-o"></i>
@@ -264,17 +284,17 @@ if($clientes_mora==0){
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="<?php echo $clientes_aldia; ?>">
+                              <span class="chart" data-percent="<?php echo number_format($suscripcion_vencida,2)*100; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
 
-                            <h3 class="name_title">Al Dia</h3>
+                            <h3 class="name_title">Vencidas</h3>
                             <p>Detalle</p>
 
                             <div class="divider"></div>
 
-                            <p>Muestra el % de clientes que estan al dia con sus pagos de suscripciones.</p>
+                            <p>Muestra el % de clientes que  sus suscripciones estan vencidas.</p>
 
                           </div>
                         </div>
@@ -290,7 +310,7 @@ if($clientes_mora==0){
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="<?php echo $clientes_mora; ?>">
+                              <span class="chart" data-percent="<?php echo number_format($clientes_mora,2)*100; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
