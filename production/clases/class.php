@@ -588,6 +588,73 @@ public function reportep_ingresos_mac()
   }
 
 
+public function reportep_ingresos_mant()
+{         
+    $srpt ="select sum(monto) monto from pago a where DATE_FORMAT(fecha_pago, '%Y%m')=date_format(date_add(NOW(), INTERVAL -1 MONTH),'%Y%m')";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->ingresomant[] = $rowrp;
+      }
+
+         return $this->ingresomant;
+    }
+  }
+
+
+public function reportep_clientesnuevos_ma()
+{         
+    $srpt ="select count(distinct codigo_membresia) clientes from membresia where
+DATE_FORMAT(fecha_inicio, '%Y%m')=date_format(date_add(NOW(), INTERVAL 0 MONTH),'%Y%m ')";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->clientesna[] = $rowrp;
+      }
+
+         return $this->clientesna;
+    }
+  }
+
+  public function reportep_avg_asistenciad()
+{         
+    $srpt ="select avg(asistencia) prom_asistencia from (
+select count(*) asistencia,  DATE_FORMAT(fecha_registro, '%d') dia from asistencia_log where
+DATE_FORMAT(fecha_registro, '%Y%m')=date_format(date_add(NOW(), INTERVAL 0 MONTH),'%Y%m ') ) g";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->avg_diarias[] = $rowrp;
+      }
+
+         return $this->avg_diarias;
+    }
+  }
+
+
+
+
 
 
 

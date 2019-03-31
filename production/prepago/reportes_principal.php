@@ -12,6 +12,9 @@ include("../clases/class.php");
  $clientes_m=$db->reportep_morac();  
  $clientes_asisactivos=$db->reportep_susactiva_asistiendo();  
  $ingresoma=$db->reportep_ingresos_mac();  
+ $ingresomant=$db->reportep_ingresos_mant();  
+ $clientesna=$db->reportep_clientesnuevos_ma();  
+ $avg_diarias=$db->reportep_avg_asistenciad();  
 
 $suscripcion_vencida=$suscripciones_v[0]['suscripciones']/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
 //echo $suscripciones_v[0]['suscripciones'];
@@ -109,7 +112,7 @@ if($clientes_mora==0){
                     <div class="row top_tiles" style="margin: 10px 0;">
                       <div class="col-md-3 tile">
                         <span>Ingreso del Mes Anterior</span>
-                        <h2>$<?php echo $ingresoma[0]['monto']; ?></h2>
+                        <h2>$<?php echo $ingresomant[0]['monto']; ?></h2>
                         <span class="sparkline_one" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                   </span>
@@ -122,15 +125,15 @@ if($clientes_mora==0){
                                   </span>
                       </div>
                       <div class="col-md-3 tile">
-                        <span>Asistencia por Dias</span>
-                        <h2>231,809</h2>
+                        <span>Promedio Asistencia po Dia</span>
+                        <h2><?php echo number_format($avg_diarias[0]['prom_asistencia'],0); ?></h2>
                         <span class="sparkline_two" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                   </span>
                       </div>
                       <div class="col-md-3 tile">
                         <span>Clientes Nuevos Mes</span>
-                        <h2>231,809</h2>
+                        <h2><?php echo $clientesna[0]['clientes']; ?></h2>
                         <span class="sparkline_one" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                   </span>
