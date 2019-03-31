@@ -59,7 +59,7 @@
                 <div>
                  
 
-                  <p>©2019 Derechos Reservados. Gerencia de Mercadeo. Inteligencia de Mercado</p>
+                  <p>©2019 Derechos Reservados.</p>
                 </div>
               </div>
             </form>

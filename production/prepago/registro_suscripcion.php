@@ -90,6 +90,42 @@ FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promo
                           </div>
                      
 
+
+                       <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="promocion"> Ingresa bajo promocion 
+                            </label>
+                            
+                            <div id="promocion"  class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="promocion" value="no" checked="checked"> &nbsp; No &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="promocion" value="si"> Si
+                            </label>
+                          </div>
+
+
+                          </div>
+
+
+                             <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Inicio <span class="required">*</span>
+                            </label>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                              <input   id="f_inicio"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                            </div>
+                          </div>
+
+
+                             <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Fin <span class="required">*</span>
+                            </label>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <input id="f_fin" name="f_fin" value="" type="text" class="form-control" data-inputmask="'mask': '9999-99-99'">
+                            </div>
+                          </div>
+
+                          
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Membresia</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
@@ -114,21 +150,6 @@ FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promo
                         </div>
                       </div>
 
-                       <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="promocion"> Ingresa bajo promocion 
-                            </label>
-                            
-                            <div id="promocion"  class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="promocion" value="no" checked="checked"> &nbsp; No &nbsp;
-                            </label>
-                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="promocion" value="si"> Si
-                            </label>
-                          </div>
-
-
-                          </div>
 
                             <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Monto de Suscripcion $  
@@ -162,23 +183,6 @@ FROM suscripcion a left join catalogo_promocion b on a.tipo_membresia=b.id_promo
 
 
 
-
-                             <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Inicio <span class="required">*</span>
-                            </label>
-                            <div class="col-md-3 col-sm-3 col-xs-12">
-                              <input   id="f_inicio"  name="f_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                            </div>
-                          </div>
-
-
-                             <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fecha de Fin <span class="required">*</span>
-                            </label>
-                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                <input id="f_fin" name="f_fin" value="" type="text" class="form-control" data-inputmask="'mask': '9999-99-99'">
-                            </div>
-                          </div>
 
                        
  

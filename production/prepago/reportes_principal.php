@@ -6,7 +6,41 @@ include("../clases/class.php");
  
   
  
+ $clientes_t=$db->reportep_clientest();  
+ $suscripciones_a=$db->reportep_suscripcionesa();  
+ $suscripciones_v=$db->reportep_suscripcionesv();  
+ $clientes_m=$db->reportep_morac();  
+ $clientes_asisactivos=$db->reportep_susactiva_asistiendo();  
+
+$suscripcion_vencida=$suscripciones_v[0]['suscripciones']/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
+//echo $suscripciones_v[0]['suscripciones'];
+//echo $suscripciones_a[0]['suscripciones'];
+//echo "detalle"; echo $clientes_aldia;
+//$clientes_aldia=1-$clientes_aldia;
+//echo "clientes al dia %"; echo $clientes_aldia;
+
+if($suscripcion_vencida==0){
+
+  $suscripcion_vencida=100;
+}
+ //print_r($suscripciones_a);
+
+// para los clientes asistiendo son aquellos que tienen sucripcion activa y tienen asistencias en esa suscripcion activa
+//mas los clientes que tienen suscripcion vencida pero siguen asistiendo, serian clientes en mora
+$clientes_asis=$clientes_asisactivos[0]['clientes']+$clientes_m[0]['clientes'];
+
+
+
+$clientes_mora= $clientes_m[0]['clientes']/ $clientes_asis;
+
  
+if($clientes_mora==0){
+
+  $clientes_mora=100;
+}
+
+
+
 
 ?>
  
@@ -27,21 +61,12 @@ include("../clases/class.php");
                 <div class="">
                   <div class="x_content">
                     <div class="row">
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
-                          </div>
-                          <div class="count">179</div>
-
-                          <h3>Clientes Activos</h3>
-                          <p>Detalle</p>
-                        </div>
-                      </div>
+                       
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-comments-o"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $suscripciones_a[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Activas</h3>
                           <p>Detalle.</p>
@@ -51,7 +76,7 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-sort-amount-desc"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $suscripciones_v[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Vencidas</h3>
                           <p>Detalle</p>
@@ -61,7 +86,18 @@ include("../clases/class.php");
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-check-square-o"></i>
                           </div>
-                          <div class="count">179</div>
+                          <div class="count"><?php echo $clientes_asis; ?></div>
+
+                          <h3>Clientes Asistiendo</h3>
+                          <p>Detalle.</p>
+                        </div>
+                      </div>
+
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          </div>
+                          <div class="count"><?php echo $clientes_m[0]['clientes']; ?></div>
 
                           <h3>Clientes con Mora</h3>
                           <p>Detalle.</p>
@@ -242,23 +278,23 @@ include("../clases/class.php");
                         <div class="x_panel ui-ribbon-container fixed_height_390">
                            
                           <div class="x_title">
-                            <h2>% de Clientes</h2>
+                            <h2>% de Clientes</h2> 
                             <div class="clearfix"></div>
                           </div>
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
+                              <span class="chart" data-percent="<?php echo number_format($suscripcion_vencida,2)*100; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
 
-                            <h3 class="name_title">Al Dia</h3>
+                            <h3 class="name_title">Vencidas</h3>
                             <p>Detalle</p>
 
                             <div class="divider"></div>
 
-                            <p>Muestra el % de clientes que estan al dia con sus pagos de suscripciones.</p>
+                            <p>Muestra el % de clientes que  sus suscripciones estan vencidas.</p>
 
                           </div>
                         </div>
@@ -274,17 +310,17 @@ include("../clases/class.php");
                           <div class="x_content">
 
                             <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
+                              <span class="chart" data-percent="<?php echo number_format($clientes_mora,2)*100; ?>">
                                                   <span class="percent"></span>
                               </span>
                             </div>
 
-                            <h3 class="name_title">Acitvos</h3>
+                            <h3 class="name_title">Mora</h3>
                             <p>Detalle</p>
 
                             <div class="divider"></div>
 
-                            <p>Muestra el % de clientes que estan activos a la fecha.</p>
+                            <p>Muestra el % de clientes que estan con mora(asisten pero suscripcion vencida).</p>
 
                           </div>
                         </div>

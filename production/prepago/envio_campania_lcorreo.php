@@ -7,23 +7,33 @@ include("../clases/class.php");
  
 $seleccionado=$_POST['seleccionado'];
 
+if($seleccionado==0){
+ $srpt ="SELECT 'correo@correo.com' email";  
+
+}
+
+
 if($seleccionado==1){
- $srpt ="SELECT * FROM persona";  
+ $srpt ="SELECT * FROM persona where email not in('notengo@notengo.com')";  
 
 }
 if($seleccionado==2){
- $srpt ="select nombre,b.email from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2";  
+ $srpt ="select nombre,b.email from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2 
+and (select count(*) from suscripcion where codigo_membresia=a.codigo_membresia and estado=1)=0
+ and email not in('notengo@notengo.com')";  
   
 }
 
 if($seleccionado==3){
- $srpt ="SELECT nombre,email FROM persona t1 where datediff( sysdate(), (select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia )) > 30";  
+ $srpt ="SELECT nombre,email FROM persona t1 where datediff( sysdate(), (select max(fecha_registro) from asistencia_log where codigo_membresia=t1.codigo_membresia )) > 30
+ and email not in('notengo@notengo.com')";  
   
 }
 
 if($seleccionado==4){
  $srpt ="select nombre,b.email from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2
-and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0";  
+and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0
+and email not in('notengo@notengo.com')";  
   
 }
 
