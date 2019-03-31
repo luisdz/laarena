@@ -475,6 +475,8 @@ public function reportep_clientest()
     }
   }
 
+  //clientes con suscripciones vencidas, las que estan en estado 2 pero no tienen niguna otra sucripcion activa
+
 public function reportep_suscripcionesv()
 {         
     $srpt ="SELECT count(distinct codigo_membresia) suscripciones  FROM suscripcion a where estado=2 
@@ -498,8 +500,9 @@ public function reportep_suscripcionesv()
 
 public function reportep_morac()
 {         
-    $srpt ="select count(*) clientes from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2
-and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0";
+    $srpt ="select count(distinct a.codigo_membresia) clientes from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2
+and (select count(distinct codigo_membresia) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion
+ and fecha_registro>a.fecha_fin)>0";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
     //echo $srpt;
@@ -517,6 +520,8 @@ and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codi
     }
   }
 
+
+//clientes con suscripcion activa que tienen registradas asistencias
   public function reportep_susactiva_asistiendo()
 {         
     $srpt ="select count(*) clientes from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=1
@@ -531,10 +536,10 @@ and (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codi
     else{
       while ($rowrp = mysqli_fetch_array($qsrp)) {
               //print_r($rowrp); 
-              $this->resultadosm[] = $rowrp;
+              $this->resultados_asis[] = $rowrp;
       }
 
-         return $this->resultadosm;
+         return $this->resultados_asis;
     }
   }
 
@@ -560,6 +565,29 @@ public function reportep_clientes_asistiendo()
          return $this->resultados_a;
     }
   }
+
+
+public function reportep_ingresos_mac()
+{         
+    $srpt ="select sum(monto) monto from pago a where DATE_FORMAT(fecha_pago, '%Y%m')=date_format(date_add(NOW(), INTERVAL 0 MONTH),'%Y%m')";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->ingresoma[] = $rowrp;
+      }
+
+         return $this->ingresoma;
+    }
+  }
+
+
 
 
 

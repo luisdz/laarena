@@ -11,6 +11,7 @@ include("../clases/class.php");
  $suscripciones_v=$db->reportep_suscripcionesv();  
  $clientes_m=$db->reportep_morac();  
  $clientes_asisactivos=$db->reportep_susactiva_asistiendo();  
+ $ingresoma=$db->reportep_ingresos_mac();  
 
 $suscripcion_vencida=$suscripciones_v[0]['suscripciones']/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
 //echo $suscripciones_v[0]['suscripciones'];
@@ -36,7 +37,7 @@ $clientes_mora= $clientes_m[0]['clientes']/ $clientes_asis;
  
 if($clientes_mora==0){
 
-  $clientes_mora=100;
+  $clientes_mora=0;
 }
 
 
@@ -108,14 +109,14 @@ if($clientes_mora==0){
                     <div class="row top_tiles" style="margin: 10px 0;">
                       <div class="col-md-3 tile">
                         <span>Ingreso del Mes Anterior</span>
-                        <h2>231,809</h2>
+                        <h2>$<?php echo $ingresoma[0]['monto']; ?></h2>
                         <span class="sparkline_one" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                   </span>
                       </div>
                       <div class="col-md-3 tile">
                         <span>Ingreso Mes Actual</span>
-                        <h2>$ 1,231,809</h2>
+                        <h2>$<?php echo $ingresoma[0]['monto']; ?></h2>
                         <span class="sparkline_one" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                   </span>
