@@ -644,6 +644,38 @@ if($result==false )
  return $uerror;
   }
 
+
+  public function actualizar_usuario()
+    {
+      $id=$_POST['id'];
+      $nombre=$_POST['name'];
+      $usuario=$_POST['usuario'];
+      $cantidad=$_POST['pass']; 
+      $estado=$_POST['estado'];    
+     // $usuario='eduardo.herrera'; 
+
+     $sql = "UPDATE `usuario` SET `nombre`=\"".$nombre."\",`usuario`=\"".$usuario."\",`estado`=".$estado."  WHERE id_usuario=".$id."";
+
+   
+    //echo $sql;
+   
+   $result=mysqli_query($this->conectar(),$sql);  
+ 
+  
+
+$uerror=0;
+if($result==false )
+{
+
+  $uerror=1;
+
+   //if(($errors=mysql_error())!=null){}
+} 
+
+   // echo $srpt;
+ return $uerror; 
+  }
+
 } //FIN DE LA CLASE
 
 
