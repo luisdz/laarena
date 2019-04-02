@@ -15,6 +15,9 @@ include("../clases/class.php");
  $ingresomant=$db->reportep_ingresos_mant();  
  $clientesna=$db->reportep_clientesnuevos_ma();  
  $avg_diarias=$db->reportep_avg_asistenciad();  
+ $ingresoxmes=$db->reportep_ingresosxmesh();  
+
+
 
 $suscripcion_vencida=$suscripciones_v[0]['suscripciones']/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
 //echo $suscripciones_v[0]['suscripciones'];
@@ -33,6 +36,9 @@ if($suscripcion_vencida==0){
 //mas los clientes que tienen suscripcion vencida pero siguen asistiendo, serian clientes en mora
 $clientes_asis=$clientes_asisactivos[0]['clientes']+$clientes_m[0]['clientes'];
 
+
+//%de clientes asisitiendo
+ $xcent_clientesa=$clientes_asis/($suscripciones_a[0]['suscripciones']+$suscripciones_v[0]['suscripciones']);
 
 
 $clientes_mora= $clientes_m[0]['clientes']/ $clientes_asis;
@@ -125,7 +131,7 @@ if($clientes_mora==0){
                                   </span>
                       </div>
                       <div class="col-md-3 tile">
-                        <span>Promedio Asistencia po Dia</span>
+                        <span>Promedio Asistencia por Dia</span>
                         <h2><?php echo number_format($avg_diarias[0]['prom_asistencia'],0); ?></h2>
                         <span class="sparkline_two" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
@@ -145,66 +151,13 @@ if($clientes_mora==0){
 
                     <br />
                     <div class="row">
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                      
+
+
+                      <div class="col-md-4 col-xs-12 widget widget_tally_box">
                         <div class="x_panel fixed_height_390">
                           <div class="x_title">
-                            <h2>Historico Ingresos</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Settings 1</a>
-                                  </li>
-                                  <li><a href="#">Settings 2</a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 0;">
-                              <canvas id="canvas_line1" height="200"></canvas>
-                            </div>
-
-                             
-
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">Crecimientos Mes 1 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">Crecimiento Mes 2 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">Crecimiento Mes 3 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel fixed_height_390">
-                          <div class="x_title">
-                            <h2>Ingresos Semana</h2>
+                            <h2>Ingresos Mensuales</h2>
                             <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                               </li>
@@ -228,22 +181,114 @@ if($clientes_mora==0){
                               <ul class="verticle_bars list-inline">
                                 <li>
                                   <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="65"></div>
+                                    <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php 
+                                    if(isset($ingresoxmes[0]['ingresos'])){
+
+                                     
+                                      //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
+                                      $tamanio=strlen($ingresoxmes[0]['ingresos']);
+                                      if($tamanio==3) 
+                                        $divisible=10;
+
+                                      if($tamanio==4) 
+                                        $divisible=100;
+
+
+                                      if($tamanio==5) 
+                                        $divisible=1000;
+                                      
+                                      if($tamanio==5) 
+                                        $divisible=10000;
+
+                                         echo $ingresoxmes[0]['ingresos']/$divisible ;
+
+
+                                    }
+                                    ?>"></div>
                                   </div>
                                 </li>
                                 <li>
                                   <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="85"></div>
+                                    <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php 
+                                    if(isset($ingresoxmes[1]['ingresos'])){
+
+                                     
+                                      //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
+                                      $tamanio=strlen($ingresoxmes[1]['ingresos']);
+                                      if($tamanio==3) 
+                                        $divisible=10;
+
+                                      if($tamanio==4) 
+                                        $divisible=100;
+
+
+                                      if($tamanio==5) 
+                                        $divisible=1000;
+                                      
+                                      if($tamanio==5) 
+                                        $divisible=10000;
+
+                                         echo $ingresoxmes[1]['ingresos']/$divisible ;
+
+
+                                    }
+                                    ?>"></div>
                                   </div>
                                 </li>
                                 <li>
                                   <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="45"></div>
+                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php 
+                                    if(isset($ingresoxmes[2]['ingresos'])){
+
+                                     
+                                      //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
+                                      $tamanio=strlen($ingresoxmes[2]['ingresos']);
+                                      if($tamanio==3) 
+                                        $divisible=10;
+
+                                      if($tamanio==4) 
+                                        $divisible=100;
+
+
+                                      if($tamanio==5) 
+                                        $divisible=1000;
+                                      
+                                      if($tamanio==5) 
+                                        $divisible=10000;
+
+                                         echo $ingresoxmes[2]['ingresos']/$divisible ;
+
+
+                                    }
+                                    ?>"></div>
                                   </div>
                                 </li>
                                 <li>
                                   <div class="progress vertical progress_wide bottom">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="75"></div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php 
+                                    if(isset($ingresoxmes[3]['ingresos'])){
+
+                                     
+                                      //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
+                                      $tamanio=strlen($ingresoxmes[3]['ingresos']);
+                                      if($tamanio==3) 
+                                        $divisible=10;
+
+                                      if($tamanio==4) 
+                                        $divisible=100;
+
+
+                                      if($tamanio==5) 
+                                        $divisible=1000;
+                                      
+                                      if($tamanio==5) 
+                                        $divisible=10000;
+
+                                         echo $ingresoxmes[3]['ingresos']/$divisible ;
+
+
+                                    }
+                                    ?>"></div>
                                   </div>
                                 </li>
                               </ul>
@@ -253,22 +298,30 @@ if($clientes_mora==0){
                             <ul class="legend list-unstyled">
                               <li>
                                 <p>
-                                  <span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Semana 1</span>
+                                  <span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Mes <?php if(isset($ingresoxmes[0]['ingresos']))
+                                    echo $ingresoxmes[0]['mes'];
+                                   ?></span>
                                 </p>
                               </li>
                               <li>
                                 <p>
-                                  <span class="icon"><i class="fa fa-square grey"></i></span> <span class="name">Semana 2</span>
+                                  <span class="icon"><i class="fa fa-square grey"></i></span> <span class="name">Mes <?php if(isset($ingresoxmes[1]['ingresos']))
+                                    echo $ingresoxmes[1]['mes'];
+                                   ?></span>
                                 </p>
                               </li>
                               <li>
                                 <p>
-                                  <span class="icon"><i class="fa fa-square blue"></i></span> <span class="name">Semana 3</span>
+                                  <span class="icon"><i class="fa fa-square blue"></i></span> <span class="name">Mes <?php if(isset($ingresoxmes[2]['ingresos']))
+                                    echo $ingresoxmes[2]['mes'];
+                                   ?></span>
                                 </p>
                               </li>
                               <li>
                                 <p>
-                                  <span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Semana 4</span>
+                                  <span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Mes <?php if(isset($ingresoxmes[3]['ingresos']))
+                                    echo $ingresoxmes[3]['mes'];
+                                   ?></span>
                                 </p>
                               </li>
                             </ul>
@@ -278,7 +331,7 @@ if($clientes_mora==0){
                       </div>
 
 
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                      <div class="col-md-4 col-xs-12 widget widget_tally_box">
                         <div class="x_panel ui-ribbon-container fixed_height_390">
                            
                           <div class="x_title">
@@ -304,7 +357,7 @@ if($clientes_mora==0){
                         </div>
                       </div>
 
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                      <div class="col-md-4 col-xs-12 widget widget_tally_box">
                         <div class="x_panel ui-ribbon-container fixed_height_390">
                            
                           <div class="x_title">
@@ -330,263 +383,42 @@ if($clientes_mora==0){
                         </div>
                       </div>
 
+                       <div class="col-md-4 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel ui-ribbon-container fixed_height_390">
+                           
+                          <div class="x_title">
+                            <h2>% de Clientes</h2>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+
+                            <div style="text-align: center; margin-bottom: 17px">
+                              <span class="chart" data-percent="<?php echo number_format($xcent_clientesa,2)*100; ?>">
+                                                  <span class="percent"></span>
+                              </span>
+                            </div>
+
+                            <h3 class="name_title">Asistiendo</h3>
+                            <p>Detalle</p>
+
+                            <div class="divider"></div>
+
+                            <p>Muestra el % de clientes que estan asistiendo, para visualizar el % de clientes que se pueden renovar.</p>
+
+                          </div>
+                        </div>
+                      </div>
+
 
                      
+ 
 
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Mes 1</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Settings 1</a>
-                                  </li>
-                                  <li><a href="#">Settings 2</a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut" height="130"></canvas>
-                            </div>
-
-                             
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+ 
 
 
+              
 
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Mes 2</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Settings 1</a>
-                                  </li>
-                                  <li><a href="#">Settings 2</a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut2" height="130"></canvas>
-                            </div>
-
-                             
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line2" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Mes 3</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Settings 1</a>
-                                  </li>
-                                  <li><a href="#">Settings 2</a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut3" height="130"></canvas>
-                            </div>
-
-                             
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line3" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Mes 4</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Settings 1</a>
-                                  </li>
-                                  <li><a href="#">Settings 2</a>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut4" height="130"></canvas>
-                            </div>
-
-                             
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line4" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                   
                     </div>
                   </div>
                 </div>
@@ -636,146 +468,13 @@ include("../footer.php");
         Chart.defaults.global.legend = {
           enabled: false
         };
+ 
 
-        new Chart(document.getElementById("canvas_line"), {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
+        
+        
 
-        new Chart(document.getElementById("canvas_line1"), {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
-
-        new Chart(document.getElementById("canvas_line2"), {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
-
-        new Chart(document.getElementById("canvas_line3"), {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
-
-        new Chart(document.getElementById("canvas_line4"), {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
+     
+ 
       });
     </script>
     

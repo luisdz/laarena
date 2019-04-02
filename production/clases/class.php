@@ -653,6 +653,29 @@ DATE_FORMAT(fecha_registro, '%Y%m')=date_format(date_add(NOW(), INTERVAL 0 MONTH
   }
 
 
+ public function reportep_ingresosxmesh()
+{         
+    $srpt ="select DATE_FORMAT(fecha_pago, '%M') mes,sum(monto) ingresos  from pago  where 
+DATE_FORMAT(fecha_pago, '%Y')=date_format(date_add(NOW(), INTERVAL 0 MONTH),'%Y')
+group by DATE_FORMAT(fecha_pago, '%m') order by DATE_FORMAT(fecha_pago, '%M') ";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+    //echo $srpt;
+    $er = mysqli_num_rows($qsrp);
+    if(mysqli_num_rows($qsrp)==0){
+    echo 'Sin resultados';
+    }
+    else{
+      while ($rowrp = mysqli_fetch_array($qsrp)) {
+              //print_r($rowrp); 
+              $this->ingresoxmesh[] = $rowrp;
+      }
+
+         return $this->ingresoxmesh;
+    }
+  }
+
+
 
 
 
