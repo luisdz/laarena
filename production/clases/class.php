@@ -475,6 +475,29 @@ public function reportep_clientest()
     }
   }
 
+  public function reportep_suscripcionesa_detalle()
+{         
+    $srpt ="select a.codigo_membresia, c.nombre nombre_p, c.apellido , a.promocion , 
+case 
+when tipo=1 then 'Mensual'
+when tipo=2 then 'Clases'
+end as tipo_membresia, b.cantidad, b.precio, a.fecha_inicio, a.fecha_fin , a.comentario , b.nombre, 
+case
+  when  a.estado=1 then 'Activa'
+  when a.estado=2 then 'Vencida'
+end estado  ,
+
+(select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)  cantidad_asistencia
+from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
+where a.estado=1
+";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+     
+     return $qsrp;
+  }
+
+
   //clientes con suscripciones vencidas, las que estan en estado 2 pero no tienen niguna otra sucripcion activa
 
 public function reportep_suscripcionesv()

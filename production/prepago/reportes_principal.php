@@ -79,7 +79,7 @@ if($clientes_mora==0){
                           <div class="count"><?php echo $suscripciones_a[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Activas</h3>
-                          <p>Detalle.</p>
+                          <a href="reportes_suscripa.php"><p>Detalle.</p></a>
                         </div>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
