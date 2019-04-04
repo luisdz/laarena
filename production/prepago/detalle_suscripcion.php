@@ -1,5 +1,3 @@
-
-
 <?php
 include("../header.php");
 //include("../page_content.php");
@@ -26,7 +24,7 @@ include("../clases/class.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consultar<small>Clientes</small></h2>
+                    <h2>Consultar suscripcion <small>Clientes</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> 
@@ -34,29 +32,7 @@ include("../clases/class.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                   <div id="msj"> 
-                        <?php
-                        $stonevar = isset($_GET['code']) ? $_GET['code'] : 0;                     
-                        if($stonevar==201)
-                         {
-                           echo '<div id="resp" class="alert alert-success alert-dismissible fade in" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                            </button>
-                                            <strong>Se elimino cliente con exito</strong> 
-                                          </div>';
-                         }
-                         else if ($stonevar==101)
-                         {
-                           echo '<div id="resp" class="alert alert-warning alert-dismissible fade in" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                            </button>
-                                            <strong>No se pudo eliminar</strong> Cliente posee suscripcion activa
-                                          </div>';
-                         } 
-                        ?>
-
-
-                   </div>
+                   
                     <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                       
                           <div class="row">
@@ -64,24 +40,39 @@ include("../clases/class.php");
                       <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
-                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 263px;">Codigo</th>
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">nombre</th>  
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">apellido</th>   
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420px;">Telefono</th>                           
+                          <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Codigo</th>
+                           <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Nombre</th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"  >Apellido</th>
                            
-                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 197px;">Email</th>   
-                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Fecha de naciemiento</th> 
-                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th>
-                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"   style="width: 197px;">Accion</th> 
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Tipo Suscripcion</th>  
+                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"  >Promocion</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Cantidad</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >N~ Asistencias</th>  
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  ">Precio</th>   
+                           
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Fecha inicio</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Fecha fin</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Estado</th>   
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"  >Comentario</th>   
                         </tr>
                       </thead>
 
 
                       <tbody>  
                         <?php
-                        $srpt ="select * from persona";
-                         
-                        //$sql = "SELECT t2.*,t1.fecha_fin FROM `suscripcion` t1 INNER JOIN persona t2 ON t1.codigo_membresia=t2.codigo_membresia WHERE fecha_fin > sysdate() and datediff(fecha_fin,sysdate())<6";  
+
+                        $srpt ="select a.codigo_membresia, c.nombre nombre_p, c.apellido , a.promocion , 
+case 
+when tipo=1 then 'Mensual'
+when tipo=2 then 'Clases'
+end as tipo_membresia, b.cantidad, b.precio, a.fecha_inicio, a.fecha_fin , a.comentario , b.nombre, 
+case
+  when  a.estado=1 then 'Activa'
+  when a.estado=2 then 'Vencida'
+end estado  ,
+
+(select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)  cantidad_asistencia
+from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia where a.codigo_membresia='".$_GET['id']."'";   
                             $qsrp = mysqli_query($db->conectar(),$srpt);
                             //echo $srpt;
                             if(mysqli_num_rows($qsrp)==0)
@@ -92,16 +83,33 @@ include("../clases/class.php");
                             {
                               while ($rowrp = mysqli_fetch_array($qsrp)) 
                               {
+
+                                if(($rowrp['cantidad']-$rowrp['cantidad_asistencia'])==22)
+                                {
+                                  $color="color:red";
+                                }
+                                else{
+                                    $color="color:#73879C";
+                                }
                                  //     print_r($rowrp);  
+                                
+                                
                                 echo "<tr>";
                                  echo "<td>".$rowrp['codigo_membresia']."</td>";
-                                  echo "<td> <a class='black' href='detalle_suscripcion.php?id=".$rowrp['codigo_membresia']."'>".$rowrp['nombre']."</a></td>";
+                                 echo "<td>".$rowrp['nombre_p']."</td>";
                                  echo "<td>".$rowrp['apellido']."</td>";
-                                 echo "<td>".$rowrp['telefono']."</td>";
-                                 echo "<td>".$rowrp['email']."</td>";
-                                 echo "<td>".$rowrp['fecha_nac']."</td>";                                
-                                 echo "<td><a class='green' href='actualizar_clientes.php?id=".$rowrp['codigo_membresia']."'><i class='fa fa-check-square green'></i> Editar</a></td>";
-                                 echo "<td><a class='green' id='delete' onclick=\"return confirm('Desea eliminar el cliente?')\" href='delete_clientes.php?id=".$rowrp['codigo_membresia']."'><i class='fa fa-check-square green'></i> Eliminar</a></td>";
+                                
+                                 echo "<td>".$rowrp['tipo_membresia']."</td>";
+                                 echo "<td>".$rowrp['nombre']."</td>";
+                                 echo "<td>".$rowrp['cantidad']."</td>";
+                                 echo "<td style='".$color."'>".$rowrp['cantidad_asistencia']."</td>";
+                                 echo "<td> $".$rowrp['precio']."</td>";
+                                  
+                                 
+                                 echo "<td>".$rowrp['fecha_inicio']."</td>";
+                                 echo "<td>".$rowrp['fecha_fin']."</td>";
+                                 echo "<td>".$rowrp['estado']."</td>";
+                                 echo "<td>".$rowrp['comentario']."</td>"; 
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
@@ -134,32 +142,6 @@ include("../footer.php");
 
    
   <script>
-
-$(document).on('ready',function(){       
-    $('#delete').click(function(){
-      //ingresa
-        //var url = "update_clientes.php";
-        //alert("hello");
-        //if(!confirm('¿Desea eliminar el cliente?')){
-        //    e.preventDefault();
-       //     return false;
-       // }
-         //alert("si");
-
-       /* $.ajax({                        
-           type: "POST",                 
-           url: url,                     
-           data: $("#update_clientes").serialize(), 
-           success: function(data)             
-           {
-             $('#resp').html(data); 
-             alert(data);  
-                         
-           }
-       });*/
-    });
-});
-
       $(document).ready(function() {
         
         var handleDataTableButtons = function() {
