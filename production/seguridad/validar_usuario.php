@@ -36,7 +36,7 @@ $estado=$db->estado($_POST['user'],$contr);
         $_SESSION["id"] = $estado[0]['id_usuario'];
         $_SESSION["Nombre"] = $estado[0]['usuario'];
         $_SESSION["Estado"] = $estado[0]['estado'];
-		$_SESSION["id_rol"] = $estado[0]['id_persona'];
+		$_SESSION["id_rol"] = $estado[0]['id_usuario'];
 		//consulta la informacion del usuario 
 		 if($_SESSION["Estado"]==1) {
 		//redireccionar

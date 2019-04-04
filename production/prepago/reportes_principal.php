@@ -89,7 +89,7 @@ if($clientes_mora==0){
                           <div class="count"><?php echo $suscripciones_v[0]['suscripciones']; ?></div>
 
                           <h3>Suscripciones Vencidas</h3>
-                          <p>Detalle</p>
+                         <a href="reportes_suscripv.php"><p>Detalle.</p></a>
                         </div>
                       </div>
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -99,7 +99,7 @@ if($clientes_mora==0){
                           <div class="count"><?php echo $clientes_asis; ?></div>
 
                           <h3>Clientes Asistiendo</h3>
-                          <p>Detalle.</p>
+                      <a href="reportes_clientesa.php"><p>Detalle.</p></a>
                         </div>
                       </div>
 
