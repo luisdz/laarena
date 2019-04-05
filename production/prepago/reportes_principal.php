@@ -128,7 +128,7 @@ if($clientes_mora==0){
                         <h2>$<?php echo $ingresoma[0]['monto']; ?></h2>
                         <span class="sparkline_one" style="height: 160px;">
                                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
+                                  </span><a href="reportes_ingresmes.php"><p>Detalle.</p></a>
                       </div>
                       <div class="col-md-3 tile">
                         <span>Promedio Asistencia por Dia</span>
