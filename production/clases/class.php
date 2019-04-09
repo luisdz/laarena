@@ -535,6 +535,26 @@ union
      return $qsrp;
   }
 
+    public function reportep_clientesmora_detalle()
+{         
+    $srpt ="   select DATE_FORMAT(fecha_registro, '%Y%m') periodo ,a.codigo_membresia,b.nombre, b.apellido, email, telefono,case when tipo=1 then 'Mensual' when tipo=2 then 'Clases' end as tipo_membresia, (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad_asistencia , fecha_inicio, fecha_fin ,case
+  when  a.estado=1 then 'Activa'
+  when a.estado=2 then 'Vencida'
+end estado , precio from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion where a.estado=2
+and (select count(distinct codigo_membresia) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion
+ and fecha_registro>a.fecha_fin)>0
+
+
+ ";
+   
+    $qsrp2 = mysqli_query($this->conectar(),$srpt);
+     
+     return $qsrp2;
+  }
+
+
+
+
 
 
 

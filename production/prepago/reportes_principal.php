@@ -110,7 +110,7 @@ if($clientes_mora==0){
                           <div class="count"><?php echo $clientes_m[0]['clientes']; ?></div>
 
                           <h3>Clientes con Mora</h3>
-                          <p>Detalle.</p>
+                         <a href="reportes_clientesm.php"><p>Detalle.</p></a>
                         </div>
                       </div>
                     </div>
