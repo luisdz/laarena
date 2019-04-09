@@ -497,6 +497,34 @@ where a.estado=1
      return $qsrp;
   }
 
+    public function reportep_ingresmes_encabezado()
+{         
+    $srpt ="select 
+DATE_FORMAT( date_add(sysdate() , INTERVAL -3 MONTH), '%M') as mes1,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M') as mes2,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M') as mes3,
+DATE_FORMAT( sysdate(), '%M') as mes4";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+     
+     return $qsrp;
+  }
+
+    public function reportep_ingresmes_detalle()
+{         
+    $srpt ="select 
+sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -3 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes1,
+sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes2,
+sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes3,
+sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) as mes4 
+from pago";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+     
+     return $qsrp;
+  }
+
+
     public function reportep_suscripcionesv_detalle()
 {         
     $srpt ="select a.codigo_membresia, c.nombre nombre_p, c.apellido , a.promocion , 
