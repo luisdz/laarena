@@ -52,10 +52,13 @@ include("../clases/class.php");
                         echo  '<tr>';
                         echo  '<th>'.$rowrp['mes1'].'</th>';
                         echo  '<th>'.$rowrp['mes2'].'</th>';
+                        echo  '<th>'.$rowrp['cre1'].'</th>';
                         echo  '<th>'.$rowrp['mes3'].'</th>';
-                        echo  '<th>'.$rowrp['mes4'].'</th>' ;
+                        echo  '<th>'.$rowrp['cre2'].'</th>';
+                        echo  '<th>'.$rowrp['mes4'].'</th>';
+                        echo  '<th>'.$rowrp['cre3'].'</th>';
                         echo  '</tr>';
-                        echo  '</thead>';
+                        echo  '</thead>';                      
 
                       ?>
 
@@ -74,10 +77,13 @@ include("../clases/class.php");
                               {                                      
                                 
                                 echo "<tr>";
-                                 echo "<td>".$rowrp['mes1']."</td>";
-                                 echo "<td>".$rowrp['mes2']."</td>";
-                                 echo "<td>".$rowrp['mes3']."</td>";                                
-                                 echo "<td>".$rowrp['mes4']."</td>";
+                                 echo "<td>$".$rowrp['mes1']."</td>";
+                                 echo "<td>$".$rowrp['mes2']."</td>";
+                                echo  '<td>'.$rowrp['cre1'].'%</td>';
+                                 echo "<td>$".$rowrp['mes3']."</td>";
+                                echo  '<td>'.$rowrp['cre2'].'%</td>';                                
+                                 echo "<td>$".$rowrp['mes4']."</td>";
+                                echo  '<td>'.$rowrp['cre3'].'%</td>';
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
