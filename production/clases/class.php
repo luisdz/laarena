@@ -540,6 +540,7 @@ end estado  ,
 (select count(*) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)  cantidad_asistencia
 from suscripcion a inner join catalogo_promocion b on a.tipo_membresia=b.id_promocion inner join persona c on a.codigo_membresia=c.codigo_membresia
 where a.estado=2
+and (select count(*) from suscripcion where estado=1 and codigo_membresia=a.codigo_membresia)<=0
 ";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
@@ -550,12 +551,26 @@ where a.estado=2
 
     public function reportep_clientesasist_detalle()
 {         
-    $srpt ="  (select DATE_FORMAT(fecha_registro, '%Y%m') periodo ,a.codigo_membresia,b.nombre, b.apellido, case when tipo=1 then 'Mensual' when tipo=2 then 'Clases' end as tipo_membresia, (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad_asistencia , fecha_inicio, fecha_fin ,case
+    $srpt ="  (select DATE_FORMAT(d.fecha_registro, '%Y%m') periodo ,a.codigo_membresia,b.nombre, b.apellido, case when tipo=1 then 'Mensual' when tipo=2 then 'Clases' end as tipo_membresia, (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad_asistencia , fecha_inicio, fecha_fin ,case
   when  a.estado=1 then 'Activa'
   when a.estado=2 then 'Vencida'
-end estado , precio from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion where a.estado=1 and (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)>0)
+end estado , precio 
+from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia 
+                   inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion 
+                      inner join asistencia_log d on a.codigo_membresia=d.codigo_membresia and a.id_suscripcion=d.idsuscripcion
+where a.estado=1 and (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion)>0
+)
 union 
-(select DATE_FORMAT(fecha_registro, '%Y%m') periodo ,a.codigo_membresia,b.nombre, b.apellido, case when tipo=1 then 'Mensual' when tipo=2 then 'Clases' end as tipo_membresia, (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad_asistencia , fecha_inicio, fecha_fin ,case when a.estado=1 then 'Activa' when a.estado=2 then 'Vencida' end estado , precio from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion where a.estado=2 and (select count(distinct codigo_membresia) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0)
+(select DATE_FORMAT(d.fecha_registro, '%Y%m') periodo ,a.codigo_membresia,b.nombre, b.apellido, case when tipo=1 then 'Mensual' when tipo=2 then 'Clases' end as tipo_membresia, (select count(*) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion) cantidad_asistencia , fecha_inicio, fecha_fin ,
+case when a.estado=1 then 'Activa' 
+     when a.estado=2 then 'Vencida' 
+end estado , precio 
+from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia 
+                   inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion
+                   inner join asistencia_log d on a.codigo_membresia=d.codigo_membresia
+ where a.estado=2 and (select count(distinct codigo_membresia) cantidad from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion and fecha_registro>a.fecha_fin)>0
+and (select count(*) from suscripcion where estado=1 and codigo_membresia=a.codigo_membresia)<=0
+)
 ";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
@@ -570,7 +585,7 @@ union
   when a.estado=2 then 'Vencida'
 end estado , precio from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia inner join catalogo_promocion c on a.tipo_membresia=c.id_promocion where a.estado=2
 and (select count(distinct codigo_membresia) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion
- and fecha_registro>a.fecha_fin)>0
+ and fecha_registro>a.fecha_fin)>0 and (select count(*) from suscripcion where estado=1 and codigo_membresia=a.codigo_membresia)=0
 
 
  ";
@@ -593,7 +608,7 @@ and (select count(distinct codigo_membresia) cantidad  from asistencia_log where
 public function reportep_suscripcionesv()
 {         
     $srpt ="SELECT count(distinct codigo_membresia) suscripciones  FROM suscripcion a where estado=2 
-    and (select count(*) from suscripcion where codigo_membresia=a.codigo_membresia and estado=1)=0";
+    and (select count(*) from suscripcion where codigo_membresia=a.codigo_membresia and estado=1)=0 ";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
     //echo $srpt;
@@ -615,7 +630,8 @@ public function reportep_morac()
 {         
     $srpt ="select count(distinct a.codigo_membresia) clientes from suscripcion a inner join persona b on a.codigo_membresia=b.codigo_membresia where estado=2
 and (select count(distinct codigo_membresia) cantidad  from asistencia_log where codigo_membresia=a.codigo_membresia and idsuscripcion=a.id_suscripcion
- and fecha_registro>a.fecha_fin)>0";
+ and fecha_registro>a.fecha_fin)>0 and (select count(*) from suscripcion where estado=1 and codigo_membresia=a.codigo_membresia)<=0 
+ and (select count(*) from suscripcion where estado=1 and codigo_membresia=a.codigo_membresia)=0 ";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
     //echo $srpt;
