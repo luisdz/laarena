@@ -500,9 +500,9 @@ where a.estado=1
     public function reportep_ingresmes_encabezado()
 {         
     $srpt ="select 
-DATE_FORMAT( date_add(sysdate() , INTERVAL -3 MONTH), '%M') as mes1,
-DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M') as mes2,
-DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M') as mes3,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -3 MONTH), '%M') as mes1, 'Variacion' as cre1,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M') as mes2, 'Variacion' as cre2,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M') as mes3, 'Variacion' as cre3,
 DATE_FORMAT( sysdate(), '%M') as mes4";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
@@ -514,8 +514,11 @@ DATE_FORMAT( sysdate(), '%M') as mes4";
 {         
     $srpt ="select 
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -3 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes1,
+(sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -3 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre1,
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes2,
+(sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre2,
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes3,
+(sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre3,
 sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) as mes4 
 from pago";
    
