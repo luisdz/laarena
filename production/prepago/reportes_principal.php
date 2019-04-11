@@ -187,6 +187,9 @@ if($clientes_mora==0){
                                      
                                       //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
                                       $tamanio=strlen($ingresoxmes[0]['ingresos']);
+                                        if($tamanio==2) 
+                                        $divisible=1;
+
                                       if($tamanio==3) 
                                         $divisible=10;
 
@@ -215,6 +218,9 @@ if($clientes_mora==0){
                                      
                                       //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
                                       $tamanio=strlen($ingresoxmes[1]['ingresos']);
+                                      if($tamanio==2) 
+                                        $divisible=1;
+
                                       if($tamanio==3) 
                                         $divisible=10;
 
@@ -243,6 +249,9 @@ if($clientes_mora==0){
                                      
                                       //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
                                       $tamanio=strlen($ingresoxmes[2]['ingresos']);
+                                      if($tamanio==2) 
+                                        $divisible=1;
+
                                       if($tamanio==3) 
                                         $divisible=10;
 
@@ -271,6 +280,11 @@ if($clientes_mora==0){
                                      
                                       //calcular tamano de ingresos para la grafica de barra y poder dividir entre 10, 100 0 1000 
                                       $tamanio=strlen($ingresoxmes[3]['ingresos']);
+
+                                      if($tamanio==2) 
+                                        $divisible=1;
+
+                                        
                                       if($tamanio==3) 
                                         $divisible=10;
 
