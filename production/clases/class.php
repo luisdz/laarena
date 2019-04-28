@@ -501,8 +501,8 @@ where a.estado=1
 {         
     $srpt ="select 
 DATE_FORMAT( date_add(sysdate() , INTERVAL -3 MONTH), '%M') as mes1, 'Variacion' as cre1,
-DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M') as mes2, 'Variacion' as cre2,
-DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M') as mes3, 'Variacion' as cre3,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M') as mes2, concat('Diferencia con ',DATE_FORMAT( date_add(sysdate() , INTERVAL -2 MONTH), '%M')) as cre2,
+DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M') as mes3, concat('Diferencia con ',DATE_FORMAT( date_add(sysdate() , INTERVAL -1 MONTH), '%M')) as cre3,
 DATE_FORMAT( sysdate(), '%M') as mes4";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
@@ -516,11 +516,25 @@ DATE_FORMAT( sysdate(), '%M') as mes4";
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -3 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes1,
 (sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -3 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre1,
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes2,
-(sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre2,
+(sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) - sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -2 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1) as cre2,
 sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) mes3,
-(sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0))/sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1)*100 as cre3,
+(sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) - sum(if(DATE_FORMAT( date_add(sysdate(), INTERVAL -1 MONTH) , '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) -1) as cre3,
 sum(if(DATE_FORMAT( sysdate(), '%Y-%c')=DATE_FORMAT( fecha_pago, '%Y-%c'),monto,0)) as mes4 
 from pago";
+   
+    $qsrp = mysqli_query($this->conectar(),$srpt);
+     
+     return $qsrp;
+  }
+
+
+  public function reportep_ingresmes_detalle2()
+{         
+    $srpt ="select m.mes_esp,
+(select sum(monto) from pago where YEAR(fecha_pago)=YEAR(sysdate()) and month(fecha_pago)=m.mes_num) as ingresos,
+(select count(*) from asistencia_log where year(fecha_registro)=year(sysdate()) and  month(fecha_registro)=mes_num ) as asistencias,
+(select count(DISTINCT codigo_membresia) from asistencia_log where year(fecha_registro)=year(sysdate()) and  month(fecha_registro)=mes_num ) as clientes 
+from meses m";
    
     $qsrp = mysqli_query($this->conectar(),$srpt);
      

@@ -49,13 +49,11 @@ include("../clases/class.php");
                        
                         $rowrp = mysqli_fetch_array($qsrp) ;
 
-                        echo  '<tr>';
-                        echo  '<th>'.$rowrp['mes1'].'</th>';
-                        echo  '<th>'.$rowrp['mes2'].'</th>';
-                        echo  '<th>'.$rowrp['cre1'].'</th>';
+                        echo  '<tr>'; 
+                        echo  '<th>'.$rowrp['mes2'].'</th>'; 
                         echo  '<th>'.$rowrp['mes3'].'</th>';
-                        echo  '<th>'.$rowrp['cre2'].'</th>';
                         echo  '<th>'.$rowrp['mes4'].'</th>';
+                        echo  '<th>'.$rowrp['cre2'].'</th>';
                         echo  '<th>'.$rowrp['cre3'].'</th>';
                         echo  '</tr>';
                         echo  '</thead>';                      
@@ -76,14 +74,12 @@ include("../clases/class.php");
                               while ($rowrp = mysqli_fetch_array($qsrp)) 
                               {                                      
                                 
-                                echo "<tr>";
-                                 echo "<td>$".$rowrp['mes1']."</td>";
-                                 echo "<td>$".$rowrp['mes2']."</td>";
-                                echo  '<td>'.$rowrp['cre1'].'%</td>';
-                                 echo "<td>$".$rowrp['mes3']."</td>";
-                                echo  '<td>'.$rowrp['cre2'].'%</td>';                                
+                                echo "<tr>"; 
+                                 echo "<td>$".$rowrp['mes2']."</td>"; 
+                                 echo "<td>$".$rowrp['mes3']."</td>";                                
                                  echo "<td>$".$rowrp['mes4']."</td>";
-                                echo  '<td>'.$rowrp['cre3'].'%</td>';
+                                echo  '<td>$'.$rowrp['cre2'].'</td>';
+                                echo  '<td>$'.$rowrp['cre3'].'</td>';
                                  echo "</tr>" ;
                                       //$this->consumos[] = $rowrp;
                               }
@@ -96,6 +92,56 @@ include("../clases/class.php");
 
                     
                     </table>
+                    <br>
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                      <thead>
+                        <?php
+                        $qsrp=$db->reportep_ingresmes_encabezado();
+                       
+                        $rowrp = mysqli_fetch_array($qsrp) ;
+
+                        echo  '<tr>'; 
+                        echo  '<th>Mes</th>'; 
+                        echo  '<th>Ingresos</th>';
+                        echo  '<th>Asistencias</th>';
+                        echo  '<th>Clientes</th>'; 
+                        echo  '</tr>';
+                        echo  '</thead>';                      
+
+                      ?>
+
+                          <tbody>  
+                        <?php
+                           
+                           $qsrp=$db->reportep_ingresmes_detalle2(); 
+                        
+                             if(mysqli_num_rows($qsrp)==0)
+                            {
+                            echo 'Sin resultados';
+                            }
+                            else
+                            {
+                              while ($rowrp = mysqli_fetch_array($qsrp)) 
+                              {                                      
+                                
+                                echo "<tr>"; 
+                                 echo "<td>".$rowrp['mes_esp']."</td>"; 
+                                 echo "<td>$".$rowrp['ingresos']."</td>";                                
+                                 echo "<td>".$rowrp['asistencias']."</td>";
+                                echo  '<td>'.$rowrp['clientes'].'</td>'; 
+                                 echo "</tr>" ;
+                                      //$this->consumos[] = $rowrp;
+                              }
+                            }
+                             
+                      ?>
+                      </tbody>
+                    </table>
+
+                    <br>
+
+                    
+
                   </div>
                 </div>
               </div>
